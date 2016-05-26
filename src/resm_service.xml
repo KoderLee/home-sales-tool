@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <bean id="proxyService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
+    <property name="transactionManager">
+      <ref bean="transactionManager" />
+    </property>
+    <property name="transactionAttributes">
+      <props>
+        <prop key="create*">PROPAGATION_REQUIRED,-java.lang.Exception</prop>
+        <prop key="delete*">PROPAGATION_REQUIRED,-java.lang.Exception</prop>
+        <prop key="query*">PROPAGATION_REQUIRED,readOnly</prop>
+        <prop key="read*">PROPAGATION_REQUIRED,readOnly</prop>
+        <prop key="update*">PROPAGATION_REQUIRED,-java.lang.Exception</prop>
+      </props>
+    </property>
+  </bean>
+  <bean id="projectService" parent="proxyService">
+    <property name="proxyInterfaces">
+      <value>org.yynn.resm.service.CrudService</value>
+    </property>
+    <property name="target">
+      <ref local="projectServiceTarget" />
+    </property>
+  </bean>
+  <bean id="projectServiceTarget" class="org.yynn.resm.service.impl.CrudServiceImpl">
+    <constructor-arg>
+      <ref bean="projectDao" />
+    </constructor-arg>
+    <property name="queryAppend">
+      <value>model.level = '2'</value>
+    </property>
+  </bean>
+  <bean id="userService" parent="proxyService">
+    <property name="proxyInterfaces">
+      <value>org.yynn.resm.service.CrudService</value>
+    </property>
+    <property name="target">
+      <ref local="userServiceTarget" />
+    </property>
+  </bean>
+  <bean id="userServiceTarget" class="org.yynn.resm.service.impl.CrudServiceImpl">
+    <constructor-arg>
+      <ref bean="projectDao" />
+    </constructor-arg>
+  </bean>
+  <bean id="houseformService" parent="proxyService">
+    <property name="proxyInterfaces">
+      <value>org.yynn.resm.service.CrudService</value>
+    </property>
+    <property name="target">
+      <ref local="houseformServiceTarget" />
+    </property>
+  </bean>
+  <bean id="houseformServiceTarget" class="org.yynn.resm.service.impl.CrudServiceImpl">
+    <constructor-arg>
+      <ref bean="houseformDao" />
+    </constructor-arg>
+  </bean>
+  <bean id="additionformService" parent="proxyService">
+    <property name="proxyInterfaces">
+      <value>org.yynn.resm.service.CrudService</value>
+    </property>
+    <property name="target">
+      <ref local="additionformServiceTarget" />
+    </property>
+  </bean>
+  <bean id="additionformServiceTarget" class="org.yynn.resm.service.impl.CrudServiceImpl">
+    <constructor-arg>
+      <ref bean="additionformDao" />
+    </constructor-arg>
+  </bean>
+  <bean id="pipenetinfoService" parent="proxyService">
+    <property name="proxyInterfaces">
+      <value>org.yynn.resm.service.CrudService</value>
+    </property>
+    <property name="target">
+      <ref local="pipenetinfoServiceTarget" />
+    </property>
+  </bean>
+  <bean id="pipenetinfoServiceTarget" class="org.yynn.resm.service.impl.CrudServiceImpl">
+    <constructor-arg>
+      <ref bean="pipenetinfoDao" />
+    </constructor-arg>
+  </bean>
+  <bean id="fitmentlevelService" parent="proxyService">
+    <property name="proxyInterfaces">
+      <value>org.yynn.resm.service.CrudService</value>
+    </property>
+    <property name="target">
+      <ref local="fitmentlevelServiceTarget" />
+    </property>
+  </bean>
+  <bean id="fitmentlevelServiceTarget" class="org.yynn.resm.service.impl.CrudServiceImpl">
+    <constructor-arg>
+      <ref bean="fitmentlevelDao" />
+    </constructor-arg>
+  </bean>
+  <bean id="buildstructService" parent="proxyService">
+    <property name="proxyInterfaces">
+      <value>org.yynn.resm.service.CrudService</value>
+    </property>
+    <property name="target">
+      <ref local="buildstructServiceTarget" />
+    </property>
+  </bean>
+  <bean id="buildstructServiceTarget" class="org.yynn.resm.service.impl.CrudServiceImpl">
+    <constructor-arg>
+      <ref bean="buildstructDao" />
+    </constructor-arg>
+  </bean>
+  <bean id="buildtypeService" parent="proxyService">
+    <property name="proxyInterfaces">
+      <value>org.yynn.resm.service.CrudService</value>
+    </property>
+    <property name="target">
+      <ref local="buildtypeServiceTarget" />
+    </property>
+  </bean>
+  <bean id="buildtypeServiceTarget" class="org.yynn.resm.service.impl.CrudServiceImpl">
+    <constructor-arg>
+      <ref bean="buildtypeDao" />
+    </constructor-arg>
+  </bean>
+  <bean id="housetypeinfoService" parent="proxyService">
+    <property name="proxyInterfaces">
+      <value>org.yynn.resm.service.CrudService</value>
+    </property>
+    <property name="target">
+      <ref local="housetypeinfoServiceTarget" />
+    </property>
+  </bean>
+  <bean id="housetypeinfoServiceTarget" class="org.yynn.resm.service.impl.CrudServiceImpl">
+    <constructor-arg>
+      <ref bean="housetypeinfoDao" />
+    </constructor-arg>
+  </bean>
+  <bean id="sellerService" parent="proxyService">
+    <property name="proxyInterfaces">
+      <value>org.yynn.resm.service.CrudService</value>
+    </property>
+    <property name="target">
+      <ref local="sellerServiceTarget" />
+    </property>
+  </bean>
+  <bean id="sellerServiceTarget" class="org.yynn.resm.service.impl.CrudServiceImpl">
+    <constructor-arg>
+      <ref bean="sellerDao" />
+    </constructor-arg>
+  </bean>
+  <bean id="callcustomerService" parent="proxyService">
+    <property name="proxyInterfaces">
+      <value>org.yynn.resm.service.CrudService</value>
+    </property>
+    <property name="target">
+      <ref local="callcustomerServiceTarget" />
+    </property>
+  </bean>
+  <bean id="callcustomerServiceTarget" class="org.yynn.resm.service.impl.CrudServiceImpl">
+    <constructor-arg>
+      <ref bean="callcustomerDao" />
+    </constructor-arg>
+  </bean>
+  <bean id="housetypeService" parent="proxyService">
+    <property name="proxyInterfaces">
+      <value>org.yynn.resm.service.CrudService</value>
+    </property>
+    <property name="target">
+      <ref local="housetypeServiceTarget" />
+    </property>
+  </bean>
+  <bean id="housetypeServiceTarget" class="org.yynn.resm.service.impl.CrudServiceImpl">
+    <constructor-arg>
+      <ref bean="housetypeDao" />
+    </constructor-arg>
+  </bean>
+  <bean id="commisionService" parent="proxyService">
+    <property name="proxyInterfaces">
+      <value>org.yynn.resm.service.CrudService</value>
+    </property>
+    <property name="target">
+      <ref local="commisionServiceTarget" />
+    </property>
+  </bean>
+  <bean id="commisionServiceTarget" class="org.yynn.resm.service.impl.CrudServiceImpl">
+    <constructor-arg>
+      <ref bean="commisionDao" />
+    </constructor-arg>
+  </bean>
+  <bean id="housingprojectService" parent="proxyService">
+    <property name="proxyInterfaces">
+      <value>org.yynn.resm.service.CrudService</value>
+    </property>
+    <property name="target">
+      <ref local="housingprojectServiceTarget" />
+    </property>
+  </bean>
+  <bean id="housingprojectServiceTarget" class="org.yynn.resm.service.impl.CrudServiceImpl">
+    <constructor-arg>
+      <ref bean="housingprojectDao" />
+    </constructor-arg>
+  </bean>
+  <bean id="buildingprojectService" parent="proxyService">
+    <property name="proxyInterfaces">
+      <value>org.yynn.resm.service.CrudService</value>
+    </property>
+    <property name="target">
+      <ref local="buildingprojectServiceTarget" />
+    </property>
+  </bean>
+  <bean id="buildingprojectServiceTarget" class="org.yynn.resm.service.impl.CrudServiceImpl">
+    <constructor-arg>
+      <ref bean="buildingprojectDao" />
+    </constructor-arg>
+  </bean>
+  <bean id="houseprojectService" parent="proxyService">
+    <property name="proxyInterfaces">
+      <value>org.yynn.resm.service.CrudService</value>
+    </property>
+    <property name="target">
+      <ref local="houseprojectServiceTarget" />
+    </property>
+  </bean>
+  <bean id="houseprojectServiceTarget" class="org.yynn.resm.service.impl.CrudServiceImpl">
+    <constructor-arg>
+      <ref bean="houseprojectDao" />
+    </constructor-arg>
+  </bean>
+  <bean id="addressareaService" parent="proxyService">
+    <property name="proxyInterfaces">
+      <value>org.yynn.resm.service.CrudService</value>
+    </property>
+    <property name="target">
+      <ref local="addressareaServiceTarget" />
+    </property>
+  </bean>
+  <bean id="addressareaServiceTarget" class="org.yynn.resm.service.impl.CrudServiceImpl">
+    <constructor-arg>
+      <ref bean="addressareaDao" />
+    </constructor-arg>
+  </bean>
+  <bean id="visitcustomerService4deal" parent="proxyService">
+    <property name="proxyInterfaces">
+      <value>org.yynn.resm.service.CrudService</value>
+    </property>
+    <property name="target">
+      <ref local="visitcustomerServiceTarget4deal" />
+    </property>
+  </bean>
+  <bean id="visitcustomerServiceTarget4deal" class="org.yynn.resm.service.impl.CrudServiceImpl">
+    <constructor-arg>
+      <ref bean="visitcustomerDao" />
+    </constructor-arg>
+    <property name="queryAppend">
+      <value>model.dealornot = '1'</value>
+    </property>
+  </bean>
+  <bean id="visitcustomerService4notdeal" parent="proxyService">
+    <property name="proxyInterfaces">
+      <value>org.yynn.resm.service.CrudService</value>
+    </property>
+    <property name="target">
+      <ref local="visitcustomerServiceTarget4notdeal" />
+    </property>
+  </bean>
+  <bean id="visitcustomerServiceTarget4notdeal" class="org.yynn.resm.service.impl.CrudServiceImpl">
+    <constructor-arg>
+      <ref bean="visitcustomerDao" />
+    </constructor-arg>
+    <property name="queryAppend">
+      <value>model.dealornot = '0'</value>
+    </property>
+  </bean>
+</beans>

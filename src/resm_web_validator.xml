@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <!-- Validators -->
+  <bean id="baseValiator" class="org.yynn.resm.web.filter.validator.CommonValidator" abstract="true" />
+  <bean id="projectValidator" parent="baseValiator">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Project</value>
+    </constructor-arg>
+    <property name="rulers">
+      <list>
+        <ref local="pno-not-null" />
+        <ref local="pno-only-char-num-line" />
+        <ref local="pleader-not-null" />
+        <ref local="password-not-null" />
+      </list>
+    </property>
+  </bean>
+  <bean id="userValidator" parent="baseValiator">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Project</value>
+    </constructor-arg>
+    <property name="rulers">
+      <list>
+        <ref local="userid-not-null" />
+        <ref local="cleader-not-null" />
+        <ref local="password-not-null" />
+      </list>
+    </property>
+  </bean>
+  <bean id="baseCommonValidator" parent="baseValiator">
+    <constructor-arg>
+      <value>org.yynn.resm.model.BaseModel</value>
+    </constructor-arg>
+    <property name="rulers">
+      <list>
+        <ref local="pname-not-null" />
+      </list>
+    </property>
+  </bean>
+  <bean id="houseformValidator" parent="baseValiator">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Houseform</value>
+    </constructor-arg>
+    <property name="rulers">
+      <list>
+        <ref local="pname-not-null" />
+      </list>
+    </property>
+  </bean>
+  <bean id="sellerValidator" parent="baseValiator">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Seller</value>
+    </constructor-arg>
+    <property name="rulers">
+      <list>
+        <ref local="sellerno-not-null" />
+        <ref local="personName-not-null" />
+      </list>
+    </property>
+  </bean>
+  <bean id="callcustomerValidator" parent="baseValiator">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Callcustomer</value>
+    </constructor-arg>
+    <property name="rulers">
+      <list>
+        <ref local="cdate-not-null" />
+        <ref local="personName-not-null" />
+        <ref local="chousetypeid-not-null" />
+      </list>
+    </property>
+  </bean>
+  <bean id="visitcustomerValidator4notdeal" parent="baseValiator">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Visitcustomer</value>
+    </constructor-arg>
+    <property name="rulers">
+      <list>
+        <ref local="cdate-not-null" />
+        <ref local="customername-not-null" />
+        <ref local="chousetypeid-not-null" />
+      </list>
+    </property>
+  </bean>
+  <bean id="visitcustomerValidator4deal" parent="baseValiator">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Visitcustomer</value>
+    </constructor-arg>
+    <property name="rulers">
+      <list>
+        <ref local="cdate-not-null" />
+        <ref local="customername-not-null" />
+        <ref local="salehouseprojectid-not-null" />
+      </list>
+    </property>
+  </bean>
+  <bean id="saleinfopaybackValidator" parent="baseValiator">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Visitcustomer</value>
+    </constructor-arg>
+    <property name="rulers">
+      <list>
+        <ref local="saleinfopayback-not-null" />
+      </list>
+    </property>
+  </bean>
+  <bean id="housetypeValidator" parent="baseValiator">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Housetype</value>
+    </constructor-arg>
+    <property name="rulers">
+      <list>
+        <ref local="cbaseHousetypeid-not-null" />
+        <ref local="minArea-not-null" />
+        <ref local="maxArea-not-null" />
+      </list>
+    </property>
+  </bean>
+  <bean id="commisionValidator" parent="baseValiator">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Commision</value>
+    </constructor-arg>
+    <property name="rulers">
+      <list>
+        <ref local="salesum-not-null" />
+        <ref local="blancecommision-not-null" />
+        <ref local="pcommision-not-null" />
+        <ref local="blancedate-not-null" />
+        <ref local="lackcommision-not-null" />
+      </list>
+    </property>
+  </bean>
+  <bean id="housingprojectValidator" parent="baseValiator">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Housingproject</value>
+    </constructor-arg>
+    <property name="rulers">
+      <list>
+        <ref local="pname-not-null" />
+        <ref local="address-not-null" />
+        <ref local="devdate-not-null" />
+      </list>
+    </property>
+  </bean>
+  <bean id="buildingprojectValidator" parent="baseValiator">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Buildingproject</value>
+    </constructor-arg>
+    <property name="rulers">
+      <list>
+        <ref local="pname-not-null" />
+        <ref local="housingproject-not-null" />
+      </list>
+    </property>
+  </bean>
+  <bean id="houseprojectValidator" parent="baseValiator">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Houseproject</value>
+    </constructor-arg>
+    <property name="rulers">
+      <list>
+        <ref local="housingproject-not-null" />
+        <ref local="buildingproject-not-null" />
+        <ref local="floor-not-null" />
+        <ref local="unit-not-null" />
+        <ref local="houseno-not-null" />
+        <ref local="sellarea-not-null" />
+        <ref local="unitprice-not-null" />
+        <ref local="totalprice-not-null" />
+      </list>
+    </property>
+  </bean>
+  <!-- Rulers -->
+  <bean id="regexRule" class="org.yynn.resm.web.filter.validator.RegexValidationRule" abstract="true" />
+  <bean id="only-char-num-line" parent="regexRule" abstract="true">
+    <property name="regex">
+      <value>[a-zA-Z\d-_]*</value>
+    </property>
+    <property name="errorCode">
+      <value>error.only-char-num-line</value>
+    </property>
+  </bean>
+  <bean id="not-null" class="org.yynn.resm.web.filter.validator.NullAndEmptyValidationRule" abstract="true">
+    <property name="errorCode">
+      <value>error.notnull</value>
+    </property>
+  </bean>
+  <bean id="pno-only-char-num-line" parent="only-char-num-line">
+    <constructor-arg>
+      <ref bean="ui_projectno" />
+    </constructor-arg>
+  </bean>
+  <bean id="pno-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_projectno" />
+    </constructor-arg>
+  </bean>
+  <bean id="userid-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_userid" />
+    </constructor-arg>
+  </bean>
+  <bean id="pleader-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_leaderName" />
+    </constructor-arg>
+  </bean>
+  <bean id="cleader-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_cleaderName" />
+    </constructor-arg>
+  </bean>
+  <bean id="password-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_password" />
+    </constructor-arg>
+  </bean>
+  <bean id="pname-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_cdataname" />
+    </constructor-arg>
+  </bean>
+  <bean id="sellerno-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_sellerNo" />
+    </constructor-arg>
+  </bean>
+  <bean id="personName-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_personName" />
+    </constructor-arg>
+  </bean>
+  <bean id="cdate-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_cdate" />
+    </constructor-arg>
+  </bean>
+  <bean id="cbaseHousetypeid-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_cbaseHousetypeid" />
+    </constructor-arg>
+  </bean>
+  <bean id="minArea-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_minArea" />
+    </constructor-arg>
+  </bean>
+  <bean id="maxArea-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_maxArea" />
+    </constructor-arg>
+  </bean>
+  <bean id="salesum-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_salesum" />
+    </constructor-arg>
+  </bean>
+  <bean id="pcommision-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_pcommision" />
+    </constructor-arg>
+  </bean>
+  <bean id="blancedate-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_blancedate" />
+    </constructor-arg>
+  </bean>
+  <bean id="blancecommision-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_blancecommision" />
+    </constructor-arg>
+  </bean>
+  <bean id="lackcommision-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_lackcommision" />
+    </constructor-arg>
+  </bean>
+  <bean id="address-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_address" />
+    </constructor-arg>
+  </bean>
+  <bean id="devdate-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_devdate" />
+    </constructor-arg>
+  </bean>
+  <bean id="housingproject-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_housingproject" />
+    </constructor-arg>
+  </bean>
+  <bean id="buildingproject-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_buildingproject" />
+    </constructor-arg>
+  </bean>
+  <bean id="unit-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_unit" />
+    </constructor-arg>
+  </bean>
+  <bean id="floor-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_floor" />
+    </constructor-arg>
+  </bean>
+  <bean id="houseno-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_houseno" />
+    </constructor-arg>
+  </bean>
+  <bean id="sellarea-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_sellarea" />
+    </constructor-arg>
+  </bean>
+  <bean id="unitprice-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_unitprice" />
+    </constructor-arg>
+  </bean>
+  <bean id="totalprice-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_totalprice" />
+    </constructor-arg>
+  </bean>
+  <bean id="customername-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_customername" />
+    </constructor-arg>
+  </bean>
+  <bean id="salehouseprojectid-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_salehouseprojectid" />
+    </constructor-arg>
+  </bean>
+  <bean id="saleinfopayback-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_saleinfopayback" />
+    </constructor-arg>
+  </bean>
+  <bean id="chousetypeid-not-null" parent="not-null">
+    <constructor-arg>
+      <ref bean="ui_chousetypeid" />
+    </constructor-arg>
+  </bean>
+</beans>

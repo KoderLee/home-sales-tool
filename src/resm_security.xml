@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <!-- HTTP安全过滤器链-->
+  <bean id="filterChainProxy" class="org.acegisecurity.util.FilterChainProxy">
+    <property name="filterInvocationDefinitionSource">
+      <value>
+        CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+        PATTERN_TYPE_APACHE_ANT
+        /**=httpSessionContextIntegrationFilter,authenticationProcessingFilter,exceptionTranslationFilter,securityEnforcementFilter,logoutFilter,filterInvocationInterceptor
+      </value>
+    </property>
+  </bean>
+
+  <bean id="httpSessionContextIntegrationFilter" class="org.acegisecurity.context.HttpSessionContextIntegrationFilter" />
+
+  <bean id="authenticationProcessingFilter" class="org.yynn.resm.common.security.LogAuthenticationProcessingFilter">
+    <property name="authenticationManager">
+      <ref bean="authenticationManager" />
+    </property>
+    <property name="authenticationFailureUrl">
+      <value>/public/login.face?errorCode=1</value>
+    </property>
+    <property name="defaultTargetUrl">
+      <value>/main.page</value>
+    </property>
+    <property name="filterProcessesUrl">
+      <value>/j_acegi_login</value>
+    </property>
+  </bean>
+
+  <bean id="exceptionTranslationFilter" class="org.acegisecurity.ui.ExceptionTranslationFilter">
+    <property name="authenticationEntryPoint">
+      <ref local="authenticationProcessingFilterEntryPoint" />
+    </property>
+    <property name="accessDeniedHandler">
+      <ref local="accessDeniedHandler" />
+    </property>
+  </bean>
+
+  <bean id="accessDeniedHandler" class="org.acegisecurity.ui.AccessDeniedHandlerImpl">
+    <property name="errorPage">
+      <value>/public/accessDenied.face</value>
+    </property>
+  </bean>
+
+  <bean id="authenticationProcessingFilterEntryPoint" class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+    <property name="loginFormUrl">
+      <value>/public/login.face</value>
+    </property>
+  </bean>
+
+  <bean id="securityEnforcementFilter" class="org.yynn.resm.common.security.SecurityEnforcementFilter" />
+
+  <bean id="logoutFilter" class="org.acegisecurity.ui.logout.LogoutFilter">
+    <constructor-arg>
+      <value>/public/login.face</value>
+    </constructor-arg>
+    <constructor-arg>
+      <list>
+        <ref local="logoutHandler" />
+      </list>
+    </constructor-arg>
+  </bean>
+
+  <bean id="logoutHandler" class="org.yynn.resm.common.security.LogSecurityContextLogoutHandler" />
+
+  <bean id="filterInvocationInterceptor" class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
+    <property name="authenticationManager">
+      <ref bean="authenticationManager" />
+    </property>
+    <property name="accessDecisionManager">
+      <ref local="httpRequestAccessDecisionManager" />
+    </property>
+    <property name="objectDefinitionSource">
+      <value>
+        CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+        PATTERN_TYPE_APACHE_ANT
+        /**=auth_0,auth_1,auth_2
+      </value>
+    </property>
+  </bean>
+
+  <bean id="httpRequestAccessDecisionManager" class="org.acegisecurity.vote.AffirmativeBased">
+    <property name="allowIfAllAbstainDecisions">
+      <value>false</value>
+    </property>
+    <property name="decisionVoters">
+      <list>
+        <ref bean="adminVoter" />
+        <ref bean="roleVoter" />
+      </list>
+    </property>
+  </bean>
+
+  <!-- 系统管理员权限处理 -->
+  <bean id="adminVoter" class="org.yynn.resm.common.security.AdminRoleVoter">
+    <property name="adminCode">
+      <value>auth_0</value>
+    </property>
+  </bean>
+
+  <bean id="roleVoter" class="org.acegisecurity.vote.RoleVoter">
+    <property name="rolePrefix">
+      <value>auth_</value>
+    </property>
+  </bean>
+
+  <!-- 用户认证管理器 -->
+  <bean id="authenticationManager" class="org.acegisecurity.providers.ProviderManager">
+    <property name="providers">
+      <list>
+        <ref local="daoAuthenticationProvider" />
+      </list>
+    </property>
+  </bean>
+
+  <bean id="daoAuthenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
+    <property name="userDetailsService">
+      <ref local="userDetailProvider" />
+    </property>
+    <property name="userCache">
+      <ref local="userCache" />
+    </property>
+    <!-- 密码加密，暂不使用-->
+    <!-- property name="passwordEncoder">
+      <ref local="passwordEncoder" />
+      </property-->
+  </bean>
+
+  <bean id="userDetailProvider" class="org.yynn.resm.common.security.UserDetailProvider">
+    <constructor-arg>
+      <ref bean="projectDao" />
+    </constructor-arg>
+  </bean>
+
+  <!-- 用户信息缓存处理 -->
+  <bean id="userCache" class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
+    <property name="cache">
+      <ref local="userCacheBackend" />
+    </property>
+  </bean>
+
+  <bean id="userCacheBackend" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+    <property name="cacheManager">
+      <ref local="cacheManager" />
+    </property>
+    <property name="cacheName">
+      <value>lnlyy</value>
+    </property>
+  </bean>
+
+  <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" />
+
+
+</beans>

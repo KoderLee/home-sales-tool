@@ -1,0 +1,15 @@
+
+insert into callcustomer(cdate, name, projectno, inforchannelid, purposeid, problemid, demandhousetypeid) values('2007-06-22', '访客', '0001', 1, 1, 1, 1);
+insert into callcustomer(cdate, name, projectno, inforchannelid, purposeid, problemid, demandhousetypeid) values('2007-06-22', '访客', '0001', 1, 1, 1, 1);
+insert into callcustomer(cdate, name, projectno, inforchannelid, purposeid, problemid, demandhousetypeid) values('2007-06-22', '访客', '0001', 1, 1, 1, 1);
+insert into callcustomer(cdate, name, projectno, inforchannelid, purposeid, problemid, demandhousetypeid) values('2007-06-22', '访客', '0001', 1, 1, 1, 1);
+insert into callcustomer(cdate, name, projectno, inforchannelid, purposeid, problemid, demandhousetypeid) values('2007-06-22', '访客', '0001', 1, 1, 1, 1);
+insert into callcustomer(cdate, name, projectno, inforchannelid, purposeid, problemid, demandhousetypeid) values('2007-06-22', '访客', '0001', 1, 1, 1, 1);
+insert into callcustomer(cdate, name, projectno, inforchannelid, purposeid, problemid, demandhousetypeid) values('2007-06-22', '访客', '0001', 2, 1, 1, 1);
+insert into callcustomer(cdate, name, projectno, inforchannelid, purposeid, problemid, demandhousetypeid) values('2007-06-22', '访客', '0001', 3, 1, 1, 1);
+insert into callcustomer(cdate, name, projectno, inforchannelid, purposeid, problemid, demandhousetypeid) values('2007-06-22', '访客', '0001', 2, 1, 1, 1);
+insert into callcustomer(cdate, name, projectno, inforchannelid, purposeid, problemid, demandhousetypeid) values('2007-06-22', '访客', '0001', 2, 1, 1, 1);
+insert into callcustomer(cdate, name, projectno, inforchannelid, purposeid, problemid, demandhousetypeid) values('2007-06-22', '访客', '0001', 1, 1, 1, 1);
+insert into callcustomer(cdate, name, projectno, inforchannelid, purposeid, problemid, demandhousetypeid) values('2007-06-22', '访客', '0001', 9, 1, 1, 1);
+insert into callcustomer(cdate, name, projectno, inforchannelid, purposeid, problemid, demandhousetypeid) values('2007-06-22', '访客', '0001', 9, 1, 1, 1);
+insert into callcustomer(cdate, name, projectno, inforchannelid, purposeid, problemid, demandhousetypeid) values('2007-06-22', '访客', '0001', 9, 1, 1, 1);

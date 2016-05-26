@@ -1,0 +1,19 @@
+BODY {
+	SCROLLBAR-FACE-COLOR: #99A7C6;
+	SCROLLBAR-HIGHLIGHT-COLOR: #ffffff;
+	SCROLLBAR-SHADOW-COLOR: #ffffff;
+	WORD-BREAK: break-all;
+	SCROLLBAR-3DLIGHT-COLOR: #ffffff;
+	SCROLLBAR-ARROW-COLOR: #ffffff;
+	SCROLLBAR-TRACK-COLOR: #ffffff;
+	SCROLLBAR-DARKSHADOW-COLOR: #ffffff;
+	BACKGROUND-COLOR: #ffffff;
+	background-image: url(../images/mainbg.jpg);}
+TD.color {
+	COLOR: #044F8C; font-family: "宋体"; font-size: 9pt}
+A:link {
+	FONT-SIZE: 9pt; COLOR: #044F8C; TEXT-DECORATION: none; font-family: "宋体"}
+A:visited {
+	FONT-SIZE: 9pt; COLOR: #044F8C; TEXT-DECORATION: none; font-family: "宋体"}
+A:hover {
+	FONT-SIZE: 9pt; COLOR: #CC6600; TEXT-DECORATION: underline; font-family: "宋体"}

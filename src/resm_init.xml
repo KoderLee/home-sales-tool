@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <!-- Log4j 初始化-->
+  <bean id="log4jInitialization" class="org.yynn.resm.common.util.LogConfiginitialization" lazy-init="false"
+    init-method="init">
+    <property name="initializeConfig">
+      <value>${log4j.config.startup}</value>
+    </property>
+    <property name="log4jConfigFileLocation">
+      <value>${log4j.config.location}</value>
+    </property>
+  </bean>
+  <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+    <property name="basenames">
+      <list>
+        <value>resm_messages</value>
+      </list>
+    </property>
+  </bean>
+</beans>

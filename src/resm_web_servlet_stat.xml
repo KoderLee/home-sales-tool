@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <!-- report test -->
+  <bean id="baseReportView" class="org.yynn.resm.web.report.UrlBasedJasperReportsMultiFormatView" abstract="true">
+    <property name="jdbcDataSource">
+      <ref bean="jnresmdatasource" />
+    </property>
+    <property name="prefix">
+      <value>/WEB-INF/reports/</value>
+    </property>
+    <property name="suffix">
+      <value>.jrxml</value>
+    </property>
+    <property name="contentType">
+      <value>text/html; charset=GBK</value>
+    </property>
+    <property name="exporterParameters">
+      <map>
+        <entry key="net.sf.jasperreports.engine.export.JRHtmlExporterParameter.HTML_HEADER">
+          <value>
+            <![CDATA[
+          <html>
+            <head>
+             <meta http-equiv=Content-Type content=text/html; charset=GBK/>
+             <style type=text/css>
+              a {text-decoration: none}
+              body {
+                background-color: #f7f5f6;
+                scrollbar-face-color: #c0cfe4;
+                scrollbar-highlight-color: #ffffff;
+                scrollbar-shadow-color: #ffffff;
+                scrollbar-3dlight-color: #ffffff;
+                scrollbar-arrow-color: #ffffff;
+                scrollbar-track-color: #ffffff;
+                scrollbar-darkshadow-color: #ffffff;
+              }
+             </style>
+            </head>
+            <body text=#000000 link=#000000 alink=#000000 vlink=#000000 topmargin=0 leftmargin=0>
+            <table width=100% cellpadding=0 cellspacing=0 border=0>
+            <tr><td align=center bgcolor=#f7f5f6>
+          ]]>
+          </value>
+        </entry>
+        <entry key="net.sf.jasperreports.engine.export.JRHtmlExporterParameter.HTML_FOOTER">
+          <value>
+            <![CDATA[
+            </td></tr>
+          </table>
+          </body>
+          </html>
+          ]]>
+          </value>
+        </entry>
+        <entry key="net.sf.jasperreports.engine.export.JRHtmlExporterParameter.IMAGES_URI">
+          <value>_SERVLET_CONTEXT_PATH_KEY_/servlets/image?image=</value>
+        </entry>
+        <entry key="net.sf.jasperreports.engine.export.JRHtmlExporterParameter.CHARACTER_ENCODING">
+          <value>GBK</value>
+        </entry>
+        <entry key="net.sf.jasperreports.engine.export.JRHtmlExporterParameter.SIZE_UNIT">
+          <value>pt</value>
+        </entry>
+        <entry key="net.sf.jasperreports.engine.export.JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN">
+          <value>false</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <bean id="baseReportAction" class="org.yynn.resm.web.report.ReportQueryController" abstract="true" parent="baseAction">
+    <property name="formView">
+      <value>report/queryReport</value>
+    </property>
+    <property name="crudPropsProvider">
+      <ref bean="reportQueryPropertiesProvider" />
+    </property>
+    <property name="commandClass">
+      <value>org.yynn.resm.model.Callcustomer</value>
+    </property>
+  </bean>
+  <bean id="queryHtmlReportAction" parent="baseReportAction" abstract="true">
+    <property name="parameterMap">
+      <map>
+        <entry key="format">
+          <value>html</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <bean id="queryPdfReportAction" parent="baseReportAction" abstract="true">
+    <property name="parameterMap">
+      <map>
+        <entry key="format">
+          <value>pdf</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <bean id="callCustomerStatView" parent="baseReportView" singleton="false">
+    <property name="url">
+      <value>CallCustomerStatReport</value>
+    </property>
+  </bean>
+  <bean id="callCustomerStatAttributeMap" class="java.util.HashMap">
+    <constructor-arg>
+      <map>
+        <entry key="actionPath">
+          <value>/queryCallCustomerStatHtmlReport.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="printPath">
+          <value>/queryCallCustomerStatPdfReport.action</value>
+        </entry>
+      </map>
+    </constructor-arg>
+  </bean>
+  <bean name="/queryCallCustomerStatHtmlReport.action" parent="queryHtmlReportAction">
+    <property name="reportView">
+      <ref local="callCustomerStatView" />
+    </property>
+    <property name="attributes">
+      <ref local="callCustomerStatAttributeMap" />
+    </property>
+  </bean>
+  <bean name="/queryCallCustomerStatPdfReport.action" parent="queryPdfReportAction">
+    <property name="reportView">
+      <ref local="callCustomerStatView" />
+    </property>
+    <property name="attributes">
+      <ref local="callCustomerStatAttributeMap" />
+    </property>
+  </bean>
+</beans>

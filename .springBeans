@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<configExtensions>
+		<configExtension>xml</configExtension>
+	</configExtensions>
+	<configs>
+		<config>src/resm_config.xml</config>
+		<config>src/resm_init.xml</config>
+		<config>src/resm_web_servlet_admin.xml</config>
+		<config>src/resm_dao.xml</config>
+		<config>src/resm_web_validator.xml</config>
+		<config>src/resm_security.xml</config>
+		<config>src/resm_property.xml</config>
+		<config>src/resm_web_servlet_project.xml</config>
+		<config>src/resm_web_servlet.xml</config>
+		<config>src/resm_web_ui.xml</config>
+		<config>src/resm_web_servlet_stat.xml</config>
+		<config>src/resm_init_data.xml</config>
+		<config>src/resm_service.xml</config>
+	</configs>
+	<configSets>
+		<configSet>
+			<name>all</name>
+			<allowBeanDefinitionOverriding>false</allowBeanDefinitionOverriding>
+			<incomplete>false</incomplete>
+			<configs>
+				<config>src/resm_config.xml</config>
+				<config>src/resm_dao.xml</config>
+				<config>src/resm_init.xml</config>
+				<config>src/resm_property.xml</config>
+				<config>src/resm_service.xml</config>
+				<config>src/resm_web_servlet.xml</config>
+				<config>src/resm_web_ui.xml</config>
+				<config>src/resm_web_validator.xml</config>
+				<config>src/resm_init_data.xml</config>
+				<config>src/resm_security.xml</config>
+				<config>src/resm_web_servlet_project.xml</config>
+				<config>src/resm_web_servlet_admin.xml</config>
+				<config>src/resm_web_servlet_stat.xml</config>
+			</configs>
+		</configSet>
+	</configSets>
+</beansProjectDescription>

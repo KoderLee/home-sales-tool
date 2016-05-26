@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans> 
+  <import resource="classpath:resm_web_servlet_project.xml"/>
+  <import resource="classpath:resm_web_servlet_admin.xml"/>
+  <import resource="classpath:resm_web_servlet_stat.xml"/>
+  <!-- 基础配置 -->
+  <bean id="baseCrudView" parent="baseView" abstract="true">
+    <property name="viewName">
+      <value>crud/crud</value>
+    </property>
+  </bean>
+  <bean id="baseBarView" parent="baseView" abstract="true">
+    <property name="viewName">
+      <value>crud/crudBar</value>
+    </property>
+  </bean>
+  <bean id="baseQueryAction" class="org.yynn.resm.web.spring.controller.QueryController" abstract="true" parent="baseAction">
+    <property name="formView">
+      <value>crud/crudList</value>
+    </property>
+    <property name="successView">
+      <value>crud/crudList</value>
+    </property>
+  </bean>
+  <bean id="baseDeleteAction" class="org.yynn.resm.web.spring.controller.DeleteController" abstract="true" parent="baseAction">
+    <property name="formView">
+      <value>crud/crudList</value>
+    </property>
+    <property name="successView">
+      <value>crud/crudList</value>
+    </property>
+  </bean>
+  <bean id="baseAddAction" class="org.yynn.resm.web.spring.controller.AddController" abstract="true" parent="baseAction">
+    <property name="formView">
+      <value>crud/crudAdd</value>
+    </property>
+    <property name="successView">
+      <value>crud/crudAdd</value>
+    </property>
+  </bean>
+  <bean id="baseEditAction" class="org.yynn.resm.web.spring.controller.EditController" abstract="true" parent="baseAction">
+    <property name="formView">
+      <value>crud/crudEdit</value>
+    </property>
+    <property name="successView">
+      <value>crud/crudEdit</value>
+    </property>
+  </bean>
+  <bean id="baseViewAction" class="org.yynn.resm.web.spring.controller.ViewController" abstract="true" parent="baseAction">
+    <property name="formView">
+      <value>crud/crudView</value>
+    </property>
+    <property name="successView">
+      <value>crud/crudView</value>
+    </property>
+  </bean>
+  <bean id="baseAction" class="org.yynn.resm.web.spring.controller.AbstractCRUDController" abstract="true">
+    <property name="propertyEditorRegistrar">
+      <ref local="customPropertyEditorRegistry" />
+    </property>
+    <property name="dataBinderFactory">
+      <ref local="dataBinderFactory" />
+    </property>
+  </bean>
+  <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="viewClass">
+      <value>org.springframework.web.servlet.view.JstlView</value>
+    </property>
+    <property name="prefix">
+      <value>/WEB-INF/jsp/</value>
+    </property>
+    <property name="suffix">
+      <value>.jsp</value>
+    </property>
+  </bean>
+  <bean id="handlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+  <!-- 处理带有数据绑定的页面请求 -->
+  <bean id="baseView" class="org.yynn.resm.web.spring.controller.CommonViewController" abstract="true"></bean>
+  <bean id="authBarView" class="org.yynn.resm.web.spring.controller.AuthBarViewController" abstract="true" parent="baseBarView"></bean>
+  <!-- 处理普通页面请求 -->
+  <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    <property name="mappings">
+      <props>
+        <prop key="/**/*.page">jspViewController</prop>
+        <prop key="/**/*.face">jspViewController</prop>
+      </props>
+    </property>
+  </bean>
+  <bean id="jspViewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
+  <bean id="baseURIInfo" class="org.yynn.resm.common.CommonURIInfo" abstract="true" />
+  <bean id="authURIInfo" class="org.yynn.resm.common.AuthURIInfo" abstract="true" />
+  <bean id="authURIInfo4Project" class="org.yynn.resm.common.AuthURIInfo" abstract="true">
+    <property name="requiredAuthCode">
+      <value>auth_2</value>
+    </property>
+  </bean>
+  <bean id="customPropertyEditorRegistry" class="org.yynn.resm.common.util.BasePropertyEditorRegistrar">
+    <constructor-arg>
+      <map>
+        <entry key="java.util.Date">
+          <ref local="customerDateEditor" />
+        </entry>
+      </map>
+    </constructor-arg>
+  </bean>
+  <bean id="customerDateEditor" class="org.yynn.resm.common.util.CustomerDateEditor">
+    <constructor-arg>
+      <value>yyyy-MM-dd</value>
+    </constructor-arg>
+  </bean>
+  <bean id="dataBinderFactory" class="org.yynn.resm.web.spring.controller.ModelServletRequestDataBinderFactoryImpl">
+    <property name="bindingResultFactory">
+      <ref local="bindingResultFactory" />
+    </property>
+  </bean>
+  <bean id="bindingResultFactory" class="org.yynn.resm.web.spring.controller.ModelBindingResultFactoryImpl" />
+</beans>

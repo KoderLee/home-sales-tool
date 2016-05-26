@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <!-- report test -->
+  <bean id="baseReportView" class="org.yynn.resm.web.report.UrlBasedJasperReportsMultiFormatView" abstract="true">
+    <property name="reportDataKey">
+      <value>_reportDataKey_</value>
+    </property>
+    <property name="prefix">
+      <value>/WEB-INF/reports/</value>
+    </property>
+    <property name="suffix">
+      <value>.jrxml</value>
+    </property>
+    <property name="exporterParameters">
+      <map>
+        <entry key="net.sf.jasperreports.engine.export.JRHtmlExporterParameter.IMAGES_URI">
+          <value>_SERVLET_CONTEXT_PATH_KEY_/servlets/image?image=</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <bean id="testReportView" parent="baseReportView" singleton="false">
+    <property name="url">
+      <value>WebappReport</value>
+    </property>
+  </bean>
+  <bean id="baseReportController" class="org.yynn.resm.web.report.ReportController" abstract="true" />
+  <bean name="/testhtml.report" parent="baseReportController">
+    <property name="reportView">
+      <ref local="testReportView" />
+    </property>
+    <property name="parameterMap">
+      <map>
+        <entry key="ReportTitle">
+          <value>Address Report</value>
+        </entry>
+        <entry key="BaseDir">
+          <ref local="baseDir" />
+        </entry>
+        <entry key="format">
+          <value>html</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <bean name="/testpdf.report" parent="baseReportController">
+    <property name="reportView">
+      <ref local="testReportView" />
+    </property>
+    <property name="parameterMap">
+      <map>
+        <entry key="ReportTitle">
+          <value>Address Report</value>
+        </entry>
+        <entry key="BaseDir">
+          <ref local="baseDir" />
+        </entry>
+        <entry key="format">
+          <value>pdf</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <bean id="baseDir" class="org.yynn.resm.web.report.ReportFileParameterProvider">
+    <constructor-arg>
+      <value>.</value>
+    </constructor-arg>
+  </bean>
+</beans>

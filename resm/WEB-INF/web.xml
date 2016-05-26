@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" version="2.4">
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>
+      classpath:resm_init_data.xml classpath:resm_init.xml classpath:resm_config.xml classpath:resm_dao.xml classpath:resm_service.xml
+      classpath:resm_property.xml classpath:resm_web_ui.xml classpath:resm_web_validator.xml classpath:resm_security.xml
+    </param-value>
+  </context-param>
+  <filter>
+    <filter-name>Character Encoding</filter-name>
+    <filter-class>org.yynn.resm.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>GBK</param-value>
+    </init-param>
+  </filter>
+  <filter>
+    <filter-name>OpenSessionFilter</filter-name>
+    <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+  </filter>
+  <filter>
+    <filter-name>Acegi Security Filter</filter-name>
+    <filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
+    <init-param>
+      <param-name>targetBean</param-name>
+      <param-value>filterChainProxy</param-value>
+    </init-param>
+  </filter>
+  <filter>
+    <filter-name>RunAsClearFilter</filter-name>
+    <filter-class>org.yynn.resm.web.filter.RunAsClearFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>RunAsClearFilter</filter-name>
+    <url-pattern>*.action</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>OpenSessionFilter</filter-name>
+    <url-pattern>*.action</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>OpenSessionFilter</filter-name>
+    <url-pattern>/j_acegi_login</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>Acegi Security Filter</filter-name>
+    <url-pattern>*.action</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>Acegi Security Filter</filter-name>
+    <url-pattern>*.view</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>Acegi Security Filter</filter-name>
+    <url-pattern>*.page</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>Acegi Security Filter</filter-name>
+    <url-pattern>/j_acegi_login</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>Acegi Security Filter</filter-name>
+    <url-pattern>/j_acegi_logout</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>Character Encoding</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>org.yynn.resm.common.security.LogSessionAttributeListener</listener-class>
+  </listener>
+  <servlet>
+    <servlet-name>resm_web</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:resm_web_servlet.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>ImageServlet</servlet-name>
+    <servlet-class>org.yynn.resm.web.report.ImageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ImageServlet</servlet-name>
+    <url-pattern>/servlets/image</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>resm_web</servlet-name>
+    <url-pattern>*.action</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>resm_web</servlet-name>
+    <url-pattern>*.page</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>resm_web</servlet-name>
+    <url-pattern>*.view</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>resm_web</servlet-name>
+    <url-pattern>*.face</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>resm_web</servlet-name>
+    <url-pattern>*.report</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>index.htm</welcome-file>
+  </welcome-file-list>
+  <taglib>
+    <taglib-uri>/WEB-INF/spring.tld</taglib-uri>
+    <taglib-location>/WEB-INF/tld/spring.tld</taglib-location>
+  </taglib>
+  <taglib>
+    <taglib-uri>/WEB-INF/resm.tld</taglib-uri>
+    <taglib-location>/WEB-INF/tld/resm.tld</taglib-location>
+  </taglib>
+</web-app>

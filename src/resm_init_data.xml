@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <!-- 基础数据初始化-->
+  <!-- 管理员帐号 -->
+  <bean id="administrator" class="org.yynn.resm.model.Project">
+    <property name="no">
+      <value>sysadmin</value>
+    </property>
+    <property name="password">
+      <value>luyao</value>
+    </property>
+    <property name="leaderName">
+      <value>系统管理员</value>
+    </property>
+    <property name="level">
+      <value>0</value>
+    </property>
+  </bean>
+  <!-- 信息渠道 -->
+  <bean id="baseInfoChannel" class="org.yynn.resm.model.Inforchannel">
+    <property name="description">
+      <value>基础数据初始化</value>
+    </property>
+  </bean>
+  <bean id="infoChannel1" parent="baseInfoChannel">
+    <property name="id">
+      <value>1</value>
+    </property>
+    <property name="name">
+      <value>报纸广告</value>
+    </property>
+  </bean>
+  <bean id="infoChannel2" parent="baseInfoChannel">
+    <property name="id">
+      <value>2</value>
+    </property>
+    <property name="name">
+      <value>朋友介绍</value>
+    </property>
+  </bean>
+  <bean id="infoChannel3" parent="baseInfoChannel">
+    <property name="id">
+      <value>3</value>
+    </property>
+    <property name="name">
+      <value>路过</value>
+    </property>
+  </bean>
+  <bean id="infoChannel4" parent="baseInfoChannel">
+    <property name="id">
+      <value>4</value>
+    </property>
+    <property name="name">
+      <value>网络广告</value>
+    </property>
+  </bean>
+  <bean id="infoChannel5" parent="baseInfoChannel">
+    <property name="id">
+      <value>5</value>
+    </property>
+    <property name="name">
+      <value>广告牌</value>
+    </property>
+  </bean>
+  <bean id="infoChannel6" parent="baseInfoChannel">
+    <property name="id">
+      <value>6</value>
+    </property>
+    <property name="name">
+      <value>车体</value>
+    </property>
+  </bean>
+  <bean id="infoChannel7" parent="baseInfoChannel">
+    <property name="id">
+      <value>7</value>
+    </property>
+    <property name="name">
+      <value>短信</value>
+    </property>
+  </bean>
+  <bean id="infoChannel8" parent="baseInfoChannel">
+    <property name="id">
+      <value>8</value>
+    </property>
+    <property name="name">
+      <value>道旗</value>
+    </property>
+  </bean>
+  <bean id="infoChannel9" parent="baseInfoChannel">
+    <property name="id">
+      <value>9</value>
+    </property>
+    <property name="name">
+      <value>其他</value>
+    </property>
+  </bean>
+  <!-- 购买用途-->
+  <bean id="basePurpose" class="org.yynn.resm.model.Purpose">
+    <property name="description">
+      <value>基础数据初始化</value>
+    </property>
+  </bean>
+  <bean id="purpose1" parent="basePurpose">
+    <property name="id">
+      <value>1</value>
+    </property>
+    <property name="name">
+      <value>自用</value>
+    </property>
+  </bean>
+  <bean id="purpose2" parent="basePurpose">
+    <property name="id">
+      <value>2</value>
+    </property>
+    <property name="name">
+      <value>投资</value>
+    </property>
+  </bean>
+  <bean id="purpose3" parent="basePurpose">
+    <property name="id">
+      <value>3</value>
+    </property>
+    <property name="name">
+      <value>其他</value>
+    </property>
+  </bean>
+  <bean id="purpose4" parent="basePurpose">
+    <property name="id">
+      <value>4</value>
+    </property>
+    <property name="name">
+      <value>未定</value>
+    </property>
+  </bean>
+  <!-- 购买障碍-->
+  <bean id="baseProblem" class="org.yynn.resm.model.Problem">
+    <property name="description">
+      <value>基础数据初始化</value>
+    </property>
+  </bean>
+  <bean id="problem1" parent="baseProblem">
+    <property name="id">
+      <value>1</value>
+    </property>
+    <property name="name">
+      <value>价格</value>
+    </property>
+  </bean>
+  <bean id="problem2" parent="baseProblem">
+    <property name="id">
+      <value>2</value>
+    </property>
+    <property name="name">
+      <value>区位</value>
+    </property>
+  </bean>
+  <bean id="problem3" parent="baseProblem">
+    <property name="id">
+      <value>3</value>
+    </property>
+    <property name="name">
+      <value>户型</value>
+    </property>
+  </bean>
+  <bean id="problem4" parent="baseProblem">
+    <property name="id">
+      <value>4</value>
+    </property>
+    <property name="name">
+      <value>交楼期</value>
+    </property>
+  </bean>
+  <bean id="problem5" parent="baseProblem">
+    <property name="id">
+      <value>5</value>
+    </property>
+    <property name="name">
+      <value>物业收费</value>
+    </property>
+  </bean>
+  <bean id="problem6" parent="baseProblem">
+    <property name="id">
+      <value>6</value>
+    </property>
+    <property name="name">
+      <value>交房标准</value>
+    </property>
+  </bean>
+  <bean id="problem7" parent="baseProblem">
+    <property name="id">
+      <value>7</value>
+    </property>
+    <property name="name">
+      <value>小区规划</value>
+    </property>
+  </bean>
+  <bean id="problem8" parent="baseProblem">
+    <property name="id">
+      <value>8</value>
+    </property>
+    <property name="name">
+      <value>公共设施配套</value>
+    </property>
+  </bean>
+  <bean id="problem9" parent="baseProblem">
+    <property name="id">
+      <value>9</value>
+    </property>
+    <property name="name">
+      <value>交通</value>
+    </property>
+  </bean>
+  <bean id="problem10" parent="baseProblem">
+    <property name="id">
+      <value>10</value>
+    </property>
+    <property name="name">
+      <value>其他</value>
+    </property>
+  </bean>
+  <!-- 基本户型-->
+  <bean id="baseHouseType" class="org.yynn.resm.model.Basehousetype">
+    <property name="description">
+      <value>基础数据初始化</value>
+    </property>
+  </bean>
+  <bean id="baseHouseType1" parent="baseHouseType">
+    <property name="id">
+      <value>1</value>
+    </property>
+    <property name="name">
+      <value>户型1</value>
+    </property>
+  </bean>
+  <bean id="baseHouseType2" parent="baseHouseType">
+    <property name="id">
+      <value>2</value>
+    </property>
+    <property name="name">
+      <value>户型2</value>
+    </property>
+  </bean>
+  <bean id="baseHouseType3" parent="baseHouseType">
+    <property name="id">
+      <value>3</value>
+    </property>
+    <property name="name">
+      <value>户型3</value>
+    </property>
+  </bean>
+  <bean id="baseHouseType4" parent="baseHouseType">
+    <property name="id">
+      <value>4</value>
+    </property>
+    <property name="name">
+      <value>户型4</value>
+    </property>
+  </bean>
+  <bean id="baseHouseType5" parent="baseHouseType">
+    <property name="id">
+      <value>5</value>
+    </property>
+    <property name="name">
+      <value>户型5</value>
+    </property>
+  </bean>
+  <bean id="baseHouseType6" parent="baseHouseType">
+    <property name="id">
+      <value>6</value>
+    </property>
+    <property name="name">
+      <value>户型6</value>
+    </property>
+  </bean>
+  <bean id="baseHouseType7" parent="baseHouseType">
+    <property name="id">
+      <value>7</value>
+    </property>
+    <property name="name">
+      <value>户型7</value>
+    </property>
+  </bean>
+  <!-- init handle -->
+  <bean id="userIniter" class="org.yynn.resm.common.init.BaseDataInitialization" init-method="init" lazy-init="false">
+    <constructor-arg>
+      <ref bean="projectDao" />
+    </constructor-arg>
+    <property name="dataList">
+      <list>
+        <ref local="administrator" />
+      </list>
+    </property>
+    <property name="initData">
+      <value>${init.basedata}</value>
+    </property>
+  </bean>
+  <bean id="infoChannelIniter" class="org.yynn.resm.common.init.BaseDataInitialization" init-method="init" lazy-init="false">
+    <constructor-arg>
+      <ref bean="inforchannelDao" />
+    </constructor-arg>
+    <property name="dataList">
+      <list>
+        <ref local="infoChannel1" />
+        <ref local="infoChannel2" />
+        <ref local="infoChannel3" />
+        <ref local="infoChannel4" />
+        <ref local="infoChannel5" />
+        <ref local="infoChannel6" />
+        <ref local="infoChannel7" />
+        <ref local="infoChannel8" />
+        <ref local="infoChannel9" />
+      </list>
+    </property>
+    <property name="initData">
+      <value>${init.basedata}</value>
+    </property>
+  </bean>
+  <bean id="purposeIniter" class="org.yynn.resm.common.init.BaseDataInitialization" init-method="init" lazy-init="false">
+    <constructor-arg>
+      <ref bean="purposeDao" />
+    </constructor-arg>
+    <property name="dataList">
+      <list>
+        <ref local="purpose1" />
+        <ref local="purpose2" />
+        <ref local="purpose3" />
+        <ref local="purpose4" />
+      </list>
+    </property>
+    <property name="initData">
+      <value>${init.basedata}</value>
+    </property>
+  </bean>
+  <bean id="problemIniter" class="org.yynn.resm.common.init.BaseDataInitialization" init-method="init" lazy-init="false">
+    <constructor-arg>
+      <ref bean="problemDao" />
+    </constructor-arg>
+    <property name="dataList">
+      <list>
+        <ref local="problem1" />
+        <ref local="problem2" />
+        <ref local="problem3" />
+        <ref local="problem4" />
+        <ref local="problem5" />
+        <ref local="problem6" />
+        <ref local="problem7" />
+        <ref local="problem8" />
+        <ref local="problem9" />
+        <ref local="problem10" />
+      </list>
+    </property>
+    <property name="initData">
+      <value>${init.basedata}</value>
+    </property>
+  </bean>
+  <bean id="baseHTypeIniter" class="org.yynn.resm.common.init.BaseDataInitialization" init-method="init" lazy-init="false">
+    <constructor-arg>
+      <ref bean="baseHouseTypeDao" />
+    </constructor-arg>
+    <property name="dataList">
+      <list>
+        <ref local="baseHouseType1" />
+        <ref local="baseHouseType2" />
+        <ref local="baseHouseType3" />
+        <ref local="baseHouseType4" />
+        <ref local="baseHouseType5" />
+        <ref local="baseHouseType6" />
+        <ref local="baseHouseType7" />
+      </list>
+    </property>
+    <property name="initData">
+      <value>${init.basedata}</value>
+    </property>
+  </bean>
+  <bean id="baseHouseform" class="org.yynn.resm.model.Houseform" abstract="true" />
+  <bean id="houseformIniter" class="org.yynn.resm.common.init.BaseDataInitialization" init-method="init" lazy-init="false">
+    <constructor-arg>
+      <ref bean="houseformDao" />
+    </constructor-arg>
+    <property name="dataList">
+      <list>
+        <bean parent="baseHouseform">
+          <property name="id">
+            <value>1</value>
+          </property>
+          <property name="name">
+            <value>叠层</value>
+          </property>
+        </bean>
+        <bean parent="baseHouseform">
+          <property name="id">
+            <value>2</value>
+          </property>
+          <property name="name">
+            <value>错层</value>
+          </property>
+        </bean>
+        <bean parent="baseHouseform">
+          <property name="id">
+            <value>3</value>
+          </property>
+          <property name="name">
+            <value>平层</value>
+          </property>
+        </bean>
+        <bean parent="baseHouseform">
+          <property name="id">
+            <value>4</value>
+          </property>
+          <property name="name">
+            <value>跃层</value>
+          </property>
+        </bean>
+      </list>
+    </property>
+    <property name="initData">
+      <value>${init.basedata}</value>
+    </property>
+  </bean>
+  <bean id="baseAdditionform" class="org.yynn.resm.model.Additionform" abstract="true" />
+  <bean id="additionformIniter" class="org.yynn.resm.common.init.BaseDataInitialization" init-method="init" lazy-init="false">
+    <constructor-arg>
+      <ref bean="additionformDao" />
+    </constructor-arg>
+    <property name="dataList">
+      <list>
+        <bean parent="baseAdditionform">
+          <property name="id">
+            <value>1</value>
+          </property>
+          <property name="name">
+            <value>车位</value>
+          </property>
+        </bean>
+        <bean parent="baseAdditionform">
+          <property name="id">
+            <value>2</value>
+          </property>
+          <property name="name">
+            <value>库房</value>
+          </property>
+        </bean>
+        <bean parent="baseAdditionform">
+          <property name="id">
+            <value>3</value>
+          </property>
+          <property name="name">
+            <value>无</value>
+          </property>
+        </bean>
+      </list>
+    </property>
+    <property name="initData">
+      <value>${init.basedata}</value>
+    </property>
+  </bean>
+  <bean id="basePipenetinfo" class="org.yynn.resm.model.Pipenetinfo" abstract="true" />
+  <bean id="pipenetinfoIniter" class="org.yynn.resm.common.init.BaseDataInitialization" init-method="init" lazy-init="false">
+    <constructor-arg>
+      <ref bean="pipenetinfoDao" />
+    </constructor-arg>
+    <property name="dataList">
+      <list>
+        <bean parent="basePipenetinfo">
+          <property name="id">
+            <value>1</value>
+          </property>
+          <property name="name">
+            <value>天然气</value>
+          </property>
+        </bean>
+        <bean parent="basePipenetinfo">
+          <property name="id">
+            <value>2</value>
+          </property>
+          <property name="name">
+            <value>暖气</value>
+          </property>
+        </bean>
+        <bean parent="basePipenetinfo">
+          <property name="id">
+            <value>3</value>
+          </property>
+          <property name="name">
+            <value>天然气－暖气</value>
+          </property>
+        </bean>
+        <bean parent="basePipenetinfo">
+          <property name="id">
+            <value>4</value>
+          </property>
+          <property name="name">
+            <value>无</value>
+          </property>
+        </bean>
+      </list>
+    </property>
+    <property name="initData">
+      <value>${init.basedata}</value>
+    </property>
+  </bean>
+  <bean id="baseFitmentlevel" class="org.yynn.resm.model.Fitmentlevel" abstract="true" />
+  <bean id="fitmentlevelIniter" class="org.yynn.resm.common.init.BaseDataInitialization" init-method="init" lazy-init="false">
+    <constructor-arg>
+      <ref bean="fitmentlevelDao" />
+    </constructor-arg>
+    <property name="dataList">
+      <list>
+        <bean parent="baseFitmentlevel">
+          <property name="id">
+            <value>1</value>
+          </property>
+          <property name="name">
+            <value>无</value>
+          </property>
+        </bean>
+        <bean parent="baseFitmentlevel">
+          <property name="id">
+            <value>2</value>
+          </property>
+          <property name="name">
+            <value>标准</value>
+          </property>
+        </bean>
+        <bean parent="baseFitmentlevel">
+          <property name="id">
+            <value>3</value>
+          </property>
+          <property name="name">
+            <value>豪华</value>
+          </property>
+        </bean>
+      </list>
+    </property>
+    <property name="initData">
+      <value>${init.basedata}</value>
+    </property>
+  </bean>
+  <bean id="baseBuildtype" class="org.yynn.resm.model.Buildtype" abstract="true" />
+  <bean id="buildtypeIniter" class="org.yynn.resm.common.init.BaseDataInitialization" init-method="init" lazy-init="false">
+    <constructor-arg>
+      <ref bean="buildtypeDao" />
+    </constructor-arg>
+    <property name="dataList">
+      <list>
+        <bean parent="baseBuildtype">
+          <property name="id">
+            <value>1</value>
+          </property>
+          <property name="name">
+            <value>多层</value>
+          </property>
+        </bean>
+        <bean parent="baseBuildtype">
+          <property name="id">
+            <value>2</value>
+          </property>
+          <property name="name">
+            <value>普通高层</value>
+          </property>
+        </bean>
+        <bean parent="baseBuildtype">
+          <property name="id">
+            <value>3</value>
+          </property>
+          <property name="name">
+            <value>小高层公寓</value>
+          </property>
+        </bean>
+        <bean parent="baseBuildtype">
+          <property name="id">
+            <value>4</value>
+          </property>
+          <property name="name">
+            <value>别墅</value>
+          </property>
+        </bean>
+      </list>
+    </property>
+    <property name="initData">
+      <value>${init.basedata}</value>
+    </property>
+  </bean>
+  <bean id="baseBuildstruct" class="org.yynn.resm.model.Buildstruct" abstract="true" />
+  <bean id="buildstructIniter" class="org.yynn.resm.common.init.BaseDataInitialization" init-method="init" lazy-init="false">
+    <constructor-arg>
+      <ref bean="buildstructDao" />
+    </constructor-arg>
+    <property name="dataList">
+      <list>
+        <bean parent="baseBuildstruct">
+          <property name="id">
+            <value>1</value>
+          </property>
+          <property name="name">
+            <value>框架结构</value>
+          </property>
+        </bean>
+        <bean parent="baseBuildstruct">
+          <property name="id">
+            <value>2</value>
+          </property>
+          <property name="name">
+            <value>砖混结构</value>
+          </property>
+        </bean>
+        <bean parent="baseBuildstruct">
+          <property name="id">
+            <value>3</value>
+          </property>
+          <property name="name">
+            <value>混凝土浇筑</value>
+          </property>
+        </bean>
+      </list>
+    </property>
+    <property name="initData">
+      <value>${init.basedata}</value>
+    </property>
+  </bean>
+  <bean id="baseHousetypeinfo" class="org.yynn.resm.model.Housetypeinfo" abstract="true" />
+  <bean id="housetypeinfoIniter" class="org.yynn.resm.common.init.BaseDataInitialization" init-method="init" lazy-init="false">
+    <constructor-arg>
+      <ref bean="housetypeinfoDao" />
+    </constructor-arg>
+    <property name="dataList">
+      <list>
+        <bean parent="baseHousetypeinfo">
+          <property name="id">
+            <value>1</value>
+          </property>
+          <property name="name">
+            <value>一室一厅</value>
+          </property>
+        </bean>
+        <bean parent="baseHousetypeinfo">
+          <property name="id">
+            <value>2</value>
+          </property>
+          <property name="name">
+            <value>二室一厅</value>
+          </property>
+        </bean>
+        <bean parent="baseHousetypeinfo">
+          <property name="id">
+            <value>3</value>
+          </property>
+          <property name="name">
+            <value>二室二厅</value>
+          </property>
+        </bean>
+        <bean parent="baseHousetypeinfo">
+          <property name="id">
+            <value>4</value>
+          </property>
+          <property name="name">
+            <value>三室一厅</value>
+          </property>
+        </bean>
+        <bean parent="baseHousetypeinfo">
+          <property name="id">
+            <value>5</value>
+          </property>
+          <property name="name">
+            <value>三室二厅</value>
+          </property>
+        </bean>
+        <bean parent="baseHousetypeinfo">
+          <property name="id">
+            <value>6</value>
+          </property>
+          <property name="name">
+            <value>四室二厅</value>
+          </property>
+        </bean>
+      </list>
+    </property>
+    <property name="initData">
+      <value>${init.basedata}</value>
+    </property>
+  </bean>
+</beans>

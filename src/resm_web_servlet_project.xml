@@ -1,0 +1,2225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <!-- 销售人员管理 -->
+  <bean name="/crudSeller.view" parent="baseCrudView">
+    <property name="attributes">
+      <map>
+        <entry key="barURI">
+          <value>/crudSellerBar.view</value>
+        </entry>
+        <entry key="bodyURI">
+          <value>/querySeller.action</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 属性页 -->
+  <bean name="/crudSellerBar.view" parent="authBarView">
+    <property name="attributes">
+      <map>
+        <entry key="uriInfoList">
+          <list>
+            <bean parent="baseURIInfo">
+              <property name="uri">
+                <value>/querySeller.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.query</value>
+              </property>
+            </bean>
+            <bean parent="authURIInfo4Project">
+              <property name="uri">
+                <value>/addSeller.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.add</value>
+              </property>
+            </bean>
+          </list>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 列表 -->
+  <bean name="/querySeller.action" parent="baseQueryAction">
+    <constructor-arg>
+      <ref bean="sellerService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="sellerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/querySeller.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteSeller.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewSeller.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 删除 -->
+  <bean name="/deleteSeller.action" parent="baseDeleteAction">
+    <constructor-arg>
+      <ref bean="sellerService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="sellerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/querySeller.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteSeller.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewSeller.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 新增 -->
+  <bean name="/addSeller.action" parent="baseAddAction">
+    <constructor-arg>
+      <ref bean="sellerService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="sellerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/addSeller.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.adddata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="sellerValidator" />
+    </property>
+  </bean>
+  <!-- 查看 -->
+  <bean name="/viewSeller.action" parent="baseViewAction">
+    <constructor-arg>
+      <ref bean="sellerService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="sellerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="modifyPath">
+          <value>/editSeller.action</value>
+        </entry>
+        <entry key="returnPath">
+          <value>/querySeller.action</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteSeller.action</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.viewdata</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 修改-->
+  <bean name="/editSeller.action" parent="baseEditAction">
+    <constructor-arg>
+      <ref bean="sellerService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="sellerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/editSeller.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.editdata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="sellerValidator" />
+    </property>
+
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 来电记录维护 -->
+  <bean name="/crudCallcustomer.view" parent="baseCrudView">
+    <property name="attributes">
+      <map>
+        <entry key="barURI">
+          <value>/crudCallcustomerBar.view</value>
+        </entry>
+        <entry key="bodyURI">
+          <value>/queryCallcustomer.action</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 属性页 -->
+  <bean name="/crudCallcustomerBar.view" parent="authBarView">
+    <property name="attributes">
+      <map>
+        <entry key="uriInfoList">
+          <list>
+            <bean parent="baseURIInfo">
+              <property name="uri">
+                <value>/queryCallcustomer.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.query</value>
+              </property>
+            </bean>
+            <bean parent="authURIInfo4Project">
+              <property name="uri">
+                <value>/addCallcustomer.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.add</value>
+              </property>
+            </bean>
+          </list>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 列表 -->
+  <bean name="/queryCallcustomer.action" parent="baseQueryAction">
+    <constructor-arg>
+      <ref bean="callcustomerService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="callcustomerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/queryCallcustomer.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteCallcustomer.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewCallcustomer.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 删除 -->
+  <bean name="/deleteCallcustomer.action" parent="baseDeleteAction">
+    <constructor-arg>
+      <ref bean="callcustomerService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="callcustomerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/queryCallcustomer.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteCallcustomer.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewCallcustomer.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 新增 -->
+  <bean name="/addCallcustomer.action" parent="baseAddAction">
+    <constructor-arg>
+      <ref bean="callcustomerService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="callcustomerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/addCallcustomer.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.adddata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="callcustomerValidator" />
+    </property>
+  </bean>
+  <!-- 查看 -->
+  <bean name="/viewCallcustomer.action" parent="baseViewAction">
+    <constructor-arg>
+      <ref bean="callcustomerService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="callcustomerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="modifyPath">
+          <value>/editCallcustomer.action</value>
+        </entry>
+        <entry key="returnPath">
+          <value>/queryCallcustomer.action</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteCallcustomer.action</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.viewdata</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 修改-->
+  <bean name="/editCallcustomer.action" parent="baseEditAction">
+    <constructor-arg>
+      <ref bean="callcustomerService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="callcustomerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/editCallcustomer.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.editdata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="callcustomerValidator" />
+    </property>
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 未成交来访用户记录 -->
+  <bean name="/crudNotDealVisitcustomer.view" parent="baseCrudView">
+    <property name="attributes">
+      <map>
+        <entry key="barURI">
+          <value>/crudNotDealVisitcustomerBar.view</value>
+        </entry>
+        <entry key="bodyURI">
+          <value>/queryNotDealVisitcustomer.action</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 属性页 -->
+  <bean name="/crudNotDealVisitcustomerBar.view" parent="authBarView">
+    <property name="attributes">
+      <map>
+        <entry key="uriInfoList">
+          <list>
+            <bean parent="baseURIInfo">
+              <property name="uri">
+                <value>/queryNotDealVisitcustomer.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.query</value>
+              </property>
+            </bean>
+            <bean parent="authURIInfo4Project">
+              <property name="uri">
+                <value>/addNotDealVisitcustomer.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.add</value>
+              </property>
+            </bean>
+          </list>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 列表 -->
+  <bean name="/queryNotDealVisitcustomer.action" parent="baseQueryAction">
+    <constructor-arg>
+      <ref bean="visitcustomerService4notdeal" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="notDealVisitcustomerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/queryNotDealVisitcustomer.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteNotDealVisitcustomer.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewNotDealVisitcustomer.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 删除 -->
+  <bean name="/deleteNotDealVisitcustomer.action" parent="baseDeleteAction">
+    <constructor-arg>
+      <ref bean="visitcustomerService4notdeal" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="notDealVisitcustomerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/queryNotDealVisitcustomer.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteNotDealVisitcustomer.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewNotDealVisitcustomer.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 新增 -->
+  <bean name="/addNotDealVisitcustomer.action" parent="baseAddAction">
+    <constructor-arg>
+      <ref bean="visitcustomerService4notdeal" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="notDealVisitcustomerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/addNotDealVisitcustomer.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.adddata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="visitcustomerValidator4notdeal" />
+    </property>
+  </bean>
+  <!-- 查看 -->
+  <bean name="/viewNotDealVisitcustomer.action" parent="baseViewAction">
+    <constructor-arg>
+      <ref bean="visitcustomerService4notdeal" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="notDealVisitcustomerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="modifyPath">
+          <value>/editNotDealVisitcustomer.action</value>
+        </entry>
+        <entry key="returnPath">
+          <value>/queryNotDealVisitcustomer.action</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteNotDealVisitcustomer.action</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.viewdata</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 修改-->
+  <bean name="/editNotDealVisitcustomer.action" parent="baseEditAction">
+    <constructor-arg>
+      <ref bean="visitcustomerService4notdeal" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="notDealVisitcustomerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/editNotDealVisitcustomer.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.editdata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="visitcustomerValidator4notdeal" />
+    </property>
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 成交来访用户记录 -->
+  <bean name="/crudDealVisitcustomer.view" parent="baseCrudView">
+    <property name="attributes">
+      <map>
+        <entry key="barURI">
+          <value>/crudDealVisitcustomerBar.view</value>
+        </entry>
+        <entry key="bodyURI">
+          <value>/queryDealVisitcustomer.action</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 属性页 -->
+  <bean name="/crudDealVisitcustomerBar.view" parent="authBarView">
+    <property name="attributes">
+      <map>
+        <entry key="uriInfoList">
+          <list>
+            <bean parent="baseURIInfo">
+              <property name="uri">
+                <value>/queryDealVisitcustomer.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.query</value>
+              </property>
+            </bean>
+            <bean parent="authURIInfo4Project">
+              <property name="uri">
+                <value>/addDealVisitcustomer.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.add</value>
+              </property>
+            </bean>
+          </list>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 列表 -->
+  <bean name="/queryDealVisitcustomer.action" parent="baseQueryAction">
+    <constructor-arg>
+      <ref bean="visitcustomerService4deal" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="dealVisitcustomerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/queryDealVisitcustomer.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteDealVisitcustomer.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewDealVisitcustomer.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 删除 -->
+  <bean name="/deleteDealVisitcustomer.action" parent="baseDeleteAction">
+    <constructor-arg>
+      <ref bean="visitcustomerService4deal" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="dealVisitcustomerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/queryDealVisitcustomer.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteDealVisitcustomer.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewDealVisitcustomer.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 新增 -->
+  <bean name="/addDealVisitcustomer.action" parent="baseAddAction">
+    <constructor-arg>
+      <ref bean="visitcustomerService4deal" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="dealVisitcustomerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/addDealVisitcustomer.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.adddata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="visitcustomerValidator4deal" />
+    </property>
+  </bean>
+  <!-- 查看 -->
+  <bean name="/viewDealVisitcustomer.action" parent="baseViewAction">
+    <constructor-arg>
+      <ref bean="visitcustomerService4deal" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="dealVisitcustomerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="modifyPath">
+          <value>/editDealVisitcustomer.action</value>
+        </entry>
+        <entry key="returnPath">
+          <value>/queryDealVisitcustomer.action</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteDealVisitcustomer.action</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.viewdata</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 修改-->
+  <bean name="/editDealVisitcustomer.action" parent="baseEditAction">
+    <constructor-arg>
+      <ref bean="visitcustomerService4deal" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="dealVisitcustomerPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/editDealVisitcustomer.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.editdata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="visitcustomerValidator4deal" />
+    </property>
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 退款维护 -->
+  <bean name="/crudSaleinfopayback.view" parent="baseCrudView">
+    <property name="attributes">
+      <map>
+        <entry key="barURI">
+          <value>/crudSaleinfopaybackBar.view</value>
+        </entry>
+        <entry key="bodyURI">
+          <value>/querySaleinfopayback.action</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 属性页 -->
+  <bean name="/crudSaleinfopaybackBar.view" parent="authBarView">
+    <property name="attributes">
+      <map>
+        <entry key="uriInfoList">
+          <list>
+            <bean parent="baseURIInfo">
+              <property name="uri">
+                <value>/querySaleinfopayback.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.query</value>
+              </property>
+            </bean>
+          </list>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 列表 -->
+  <bean name="/querySaleinfopayback.action" parent="baseQueryAction">
+    <constructor-arg>
+      <ref bean="visitcustomerService4deal" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="saleinfopaybackPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/querySaleinfopayback.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewSaleinfopayback.action</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0, auth_2</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 查看 -->
+  <bean name="/viewSaleinfopayback.action" parent="baseViewAction">
+    <constructor-arg>
+      <ref bean="visitcustomerService4deal" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="saleinfopaybackPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="modifyPath">
+          <value>/editSaleinfopayback.action</value>
+        </entry>
+        <entry key="returnPath">
+          <value>/querySaleinfopayback.action</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.viewdata</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0, auth_2</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 修改-->
+  <bean name="/editSaleinfopayback.action" class="org.yynn.resm.web.spring.controller.PaybackEditController" parent="baseEditAction">
+    <constructor-arg>
+      <ref bean="visitcustomerService4deal" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="saleinfopaybackPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/editSaleinfopayback.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.editdata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="saleinfopaybackValidator" />
+    </property>
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 房屋类型维护 -->
+  <bean name="/crudHousetype.view" parent="baseCrudView">
+    <property name="attributes">
+      <map>
+        <entry key="barURI">
+          <value>/crudHousetypeBar.view</value>
+        </entry>
+        <entry key="bodyURI">
+          <value>/queryHousetype.action</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 属性页 -->
+  <bean name="/crudHousetypeBar.view" parent="authBarView">
+    <property name="attributes">
+      <map>
+        <entry key="uriInfoList">
+          <list>
+            <bean parent="baseURIInfo">
+              <property name="uri">
+                <value>/queryHousetype.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.query</value>
+              </property>
+            </bean>
+            <bean parent="authURIInfo4Project">
+              <property name="uri">
+                <value>/addHousetype.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.add</value>
+              </property>
+            </bean>
+          </list>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 列表 -->
+  <bean name="/queryHousetype.action" parent="baseQueryAction">
+    <constructor-arg>
+      <ref bean="housetypeService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="housetypePropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/queryHousetype.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteHousetype.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewHousetype.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 删除 -->
+  <bean name="/deleteHousetype.action" parent="baseDeleteAction">
+    <constructor-arg>
+      <ref bean="housetypeService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="housetypePropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/queryHousetype.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteHousetype.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewHousetype.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 新增 -->
+  <bean name="/addHousetype.action" parent="baseAddAction">
+    <constructor-arg>
+      <ref bean="housetypeService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="housetypePropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/addHousetype.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.adddata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="housetypeValidator" />
+    </property>
+  </bean>
+  <!-- 查看 -->
+  <bean name="/viewHousetype.action" parent="baseViewAction">
+    <constructor-arg>
+      <ref bean="housetypeService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="housetypePropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="modifyPath">
+          <value>/editHousetype.action</value>
+        </entry>
+        <entry key="returnPath">
+          <value>/queryHousetype.action</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteHousetype.action</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.viewdata</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 修改-->
+  <bean name="/editHousetype.action" parent="baseEditAction">
+    <constructor-arg>
+      <ref bean="housetypeService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="housetypePropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/editHousetype.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.editdata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="housetypeValidator" />
+    </property>
+
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 佣金结算维护 -->
+  <bean name="/crudCommision.view" parent="baseCrudView">
+    <property name="attributes">
+      <map>
+        <entry key="barURI">
+          <value>/crudCommisionBar.view</value>
+        </entry>
+        <entry key="bodyURI">
+          <value>/queryCommision.action</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 属性页 -->
+  <bean name="/crudCommisionBar.view" parent="authBarView">
+    <property name="attributes">
+      <map>
+        <entry key="uriInfoList">
+          <list>
+            <bean parent="baseURIInfo">
+              <property name="uri">
+                <value>/queryCommision.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.query</value>
+              </property>
+            </bean>
+            <bean parent="authURIInfo4Project">
+              <property name="uri">
+                <value>/addCommision.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.add</value>
+              </property>
+            </bean>
+          </list>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 列表 -->
+  <bean name="/queryCommision.action" parent="baseQueryAction">
+    <constructor-arg>
+      <ref bean="commisionService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="commisionPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/queryCommision.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteCommision.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewCommision.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 删除 -->
+  <bean name="/deleteCommision.action" parent="baseDeleteAction">
+    <constructor-arg>
+      <ref bean="commisionService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="commisionPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/queryCommision.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteCommision.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewCommision.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 新增 -->
+  <bean name="/addCommision.action" parent="baseAddAction">
+    <constructor-arg>
+      <ref bean="commisionService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="commisionPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/addCommision.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.adddata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="commisionValidator" />
+    </property>
+
+  </bean>
+  <!-- 查看 -->
+  <bean name="/viewCommision.action" parent="baseViewAction">
+    <constructor-arg>
+      <ref bean="commisionService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="commisionPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="modifyPath">
+          <value>/editCommision.action</value>
+        </entry>
+        <entry key="returnPath">
+          <value>/queryCommision.action</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteCommision.action</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.viewdata</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 修改-->
+  <bean name="/editCommision.action" parent="baseEditAction">
+    <constructor-arg>
+      <ref bean="commisionService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="commisionPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/editCommision.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.editdata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="commisionValidator" />
+    </property>
+
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 楼盘维护 -->
+  <bean name="/crudHousingproject.view" parent="baseCrudView">
+    <property name="attributes">
+      <map>
+        <entry key="barURI">
+          <value>/crudHousingprojectBar.view</value>
+        </entry>
+        <entry key="bodyURI">
+          <value>/queryHousingproject.action</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 属性页 -->
+  <bean name="/crudHousingprojectBar.view" parent="authBarView">
+    <property name="attributes">
+      <map>
+        <entry key="uriInfoList">
+          <list>
+            <bean parent="baseURIInfo">
+              <property name="uri">
+                <value>/queryHousingproject.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.query</value>
+              </property>
+            </bean>
+            <bean parent="authURIInfo4Project">
+              <property name="uri">
+                <value>/addHousingproject.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.add</value>
+              </property>
+            </bean>
+          </list>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 列表 -->
+  <bean name="/queryHousingproject.action" parent="baseQueryAction">
+    <constructor-arg>
+      <ref bean="housingprojectService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="housingprojectPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/queryHousingproject.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteHousingproject.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewHousingproject.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 删除 -->
+  <bean name="/deleteHousingproject.action" parent="baseDeleteAction">
+    <constructor-arg>
+      <ref bean="housingprojectService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="housingprojectPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/queryHousingproject.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteHousingproject.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewHousingproject.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 新增 -->
+  <bean name="/addHousingproject.action" parent="baseAddAction">
+    <constructor-arg>
+      <ref bean="housingprojectService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="housingprojectPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/addHousingproject.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.adddata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="housingprojectValidator" />
+    </property>
+  </bean>
+  <!-- 查看 -->
+  <bean name="/viewHousingproject.action" parent="baseViewAction">
+    <constructor-arg>
+      <ref bean="housingprojectService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="housingprojectPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="modifyPath">
+          <value>/editHousingproject.action</value>
+        </entry>
+        <entry key="returnPath">
+          <value>/queryHousingproject.action</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteHousingproject.action</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.viewdata</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 修改-->
+  <bean name="/editHousingproject.action" parent="baseEditAction">
+    <constructor-arg>
+      <ref bean="housingprojectService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="housingprojectPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/editHousingproject.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.editdata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="housingprojectValidator" />
+    </property>
+
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 楼房维护 -->
+  <bean name="/crudBuildingproject.view" parent="baseCrudView">
+    <property name="attributes">
+      <map>
+        <entry key="barURI">
+          <value>/crudBuildingprojectBar.view</value>
+        </entry>
+        <entry key="bodyURI">
+          <value>/queryBuildingproject.action</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 属性页 -->
+  <bean name="/crudBuildingprojectBar.view" parent="authBarView">
+    <property name="attributes">
+      <map>
+        <entry key="uriInfoList">
+          <list>
+            <bean parent="baseURIInfo">
+              <property name="uri">
+                <value>/queryBuildingproject.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.query</value>
+              </property>
+            </bean>
+            <bean parent="authURIInfo4Project">
+              <property name="uri">
+                <value>/addBuildingproject.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.add</value>
+              </property>
+            </bean>
+          </list>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 列表 -->
+  <bean name="/queryBuildingproject.action" parent="baseQueryAction">
+    <constructor-arg>
+      <ref bean="buildingprojectService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="buildingprojectPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/queryBuildingproject.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteBuildingproject.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewBuildingproject.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 删除 -->
+  <bean name="/deleteBuildingproject.action" parent="baseDeleteAction">
+    <constructor-arg>
+      <ref bean="buildingprojectService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="buildingprojectPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/queryBuildingproject.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteBuildingproject.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewBuildingproject.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 新增 -->
+  <bean name="/addBuildingproject.action" parent="baseAddAction">
+    <constructor-arg>
+      <ref bean="buildingprojectService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="buildingprojectPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/addBuildingproject.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.adddata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="buildingprojectValidator" />
+    </property>
+  </bean>
+  <!-- 查看 -->
+  <bean name="/viewBuildingproject.action" parent="baseViewAction">
+    <constructor-arg>
+      <ref bean="buildingprojectService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="buildingprojectPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="modifyPath">
+          <value>/editBuildingproject.action</value>
+        </entry>
+        <entry key="returnPath">
+          <value>/queryBuildingproject.action</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteBuildingproject.action</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.viewdata</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 修改-->
+  <bean name="/editBuildingproject.action" parent="baseEditAction">
+    <constructor-arg>
+      <ref bean="buildingprojectService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="buildingprojectPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/editBuildingproject.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.editdata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="buildingprojectValidator" />
+    </property>
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 房屋维护 -->
+  <bean name="/crudHouseproject.view" parent="baseCrudView">
+    <property name="attributes">
+      <map>
+        <entry key="barURI">
+          <value>/crudHouseprojectBar.view</value>
+        </entry>
+        <entry key="bodyURI">
+          <value>/queryHouseproject.action</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 属性页 -->
+  <bean name="/crudHouseprojectBar.view" parent="authBarView">
+    <property name="attributes">
+      <map>
+        <entry key="uriInfoList">
+          <list>
+            <bean parent="baseURIInfo">
+              <property name="uri">
+                <value>/queryHouseproject.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.query</value>
+              </property>
+            </bean>
+            <bean parent="authURIInfo4Project">
+              <property name="uri">
+                <value>/addHouseproject.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.add</value>
+              </property>
+            </bean>
+          </list>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 列表 -->
+  <bean name="/queryHouseproject.action" parent="baseQueryAction">
+    <constructor-arg>
+      <ref bean="houseprojectService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="houseprojectPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/queryHouseproject.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteHouseproject.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewHouseproject.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 删除 -->
+  <bean name="/deleteHouseproject.action" parent="baseDeleteAction">
+    <constructor-arg>
+      <ref bean="houseprojectService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="houseprojectPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/queryHouseproject.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteHouseproject.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewHouseproject.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 新增 -->
+  <bean name="/addHouseproject.action" parent="baseAddAction">
+    <constructor-arg>
+      <ref bean="houseprojectService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="houseprojectPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/addHouseproject.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.adddata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="houseprojectValidator" />
+    </property>
+  </bean>
+  <!-- 查看 -->
+  <bean name="/viewHouseproject.action" parent="baseViewAction">
+    <constructor-arg>
+      <ref bean="houseprojectService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="houseprojectPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="modifyPath">
+          <value>/editHouseproject.action</value>
+        </entry>
+        <entry key="returnPath">
+          <value>/queryHouseproject.action</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteHouseproject.action</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.viewdata</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 修改-->
+  <bean name="/editHouseproject.action" parent="baseEditAction">
+    <constructor-arg>
+      <ref bean="houseprojectService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="houseprojectPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/editHouseproject.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.editdata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="houseprojectValidator" />
+    </property>
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 现居住区域管理 -->
+  <bean name="/crudAddressarea.view" parent="baseCrudView">
+    <property name="attributes">
+      <map>
+        <entry key="barURI">
+          <value>/crudAddressareaBar.view</value>
+        </entry>
+        <entry key="bodyURI">
+          <value>/queryAddressarea.action</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 属性页 -->
+  <bean name="/crudAddressareaBar.view" parent="authBarView">
+    <property name="attributes">
+      <map>
+        <entry key="uriInfoList">
+          <list>
+            <bean parent="baseURIInfo">
+              <property name="uri">
+                <value>/queryAddressarea.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.query</value>
+              </property>
+            </bean>
+            <bean parent="authURIInfo4Project">
+              <property name="uri">
+                <value>/addAddressarea.action</value>
+              </property>
+              <property name="msgCode">
+                <value>common.bar.add</value>
+              </property>
+            </bean>
+          </list>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 列表 -->
+  <bean name="/queryAddressarea.action" parent="baseQueryAction">
+    <constructor-arg>
+      <ref bean="addressareaService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="addressareaPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/queryAddressarea.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteAddressarea.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewAddressarea.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 删除 -->
+  <bean name="/deleteAddressarea.action" parent="baseDeleteAction">
+    <constructor-arg>
+      <ref bean="addressareaService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="addressareaPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/queryAddressarea.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.query</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.queryinfo</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteAddressarea.action</value>
+        </entry>
+        <entry key="viewPath">
+          <value>/viewAddressarea.action</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_2</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_2</value>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <!-- 新增 -->
+  <bean name="/addAddressarea.action" parent="baseAddAction">
+    <constructor-arg>
+      <ref bean="addressareaService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="addressareaPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/addAddressarea.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.adddata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="baseCommonValidator" />
+    </property>
+  </bean>
+  <!-- 查看 -->
+  <bean name="/viewAddressarea.action" parent="baseViewAction">
+    <constructor-arg>
+      <ref bean="addressareaService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="addressareaPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="modifyPath">
+          <value>/editAddressarea.action</value>
+        </entry>
+        <entry key="returnPath">
+          <value>/queryAddressarea.action</value>
+        </entry>
+        <entry key="deletePath">
+          <value>/deleteAddressarea.action</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.viewdata</value>
+        </entry>
+        <entry key="deleteAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="modifyAuthCode">
+          <value>auth_0</value>
+        </entry>
+        <entry key="viewAuthCode">
+          <value>auth_0,auth_2</value>
+        </entry>
+      </map>
+    </property>
+
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <!-- 修改-->
+  <bean name="/editAddressarea.action" parent="baseEditAction">
+    <constructor-arg>
+      <ref bean="addressareaService" />
+    </constructor-arg>
+    <property name="crudPropsProvider">
+      <ref bean="addressareaPropertiesProvider" />
+    </property>
+    <property name="attributes">
+      <map>
+        <entry key="actionPath">
+          <value>/editAddressarea.action</value>
+        </entry>
+        <entry key="submitCode">
+          <value>common.submit</value>
+        </entry>
+        <entry key="titleCode">
+          <value>common.editdata</value>
+        </entry>
+      </map>
+    </property>
+    <property name="validators">
+      <ref bean="baseCommonValidator" />
+    </property>
+
+    <property name="postExtraHandlers">
+      <list>
+        <ref local="runAsExtraHandler" />
+      </list>
+    </property>
+  </bean>
+  <bean id="runAsExtraHandler" class="org.yynn.resm.web.spring.controller.RunAsExtraHandler">
+    <property name="projectNoProperty">
+      <value>project.no</value>
+    </property>
+  </bean>
+</beans>

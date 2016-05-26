@@ -1,0 +1,4643 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <!-- 默认值列表 -->
+  <bean id="baseCommonDataValue" class="org.yynn.resm.common.CommonDataValue" abstract="true" />
+  <bean id="selectEmpty" parent="baseCommonDataValue">
+    <constructor-arg>
+      <null />
+    </constructor-arg>
+  </bean>
+  <bean id="value0" parent="baseCommonDataValue">
+    <constructor-arg>
+      <value>0</value>
+    </constructor-arg>
+  </bean>
+  <bean id="value1" parent="baseCommonDataValue">
+    <constructor-arg>
+      <value>1</value>
+    </constructor-arg>
+  </bean>
+  <bean id="value2" parent="baseCommonDataValue">
+    <constructor-arg>
+      <value>2</value>
+    </constructor-arg>
+  </bean>
+  <bean id="unknown" parent="baseCommonDataValue">
+    <constructor-arg>
+      <value>0</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>form.unknown</value>
+    </constructor-arg>
+  </bean>
+  <bean id="sex1" parent="baseCommonDataValue">
+    <constructor-arg>
+      <value>1</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>form.male</value>
+    </constructor-arg>
+  </bean>
+  <bean id="sex2" parent="baseCommonDataValue">
+    <constructor-arg>
+      <value>2</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>form.female</value>
+    </constructor-arg>
+  </bean>
+  <bean id="degree1" parent="baseCommonDataValue">
+    <constructor-arg>
+      <value>1</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>form.degree.doctor</value>
+    </constructor-arg>
+  </bean>
+  <bean id="degree2" parent="baseCommonDataValue">
+    <constructor-arg>
+      <value>2</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>form.degree.master</value>
+    </constructor-arg>
+  </bean>
+  <bean id="degree3" parent="baseCommonDataValue">
+    <constructor-arg>
+      <value>3</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>form.degree.bachelor</value>
+    </constructor-arg>
+  </bean>
+  <bean id="degree4" parent="baseCommonDataValue">
+    <constructor-arg>
+      <value>4</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>form.degree.training</value>
+    </constructor-arg>
+  </bean>
+  <bean id="degree5" parent="baseCommonDataValue">
+    <constructor-arg>
+      <value>5</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>form.degree.senior</value>
+    </constructor-arg>
+  </bean>
+  <bean id="cprojectNoValue" class="org.yynn.resm.common.ProjectNoDataValue" />
+  <bean id="currentDateDataValue" class="org.yynn.resm.common.CurrentDateDataValue" />
+  <bean id="earnesttype0" parent="baseCommonDataValue">
+    <constructor-arg>
+      <value>0</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>form.earnesttype.0</value>
+    </constructor-arg>
+  </bean>
+  <bean id="earnesttype1" parent="baseCommonDataValue">
+    <constructor-arg>
+      <value>1</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>form.earnesttype.1</value>
+    </constructor-arg>
+  </bean>
+  <bean id="earnesttype2" parent="baseCommonDataValue">
+    <constructor-arg>
+      <value>2</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>form.earnesttype.2</value>
+    </constructor-arg>
+  </bean>
+  <bean id="earnesttype3" parent="baseCommonDataValue">
+    <constructor-arg>
+      <value>3</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>form.earnesttype.3</value>
+    </constructor-arg>
+  </bean>
+  <!-- 取值集合 -->
+  <bean id="earnesttypeValueSetProvider" class="org.yynn.resm.common.CommonValueProviderConfigImpl">
+    <constructor-arg>
+      <list>
+        <ref local="earnesttype0" />
+        <ref local="earnesttype1" />
+        <ref local="earnesttype2" />
+        <ref local="earnesttype3" />
+      </list>
+    </constructor-arg>
+  </bean>
+  <bean id="selectNullProvider" class="org.yynn.resm.common.CommonValueProviderConfigImpl">
+    <constructor-arg>
+      <list>
+        <ref local="selectEmpty" />
+      </list>
+    </constructor-arg>
+  </bean>
+  <bean id="sexValueSetProvider" class="org.yynn.resm.common.CommonValueProviderConfigImpl">
+    <constructor-arg>
+      <list>
+        <ref local="sex1" />
+        <ref local="sex2" />
+        <ref local="unknown" />
+      </list>
+    </constructor-arg>
+  </bean>
+  <bean id="degreeValueSetProvider" class="org.yynn.resm.common.CommonValueProviderConfigImpl">
+    <constructor-arg>
+      <list>
+        <ref local="degree1" />
+        <ref local="degree2" />
+        <ref local="degree3" />
+        <ref local="degree4" />
+        <ref local="degree5" />
+        <ref local="unknown" />
+      </list>
+    </constructor-arg>
+  </bean>
+  <bean id="projectnoValueSetProvider" class="org.yynn.resm.common.CommonValueProviderCombineImpl">
+    <constructor-arg>
+      <list>
+        <ref local="selectNullProvider" />
+        <ref local="realprojectnoValueSetProvider" />
+      </list>
+    </constructor-arg>
+  </bean>
+  <bean id="realprojectnoValueSetProvider" class="org.yynn.resm.common.CommonValueProviderDBImpl">
+    <constructor-arg>
+      <ref bean="projectDao" />
+    </constructor-arg>
+    <property name="pkName">
+      <value>no</value>
+    </property>
+    <property name="queryAppend">
+      <value>model.level = '2'</value>
+    </property>
+  </bean>
+  <bean id="inforchannelValueSetProvider" class="org.yynn.resm.common.CommonValueProviderDBImpl">
+    <constructor-arg>
+      <ref bean="inforchannelDao" />
+    </constructor-arg>
+    <property name="pkName">
+      <value>id</value>
+    </property>
+    <property name="displayName">
+      <value>name</value>
+    </property>
+  </bean>
+  <bean id="problemValueSetProvider" class="org.yynn.resm.common.CommonValueProviderDBImpl">
+    <constructor-arg>
+      <ref bean="problemDao" />
+    </constructor-arg>
+    <property name="pkName">
+      <value>id</value>
+    </property>
+    <property name="displayName">
+      <value>name</value>
+    </property>
+  </bean>
+  <bean id="housetypeValueSetProvider" class="org.yynn.resm.common.CommonValueProviderCombineImpl">
+    <constructor-arg>
+      <list>
+        <ref local="selectNullProvider" />
+        <ref local="chousetypeValueSetProvider" />
+      </list>
+    </constructor-arg>
+  </bean>
+  <bean id="chousetypeValueSetProvider" parent="housetypeValueSetProvider4query">
+    <property name="queryAppend">
+      <value>project.no = _CURRENT_USER_ID_</value>
+    </property>
+  </bean>
+  <bean id="housetypeValueSetProvider4query" class="org.yynn.resm.common.CommonValueProviderDBImpl">
+    <constructor-arg>
+      <ref bean="housetypeDao" />
+    </constructor-arg>
+    <property name="pkName">
+      <value>id</value>
+    </property>
+    <property name="displayName">
+      <value>displayValue</value>
+    </property>
+  </bean>
+  <bean id="baseHousetypeValueSetProvider" class="org.yynn.resm.common.CommonValueProviderDBImpl">
+    <constructor-arg>
+      <ref bean="baseHouseTypeDao" />
+    </constructor-arg>
+    <property name="pkName">
+      <value>id</value>
+    </property>
+    <property name="displayName">
+      <value>name</value>
+    </property>
+  </bean>
+  <bean id="baseHousetypeValueSetProvider4Add" class="org.yynn.resm.common.CommonValueProviderDBImpl">
+    <constructor-arg>
+      <ref bean="baseHouseTypeDao" />
+    </constructor-arg>
+    <property name="pkName">
+      <value>id</value>
+    </property>
+    <property name="displayName">
+      <value>name</value>
+    </property>
+    <property name="queryAppend">
+      <value>id not in (select basehousetype.id from Housetype where project.no = _CURRENT_USER_ID_)</value>
+    </property>
+  </bean>
+  <bean id="baseHousetypeValueSetProvider4Query" class="org.yynn.resm.common.CommonValueProviderCombineImpl">
+    <constructor-arg>
+      <list>
+        <ref local="selectNullProvider" />
+        <ref local="baseHousetypeValueSetProvider" />
+      </list>
+    </constructor-arg>
+  </bean>
+  <bean id="purposeValueSetProvider" class="org.yynn.resm.common.CommonValueProviderDBImpl">
+    <constructor-arg>
+      <ref bean="purposeDao" />
+    </constructor-arg>
+    <property name="pkName">
+      <value>id</value>
+    </property>
+    <property name="displayName">
+      <value>name</value>
+    </property>
+  </bean>
+  <bean id="baseHousingprojectValueSetProvider" class="org.yynn.resm.common.CommonValueProviderDBImpl">
+    <constructor-arg>
+      <ref bean="housingprojectDao" />
+    </constructor-arg>
+    <property name="pkName">
+      <value>id</value>
+    </property>
+    <property name="displayName">
+      <value>name</value>
+    </property>
+  </bean>
+  <bean id="housingprojectValueSetProvider" class="org.yynn.resm.common.CommonValueProviderCombineImpl">
+    <constructor-arg>
+      <list>
+        <ref local="selectNullProvider" />
+        <bean parent="baseHousingprojectValueSetProvider">
+          <property name="queryAppend">
+            <value>project.no = _CURRENT_USER_ID_</value>
+          </property>
+        </bean>
+      </list>
+    </constructor-arg>
+  </bean>
+  <bean id="housingprojectValueSetProvider4query" class="org.yynn.resm.common.CommonValueProviderCombineImpl">
+    <constructor-arg>
+      <list>
+        <ref local="selectNullProvider" />
+        <ref local="baseHousingprojectValueSetProvider" />
+      </list>
+    </constructor-arg>
+  </bean>
+  <bean id="baseBuildingprojectValueSetProvider" class="org.yynn.resm.common.CommonValueProviderDBImpl">
+    <constructor-arg>
+      <ref bean="buildingprojectDao" />
+    </constructor-arg>
+    <property name="pkName">
+      <value>id</value>
+    </property>
+    <property name="displayName">
+      <value>name</value>
+    </property>
+  </bean>
+  <bean id="buildingprojectValueSetProvider" class="org.yynn.resm.common.CommonValueProviderCombineImpl">
+    <constructor-arg>
+      <list>
+        <ref local="selectNullProvider" />
+        <bean parent="baseBuildingprojectValueSetProvider">
+          <property name="queryAppend">
+            <value>project.no = _CURRENT_USER_ID_</value>
+          </property>
+        </bean>
+      </list>
+    </constructor-arg>
+  </bean>
+  <bean id="buildingprojectValueSetProvider4query" class="org.yynn.resm.common.CommonValueProviderCombineImpl">
+    <constructor-arg>
+      <list>
+        <ref local="selectNullProvider" />
+        <ref local="baseBuildingprojectValueSetProvider" />
+      </list>
+    </constructor-arg>
+  </bean>
+  <bean id="sellerValueSetProvider" parent="sellerValueSetProvider4query">
+    <property name="queryAppend">
+      <value>project.no = _CURRENT_USER_ID_</value>
+    </property>
+  </bean>
+  <bean id="sellerValueSetProvider4query" class="org.yynn.resm.common.CommonValueProviderDBImpl">
+    <constructor-arg>
+      <ref bean="sellerDao" />
+    </constructor-arg>
+    <property name="pkName">
+      <value>id</value>
+    </property>
+    <property name="displayName">
+      <value>name</value>
+    </property>
+  </bean>
+  <bean id="fitmentlevelValueSetProvider" class="org.yynn.resm.common.CommonValueProviderDBImpl">
+    <constructor-arg>
+      <ref bean="fitmentlevelDao" />
+    </constructor-arg>
+    <property name="pkName">
+      <value>id</value>
+    </property>
+    <property name="displayName">
+      <value>name</value>
+    </property>
+  </bean>
+  <bean id="buildtypeValueSetProvider" class="org.yynn.resm.common.CommonValueProviderDBImpl">
+    <constructor-arg>
+      <ref bean="buildtypeDao" />
+    </constructor-arg>
+    <property name="pkName">
+      <value>id</value>
+    </property>
+    <property name="displayName">
+      <value>name</value>
+    </property>
+  </bean>
+  <bean id="pipenetinfoValueSetProvider" class="org.yynn.resm.common.CommonValueProviderDBImpl">
+    <constructor-arg>
+      <ref bean="pipenetinfoDao" />
+    </constructor-arg>
+    <property name="pkName">
+      <value>id</value>
+    </property>
+    <property name="displayName">
+      <value>name</value>
+    </property>
+  </bean>
+  <bean id="buildstructValueSetProvider" class="org.yynn.resm.common.CommonValueProviderDBImpl">
+    <constructor-arg>
+      <ref bean="buildstructDao" />
+    </constructor-arg>
+    <property name="pkName">
+      <value>id</value>
+    </property>
+    <property name="displayName">
+      <value>name</value>
+    </property>
+  </bean>
+  <bean id="houseformValueSetProvider" class="org.yynn.resm.common.CommonValueProviderDBImpl">
+    <constructor-arg>
+      <ref bean="houseformDao" />
+    </constructor-arg>
+    <property name="pkName">
+      <value>id</value>
+    </property>
+    <property name="displayName">
+      <value>name</value>
+    </property>
+  </bean>
+  <bean id="housetypeinfoValueSetProvider" class="org.yynn.resm.common.CommonValueProviderDBImpl">
+    <constructor-arg>
+      <ref bean="housetypeinfoDao" />
+    </constructor-arg>
+    <property name="pkName">
+      <value>id</value>
+    </property>
+    <property name="displayName">
+      <value>name</value>
+    </property>
+  </bean>
+  <bean id="additionformValueSetProvider" class="org.yynn.resm.common.CommonValueProviderDBImpl">
+    <constructor-arg>
+      <ref bean="additionformDao" />
+    </constructor-arg>
+    <property name="pkName">
+      <value>id</value>
+    </property>
+    <property name="displayName">
+      <value>name</value>
+    </property>
+  </bean>
+  <bean id="houseprojectValueSetProvider4add" class="org.yynn.resm.common.CommonMultiValueProviderDBImpl">
+    <constructor-arg>
+      <ref bean="houseprojectDao" />
+    </constructor-arg>
+    <property name="pkName">
+      <value>id</value>
+    </property>
+    <property name="displayNames">
+      <list>
+        <value>housingproject.name</value>
+        <value>buildingproject.name</value>
+        <value>unit</value>
+        <value>no</value>
+      </list>
+    </property>
+    <property name="queryAppend">
+      <value>project.no = _CURRENT_USER_ID_ and id not in (select houseproject.id from Saleinfo as sale where sale.state = '1')</value>
+    </property>
+  </bean>
+  <bean id="houseprojectValueSetProvider" class="org.yynn.resm.common.CommonMultiValueProviderDBImpl">
+    <constructor-arg>
+      <ref bean="houseprojectDao" />
+    </constructor-arg>
+    <property name="pkName">
+      <value>id</value>
+    </property>
+    <property name="displayNames">
+      <list>
+        <value>housingproject.name</value>
+        <value>buildingproject.name</value>
+        <value>unit</value>
+        <value>no</value>
+      </list>
+    </property>
+    <property name="queryAppend">
+      <value>project.no = _CURRENT_USER_ID_</value>
+    </property>
+  </bean>
+  <bean id="salestateValueSetProvider" class="org.yynn.resm.common.CommonValueProviderConfigImpl">
+    <constructor-arg>
+      <list>
+        <bean parent="baseCommonDataValue">
+          <constructor-arg>
+            <value>0</value>
+          </constructor-arg>
+          <constructor-arg>
+            <value>sale.state.payback</value>
+          </constructor-arg>
+        </bean>
+        <bean parent="baseCommonDataValue">
+          <constructor-arg>
+            <value>1</value>
+          </constructor-arg>
+          <constructor-arg>
+            <value>sale.state.ok</value>
+          </constructor-arg>
+        </bean>
+      </list>
+    </constructor-arg>
+  </bean>
+  <!-- 属性列表 -->
+  <bean id="baseDataProperty" class="org.yynn.resm.common.CommonDataProperty" abstract="true" />
+  <bean id="baseQueryDataProperty" class="org.yynn.resm.common.QueryDataProperty" abstract="true">
+    <property name="queryOperator">
+      <value>=</value>
+    </property>
+  </bean>
+  <bean id="cdataname" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>name</value>
+    </property>
+    <property name="queryOperator">
+      <value>=</value>
+    </property>
+  </bean>
+  <bean id="idProperty" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>id</value>
+    </property>
+    <property name="queryOperator">
+      <value>=</value>
+    </property>
+    <property name="primary">
+      <value>true</value>
+    </property>
+  </bean>
+  <bean id="cdatadescription" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>description</value>
+    </property>
+  </bean>
+  <bean id="projectno" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>no</value>
+    </property>
+    <property name="queryOperator">
+      <value>=</value>
+    </property>
+    <property name="primary">
+      <value>true</value>
+    </property>
+  </bean>
+  <bean id="leaderName" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>leaderName</value>
+    </property>
+  </bean>
+  <bean id="password" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>password</value>
+    </property>
+  </bean>
+  <bean id="adminLevel" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>level</value>
+    </property>
+    <property name="defaultValue">
+      <ref local="value0" />
+    </property>
+  </bean>
+  <bean id="companyLevel" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>level</value>
+    </property>
+    <property name="defaultValue">
+      <ref local="value1" />
+    </property>
+  </bean>
+  <bean id="projectLevel" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>level</value>
+    </property>
+    <property name="defaultValue">
+      <ref local="value2" />
+    </property>
+  </bean>
+  <bean id="sellerNo" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>no</value>
+    </property>
+    <property name="queryOperator">
+      <value>=</value>
+    </property>
+  </bean>
+  <bean id="cprojectno" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>project.no</value>
+    </property>
+    <property name="defaultValue">
+      <ref local="cprojectNoValue" />
+    </property>
+    <property name="queryOperator">
+      <value>=</value>
+    </property>
+  </bean>
+  <bean id="cprojectno4Admin" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="projectnoValueSetProvider" />
+    </constructor-arg>
+    <property name="name">
+      <value>project.no</value>
+    </property>
+    <property name="defaultValue">
+      <ref local="cprojectNoValue" />
+    </property>
+    <property name="queryOperator">
+      <value>=</value>
+    </property>
+  </bean>
+  <bean id="personName" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>name</value>
+    </property>
+    <property name="queryOperator">
+      <value>=</value>
+    </property>
+  </bean>
+  <bean id="sex" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="sexValueSetProvider" />
+    </constructor-arg>
+    <property name="name">
+      <value>sex</value>
+    </property>
+  </bean>
+  <bean id="age" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>age</value>
+    </property>
+  </bean>
+  <bean id="degree" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="degreeValueSetProvider" />
+    </constructor-arg>
+    <property name="name">
+      <value>degree</value>
+    </property>
+  </bean>
+  <bean id="nativePlace" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>nativePlace</value>
+    </property>
+  </bean>
+  <bean id="identityno" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>identityno</value>
+    </property>
+  </bean>
+  <bean id="position" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>position</value>
+    </property>
+  </bean>
+  <bean id="telno" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>telno</value>
+    </property>
+  </bean>
+  <bean id="state" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>state</value>
+    </property>
+  </bean>
+  <bean id="cdate" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.util.Date</value>
+    </constructor-arg>
+    <property name="name">
+      <value>cdate</value>
+    </property>
+    <property name="defaultValue">
+      <ref local="currentDateDataValue" />
+    </property>
+  </bean>
+  <bean id="qbdate" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.util.Date</value>
+    </constructor-arg>
+    <property name="name">
+      <value>qbDate</value>
+    </property>
+    <property name="queryPropertyName">
+      <value>cdate</value>
+    </property>
+    <property name="queryOperator">
+      <value>
+        <![CDATA[>=]]>
+      </value>
+    </property>
+  </bean>
+  <bean id="qedate" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.util.Date</value>
+    </constructor-arg>
+    <property name="name">
+      <value>qeDate</value>
+    </property>
+    <property name="queryPropertyName">
+      <value>cdate</value>
+    </property>
+    <property name="queryOperator">
+      <value>
+        <![CDATA[<=]]>
+      </value>
+    </property>
+  </bean>
+  <bean id="address" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>address</value>
+    </property>
+  </bean>
+  <bean id="contact" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>contact</value>
+    </property>
+  </bean>
+  <bean id="company" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>company</value>
+    </property>
+  </bean>
+  <bean id="cinforchannelid" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="inforchannelValueSetProvider" />
+    </constructor-arg>
+    <property name="name">
+      <value>inforchannel.id</value>
+    </property>
+  </bean>
+  <bean id="cproblemid" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="problemValueSetProvider" />
+    </constructor-arg>
+    <property name="name">
+      <value>problem.id</value>
+    </property>
+  </bean>
+  <bean id="chousetypeid" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="housetypeValueSetProvider" />
+    </constructor-arg>
+    <property name="name">
+      <value>housetype.id</value>
+    </property>
+  </bean>
+  <bean id="chousetypeid4query" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="housetypeValueSetProvider4query" />
+    </constructor-arg>
+    <property name="name">
+      <value>housetype.id</value>
+    </property>
+  </bean>
+  <bean id="cpurposeid" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="purposeValueSetProvider" />
+    </constructor-arg>
+    <property name="name">
+      <value>purpose.id</value>
+    </property>
+  </bean>
+  <bean id="cbaseHousetypeid" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="baseHousetypeValueSetProvider" />
+    </constructor-arg>
+    <property name="name">
+      <value>basehousetype.id</value>
+    </property>
+  </bean>
+  <bean id="cbaseHousetypeid4Add" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="baseHousetypeValueSetProvider4Add" />
+    </constructor-arg>
+    <property name="name">
+      <value>basehousetype.id</value>
+    </property>
+  </bean>
+  <bean id="cbaseHousetypeid4Query" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="baseHousetypeValueSetProvider4Query" />
+    </constructor-arg>
+    <property name="name">
+      <value>basehousetype.id</value>
+    </property>
+    <property name="queryOperator">
+      <value>=</value>
+    </property>
+  </bean>
+  <bean id="minArea" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>min</value>
+    </property>
+  </bean>
+  <bean id="maxArea" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>max</value>
+    </property>
+  </bean>
+  <!-- 佣金结算 -->
+  <bean id="salesum" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>salesum</value>
+    </property>
+  </bean>
+  <bean id="pcommision" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>pcommision</value>
+    </property>
+  </bean>
+  <bean id="blancedate" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.util.Date</value>
+    </constructor-arg>
+    <property name="name">
+      <value>blancedate</value>
+    </property>
+    <property name="queryOperator">
+      <value>=</value>
+    </property>
+  </bean>
+  <bean id="blancecommision" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>blancecommision</value>
+    </property>
+  </bean>
+  <bean id="lackcommision" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>lackcommision</value>
+    </property>
+  </bean>
+  <bean id="remark" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>remark</value>
+    </property>
+  </bean>
+  <bean id="recorddate" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.util.Date</value>
+    </constructor-arg>
+    <property name="name">
+      <value>recorddate</value>
+    </property>
+    <property name="defaultValue">
+      <ref local="currentDateDataValue" />
+    </property>
+  </bean>
+  <!-- 楼盘管理 -->
+  <bean id="gharea" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>gharea</value>
+    </property>
+  </bean>
+  <bean id="jzarea" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>jzarea</value>
+    </property>
+  </bean>
+  <bean id="jzjdarea" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>jzjdarea</value>
+    </property>
+  </bean>
+  <bean id="dlgcarea" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>dlgcarea</value>
+    </property>
+  </bean>
+  <bean id="lharea" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>lharea</value>
+    </property>
+  </bean>
+  <bean id="jzmd" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>jzmd</value>
+    </property>
+  </bean>
+  <bean id="lhl" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>lhl</value>
+    </property>
+  </bean>
+  <bean id="rjl" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>rjl</value>
+    </property>
+  </bean>
+  <bean id="buildingcount" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>buildingcount</value>
+    </property>
+  </bean>
+  <bean id="housecount" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>housecount</value>
+    </property>
+  </bean>
+  <bean id="carplace" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>carplace</value>
+    </property>
+  </bean>
+  <bean id="storeroom" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>storeroom</value>
+    </property>
+  </bean>
+  <bean id="devdate" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.util.Date</value>
+    </constructor-arg>
+    <property name="name">
+      <value>devdate</value>
+    </property>
+  </bean>
+  <bean id="image" parent="baseDataProperty">
+    <constructor-arg>
+      <value>byte[]</value>
+    </constructor-arg>
+    <property name="name">
+      <value>image</value>
+    </property>
+  </bean>
+  <!-- 房型资料 -->
+  <bean id="inarea" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Float</value>
+    </constructor-arg>
+    <property name="name">
+      <value>inarea</value>
+    </property>
+  </bean>
+  <bean id="balcony" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Float</value>
+    </constructor-arg>
+    <property name="name">
+      <value>balcony</value>
+    </property>
+  </bean>
+  <bean id="apportion" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Float</value>
+    </constructor-arg>
+    <property name="name">
+      <value>apportion</value>
+    </property>
+  </bean>
+  <bean id="sellarea" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Float</value>
+    </constructor-arg>
+    <property name="name">
+      <value>sellarea</value>
+    </property>
+  </bean>
+  <bean id="height" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Float</value>
+    </constructor-arg>
+    <property name="name">
+      <value>height</value>
+    </property>
+  </bean>
+  <!-- 楼房管理 -->
+  <bean id="fitmentlevel" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>fitmentlevel.id</value>
+    </property>
+    <constructor-arg>
+      <ref local="fitmentlevelValueSetProvider" />
+    </constructor-arg>
+  </bean>
+  <bean id="buildtype" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>buildtype.id</value>
+    </property>
+    <constructor-arg>
+      <ref local="buildtypeValueSetProvider" />
+    </constructor-arg>
+  </bean>
+  <bean id="pipenetinfo" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>pipenetinfo.id</value>
+    </property>
+    <constructor-arg>
+      <ref local="pipenetinfoValueSetProvider" />
+    </constructor-arg>
+  </bean>
+  <bean id="housingproject" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>housingproject.id</value>
+    </property>
+    <constructor-arg>
+      <ref local="housingprojectValueSetProvider" />
+    </constructor-arg>
+  </bean>
+  <bean id="housingproject4query" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>housingproject.id</value>
+    </property>
+    <constructor-arg>
+      <ref local="housingprojectValueSetProvider4query" />
+    </constructor-arg>
+  </bean>
+  <bean id="buildstruct" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>buildstruct.id</value>
+    </property>
+    <constructor-arg>
+      <ref local="buildstructValueSetProvider" />
+    </constructor-arg>
+  </bean>
+  <bean id="builddate" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.util.Date</value>
+    </constructor-arg>
+    <property name="name">
+      <value>builddate</value>
+    </property>
+  </bean>
+  <!-- 房屋管理 -->
+  <bean id="houseform" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>houseform.id</value>
+    </property>
+    <constructor-arg>
+      <ref local="houseformValueSetProvider" />
+    </constructor-arg>
+  </bean>
+  <bean id="additionform" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>additionform.id</value>
+    </property>
+    <constructor-arg>
+      <ref local="additionformValueSetProvider" />
+    </constructor-arg>
+  </bean>
+  <bean id="housetypeinfo" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>housetypeinfo.id</value>
+    </property>
+    <constructor-arg>
+      <ref local="housetypeinfoValueSetProvider" />
+    </constructor-arg>
+  </bean>
+  <bean id="floor" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>floor</value>
+    </property>
+  </bean>
+  <bean id="unit" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>unit</value>
+    </property>
+  </bean>
+  <bean id="buildingproject" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>buildingproject.id</value>
+    </property>
+    <constructor-arg>
+      <ref local="buildingprojectValueSetProvider" />
+    </constructor-arg>
+  </bean>
+  <bean id="buildingproject4query" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>buildingproject.id</value>
+    </property>
+    <constructor-arg>
+      <ref local="buildingprojectValueSetProvider4query" />
+    </constructor-arg>
+  </bean>
+  <bean id="houseno" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>no</value>
+    </property>
+  </bean>
+  <bean id="direction" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>direction</value>
+    </property>
+  </bean>
+  <bean id="additionprice" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Float</value>
+    </constructor-arg>
+    <property name="name">
+      <value>additionprice</value>
+    </property>
+  </bean>
+  <bean id="unitprice" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Float</value>
+    </constructor-arg>
+    <property name="name">
+      <value>unitprice</value>
+    </property>
+  </bean>
+  <bean id="totalprice" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Float</value>
+    </constructor-arg>
+    <property name="name">
+      <value>totalprice</value>
+    </property>
+  </bean>
+  <!-- 来访用户记录维护 -->
+  <bean id="customerid" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>customer.id</value>
+    </property>
+  </bean>
+  <bean id="sellerid" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="sellerValueSetProvider" />
+    </constructor-arg>
+    <property name="name">
+      <value>seller.id</value>
+    </property>
+  </bean>
+  <bean id="sellerid4query" parent="baseQueryDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="sellerValueSetProvider4query" />
+    </constructor-arg>
+    <property name="name">
+      <value>seller.id</value>
+    </property>
+  </bean>
+  <bean id="saleinfoid" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <property name="name">
+      <value>saleinfo.id</value>
+    </property>
+  </bean>
+  <bean id="dealflag" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>dealornot</value>
+    </property>
+    <property name="defaultValue">
+      <ref local="value1" />
+    </property>
+  </bean>
+  <bean id="notdealflag" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>dealornot</value>
+    </property>
+    <property name="defaultValue">
+      <ref local="value0" />
+    </property>
+  </bean>
+  <bean id="otherreason" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>otherreason</value>
+    </property>
+  </bean>
+  <bean id="advice" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>advice</value>
+    </property>
+  </bean>
+  <bean id="salestate" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="salestateValueSetProvider" />
+    </constructor-arg>
+    <property name="name">
+      <value>saleinfo.state</value>
+    </property>
+  </bean>
+  <bean id="salestate0" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>saleinfo.state</value>
+    </property>
+    <property name="defaultValue">
+      <ref local="value0" />
+    </property>
+  </bean>
+  <bean id="salestate1" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>saleinfo.state</value>
+    </property>
+    <property name="defaultValue">
+      <ref local="value1" />
+    </property>
+  </bean>
+  <bean id="earnesttype" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="earnesttypeValueSetProvider" />
+    </constructor-arg>
+    <property name="name">
+      <value>saleinfo.earnesttype</value>
+    </property>
+  </bean>
+  <bean id="salehouseprojectid" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="houseprojectValueSetProvider" />
+    </constructor-arg>
+    <property name="name">
+      <value>saleinfo.houseproject.id</value>
+    </property>
+  </bean>
+  <bean id="salehouseprojectid4add" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="houseprojectValueSetProvider" />
+    </constructor-arg>
+    <property name="name">
+      <value>saleinfo.houseproject.id</value>
+    </property>
+  </bean>
+  <bean id="customerprojectno" parent="cprojectno">
+    <property name="name">
+      <value>customer.project.no</value>
+    </property>
+  </bean>
+  <bean id="customerprojectno4Admin" parent="cprojectno4Admin">
+    <property name="name">
+      <value>customer.project.no</value>
+    </property>
+  </bean>
+  <bean id="customeraddress" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>customer.address</value>
+    </property>
+  </bean>
+  <bean id="customercontact" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>customer.contact</value>
+    </property>
+  </bean>
+  <bean id="customercompany" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>customer.company</value>
+    </property>
+  </bean>
+  <bean id="customername" parent="cdataname">
+    <property name="name">
+      <value>customer.name</value>
+    </property>
+  </bean>
+  <bean id="saleinfoearnest" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Float</value>
+    </constructor-arg>
+    <property name="name">
+      <value>saleinfo.earnest</value>
+    </property>
+  </bean>
+  <bean id="saleinfopayfirst" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Float</value>
+    </constructor-arg>
+    <property name="name">
+      <value>saleinfo.payfirst</value>
+    </property>
+  </bean>
+  <bean id="saleinfopaypermonth" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Float</value>
+    </constructor-arg>
+    <property name="name">
+      <value>saleinfo.paypermonth</value>
+    </property>
+  </bean>
+  <bean id="saleinfopayback" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Float</value>
+    </constructor-arg>
+    <property name="name">
+      <value>saleinfo.payback</value>
+    </property>
+  </bean>
+  <bean id="salehouseprojectinarea" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Float</value>
+    </constructor-arg>
+    <property name="name">
+      <value>saleinfo.houseproject.inarea</value>
+    </property>
+  </bean>
+  <bean id="salehouseprojectbalcony" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Float</value>
+    </constructor-arg>
+    <property name="name">
+      <value>saleinfo.houseproject.balcony</value>
+    </property>
+  </bean>
+  <bean id="salehouseprojectapportion" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Float</value>
+    </constructor-arg>
+    <property name="name">
+      <value>saleinfo.houseproject.apportion</value>
+    </property>
+  </bean>
+  <bean id="salehouseprojectsellarea" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Float</value>
+    </constructor-arg>
+    <property name="name">
+      <value>saleinfo.houseproject.sellarea</value>
+    </property>
+  </bean>
+  <bean id="salehouseprojectunitprice" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Float</value>
+    </constructor-arg>
+    <property name="name">
+      <value>saleinfo.houseproject.unitprice</value>
+    </property>
+  </bean>
+  <bean id="salehouseprojecttotalprice" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.Float</value>
+    </constructor-arg>
+    <property name="name">
+      <value>saleinfo.houseproject.totalprice</value>
+    </property>
+  </bean>
+  <bean id="salecontractno" parent="baseDataProperty">
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+    <property name="name">
+      <value>saleinfo.contractno</value>
+    </property>
+  </bean>
+  <!-- 页面展示属性列表 -->
+  <!-- 来访用户 -->
+  <bean id="ui_salecontractno" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="salecontractno" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.contractno</value>
+    </property>
+    <property name="size">
+      <value>40</value>
+    </property>
+    <property name="maxLength">
+      <value>40</value>
+    </property>
+  </bean>
+  <bean id="ui_salehouseprojecttotalprice" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="salehouseprojecttotalprice" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.yuan</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.totalprice</value>
+    </property>
+    <property name="disable">
+      <value>true</value>
+    </property>
+  </bean>
+  <bean id="ui_salehouseprojectunitprice" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="salehouseprojectunitprice" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.yuan</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.unitprice</value>
+    </property>
+    <property name="disable">
+      <value>true</value>
+    </property>
+  </bean>
+  <bean id="ui_salehouseprojectsellarea" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="salehouseprojectsellarea" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.m2</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.sellarea</value>
+    </property>
+    <property name="disable">
+      <value>true</value>
+    </property>
+  </bean>
+  <bean id="ui_salehouseprojectapportion" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="salehouseprojectapportion" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.m2</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.apportion</value>
+    </property>
+    <property name="disable">
+      <value>true</value>
+    </property>
+  </bean>
+  <bean id="ui_salehouseprojectbalcony" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="salehouseprojectbalcony" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.m2</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.balcony</value>
+    </property>
+    <property name="disable">
+      <value>true</value>
+    </property>
+  </bean>
+  <bean id="ui_salehouseprojectinarea" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="salehouseprojectinarea" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.m2</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.inarea</value>
+    </property>
+    <property name="disable">
+      <value>true</value>
+    </property>
+  </bean>
+  <bean id="ui_saleinfopayback" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="saleinfopayback" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.yuan</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.payback</value>
+    </property>
+    <property name="size">
+      <value>10</value>
+    </property>
+    <property name="maxLength">
+      <value>10</value>
+    </property>
+  </bean>
+  <bean id="ui_saleinfopaypermonth" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="saleinfopaypermonth" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.yuan</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.paypermonth</value>
+    </property>
+    <property name="size">
+      <value>10</value>
+    </property>
+    <property name="maxLength">
+      <value>10</value>
+    </property>
+  </bean>
+  <bean id="ui_saleinfopayfirst" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="saleinfopayfirst" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.yuan</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.payfirst</value>
+    </property>
+    <property name="size">
+      <value>10</value>
+    </property>
+    <property name="maxLength">
+      <value>10</value>
+    </property>
+  </bean>
+  <bean id="ui_saleinfoearnest" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="saleinfoearnest" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.yuan</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.earnest</value>
+    </property>
+    <property name="size">
+      <value>10</value>
+    </property>
+    <property name="maxLength">
+      <value>10</value>
+    </property>
+  </bean>
+  <bean id="ui_customername" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="customername" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.personName</value>
+    </property>
+    <property name="size">
+      <value>30</value>
+    </property>
+    <property name="maxLength">
+      <value>20</value>
+    </property>
+  </bean>
+  <bean id="ui_customercompany" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="customercompany" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.company</value>
+    </property>
+    <property name="size">
+      <value>40</value>
+    </property>
+    <property name="maxLength">
+      <value>40</value>
+    </property>
+  </bean>
+  <bean id="ui_customercontact" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="customercontact" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.contact</value>
+    </property>
+    <property name="size">
+      <value>40</value>
+    </property>
+    <property name="maxLength">
+      <value>40</value>
+    </property>
+  </bean>
+  <bean id="ui_customeraddress" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="customeraddress" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.address</value>
+    </property>
+    <property name="size">
+      <value>40</value>
+    </property>
+    <property name="maxLength">
+      <value>40</value>
+    </property>
+  </bean>
+  <bean id="ui_customerprojectno" class="org.yynn.resm.common.UiElementProperty4Admin">
+    <constructor-arg>
+      <ref local="customerprojectno" />
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="customerprojectno4Admin" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_HIDDEN" />
+    </property>
+    <property name="displayType4Admin">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.projectno</value>
+    </property>
+  </bean>
+  <bean id="ui_customerprojectno_disable" class="org.yynn.resm.common.UiElementProperty4Admin">
+    <constructor-arg>
+      <ref local="customerprojectno" />
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="customerprojectno4Admin" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_HIDDEN" />
+    </property>
+    <property name="displayType4Admin">
+      <ref local="DISPLAYTYPE_HIDDEN" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.projectno</value>
+    </property>
+    <property name="disable">
+      <value>true</value>
+    </property>
+  </bean>
+  <bean id="ui_salehouseprojectid4add" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="salehouseprojectid" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.houseprojectlocation</value>
+    </property>
+  </bean>
+  <bean id="ui_salehouseprojectid" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="salehouseprojectid" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.houseprojectlocation</value>
+    </property>
+  </bean>
+  <bean id="ui_salehouseprojectid_disable" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="salehouseprojectid" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.houseprojectlocation</value>
+    </property>
+    <property name="disable">
+      <value>true</value>
+    </property>
+  </bean>
+  <bean id="ui_earnesttype" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="earnesttype" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.earnesttype</value>
+    </property>
+  </bean>
+  <bean id="ui_salestate" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="salestate" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.state</value>
+    </property>
+    <property name="disable">
+      <value>true</value>
+    </property>
+  </bean>
+  <bean id="ui_salestate1" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="salestate1" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_HIDDEN" />
+    </property>
+  </bean>
+  <bean id="ui_salestate0" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="salestate0" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_HIDDEN" />
+    </property>
+  </bean>
+  <bean id="ui_advice" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="advice" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_MULTI_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.advice</value>
+    </property>
+    <property name="size">
+      <value>60</value>
+    </property>
+    <property name="maxLength">
+      <value>200</value>
+    </property>
+  </bean>
+  <bean id="ui_otherreason" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="otherreason" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_MULTI_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.otherreason</value>
+    </property>
+    <property name="size">
+      <value>60</value>
+    </property>
+    <property name="maxLength">
+      <value>200</value>
+    </property>
+  </bean>
+  <bean id="ui_notdealflag" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="notdealflag" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_HIDDEN" />
+    </property>
+  </bean>
+  <bean id="ui_dealflag" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="dealflag" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_HIDDEN" />
+    </property>
+  </bean>
+  <bean id="ui_saleinfoid" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="saleinfoid" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_HIDDEN" />
+    </property>
+  </bean>
+  <bean id="ui_sellerid" class="org.yynn.resm.common.UiElementProperty4Admin">
+    <constructor-arg>
+      <ref local="sellerid" />
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="sellerid4query" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.sellerid</value>
+    </property>
+  </bean>
+  <bean id="ui_customerid" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="customerid" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_HIDDEN" />
+    </property>
+    <property name="disable">
+      <value>true</value>
+    </property>
+  </bean>
+  <!-- 房屋管理 -->
+  <bean id="ui_totalprice" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="totalprice" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.yuan</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.totalprice</value>
+    </property>
+    <property name="size">
+      <value>10</value>
+    </property>
+    <property name="maxLength">
+      <value>10</value>
+    </property>
+  </bean>
+  <bean id="ui_unitprice" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="unitprice" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.yuan</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.unitprice</value>
+    </property>
+    <property name="size">
+      <value>10</value>
+    </property>
+    <property name="maxLength">
+      <value>10</value>
+    </property>
+  </bean>
+  <bean id="ui_additionprice" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="additionprice" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.yuan</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.additionprice</value>
+    </property>
+    <property name="size">
+      <value>10</value>
+    </property>
+    <property name="maxLength">
+      <value>10</value>
+    </property>
+  </bean>
+  <bean id="ui_direction" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="direction" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.direction</value>
+    </property>
+    <property name="size">
+      <value>5</value>
+    </property>
+    <property name="maxLength">
+      <value>4</value>
+    </property>
+  </bean>
+  <bean id="ui_houseno" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="houseno" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.houseno</value>
+    </property>
+    <property name="size">
+      <value>20</value>
+    </property>
+    <property name="maxLength">
+      <value>20</value>
+    </property>
+  </bean>
+  <bean id="ui_buildingproject" class="org.yynn.resm.common.UiElementProperty4Admin">
+    <constructor-arg>
+      <ref local="buildingproject" />
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="buildingproject4query" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.buildingproject</value>
+    </property>
+  </bean>
+  <bean id="ui_unit" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="unit" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.unit</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.unit</value>
+    </property>
+    <property name="size">
+      <value>3</value>
+    </property>
+    <property name="maxLength">
+      <value>3</value>
+    </property>
+  </bean>
+  <bean id="ui_floor" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="floor" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.floor</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.floor</value>
+    </property>
+    <property name="size">
+      <value>3</value>
+    </property>
+    <property name="maxLength">
+      <value>3</value>
+    </property>
+  </bean>
+  <bean id="ui_houseform" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="houseform" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.houseform</value>
+    </property>
+  </bean>
+  <bean id="ui_additionform" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="additionform" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.additionform</value>
+    </property>
+  </bean>
+  <bean id="ui_housetypeinfo" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="housetypeinfo" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.housetypeinfo</value>
+    </property>
+  </bean>
+  <!-- 楼房管理 -->
+  <bean id="ui_builddate" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="builddate" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_DATE" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.builddate</value>
+    </property>
+  </bean>
+  <bean id="ui_buildstruct" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="buildstruct" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.buildstruct</value>
+    </property>
+  </bean>
+  <bean id="ui_housingproject" class="org.yynn.resm.common.UiElementProperty4Admin">
+    <constructor-arg>
+      <ref local="housingproject" />
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="housingproject4query" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.housingproject</value>
+    </property>
+  </bean>
+  <bean id="ui_pipenetinfo" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="pipenetinfo" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.pipenetinfo</value>
+    </property>
+  </bean>
+  <bean id="ui_buildtype" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="buildtype" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.buildtype</value>
+    </property>
+  </bean>
+  <bean id="ui_fitmentlevel" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="fitmentlevel" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.fitmentlevel</value>
+    </property>
+  </bean>
+  <!-- 房型资料 -->
+  <bean id="ui_height" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="height" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.m1</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.height</value>
+    </property>
+    <property name="size">
+      <value>2</value>
+    </property>
+    <property name="maxLength">
+      <value>2</value>
+    </property>
+  </bean>
+  <bean id="ui_sellarea" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="sellarea" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.m2</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.sellarea</value>
+    </property>
+    <property name="size">
+      <value>5</value>
+    </property>
+    <property name="maxLength">
+      <value>5</value>
+    </property>
+  </bean>
+  <bean id="ui_apportion" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="apportion" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.m2</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.apportion</value>
+    </property>
+    <property name="size">
+      <value>5</value>
+    </property>
+    <property name="maxLength">
+      <value>5</value>
+    </property>
+  </bean>
+  <bean id="ui_balcony" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="balcony" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.m2</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.balcony</value>
+    </property>
+    <property name="size">
+      <value>5</value>
+    </property>
+    <property name="maxLength">
+      <value>5</value>
+    </property>
+  </bean>
+  <bean id="ui_inarea" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="inarea" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.m2</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.inarea</value>
+    </property>
+    <property name="size">
+      <value>5</value>
+    </property>
+    <property name="maxLength">
+      <value>5</value>
+    </property>
+  </bean>
+  <!-- 楼盘管理 -->
+  <bean id="ui_image" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="image" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_IMAGE" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.image</value>
+    </property>
+  </bean>
+  <bean id="ui_devdate" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="devdate" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_DATE" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.devdate</value>
+    </property>
+  </bean>
+  <bean id="ui_storeroom" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="storeroom" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.storeroom</value>
+    </property>
+    <property name="size">
+      <value>6</value>
+    </property>
+    <property name="maxLength">
+      <value>6</value>
+    </property>
+  </bean>
+  <bean id="ui_carplace" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="carplace" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.carplace</value>
+    </property>
+    <property name="size">
+      <value>6</value>
+    </property>
+    <property name="maxLength">
+      <value>6</value>
+    </property>
+  </bean>
+  <bean id="ui_housecount" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="housecount" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.housecount</value>
+    </property>
+    <property name="size">
+      <value>6</value>
+    </property>
+    <property name="maxLength">
+      <value>6</value>
+    </property>
+  </bean>
+  <bean id="ui_buildingcount" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="buildingcount" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.buildingcount</value>
+    </property>
+    <property name="size">
+      <value>6</value>
+    </property>
+    <property name="maxLength">
+      <value>6</value>
+    </property>
+  </bean>
+  <bean id="ui_rjl" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="rjl" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.percent</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.rjl</value>
+    </property>
+    <property name="size">
+      <value>3</value>
+    </property>
+    <property name="maxLength">
+      <value>3</value>
+    </property>
+  </bean>
+  <bean id="ui_lhl" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="lhl" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.percent</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.lhl</value>
+    </property>
+    <property name="size">
+      <value>3</value>
+    </property>
+    <property name="maxLength">
+      <value>3</value>
+    </property>
+  </bean>
+  <bean id="ui_jzmd" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="jzmd" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.percent</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.jzmd</value>
+    </property>
+    <property name="size">
+      <value>3</value>
+    </property>
+    <property name="maxLength">
+      <value>3</value>
+    </property>
+  </bean>
+  <bean id="ui_lharea" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="lharea" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.m2</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.lharea</value>
+    </property>
+    <property name="size">
+      <value>10</value>
+    </property>
+    <property name="maxLength">
+      <value>10</value>
+    </property>
+  </bean>
+  <bean id="ui_dlgcarea" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="dlgcarea" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.m2</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.dlgcarea</value>
+    </property>
+    <property name="size">
+      <value>10</value>
+    </property>
+    <property name="maxLength">
+      <value>10</value>
+    </property>
+  </bean>
+  <bean id="ui_jzjdarea" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="jzjdarea" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.m2</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.jzjdarea</value>
+    </property>
+    <property name="size">
+      <value>10</value>
+    </property>
+    <property name="maxLength">
+      <value>10</value>
+    </property>
+  </bean>
+  <bean id="ui_jzarea" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="jzarea" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.m2</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.jzarea</value>
+    </property>
+    <property name="size">
+      <value>10</value>
+    </property>
+    <property name="maxLength">
+      <value>10</value>
+    </property>
+  </bean>
+  <bean id="ui_gharea" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="gharea" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.m2</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.gharea</value>
+    </property>
+    <property name="size">
+      <value>10</value>
+    </property>
+    <property name="maxLength">
+      <value>10</value>
+    </property>
+  </bean>
+  <!-- 佣金结算 -->
+  <bean id="ui_recorddate" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="recorddate" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_HIDDEN" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.recorddate</value>
+    </property>
+  </bean>
+  <bean id="ui_recorddate_disable" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="recorddate" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="disable">
+      <value>true</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.recorddate</value>
+    </property>
+  </bean>
+  <bean id="ui_remark" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="remark" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.remark</value>
+    </property>
+    <property name="size">
+      <value>40</value>
+    </property>
+    <property name="maxLength">
+      <value>40</value>
+    </property>
+  </bean>
+  <bean id="ui_lackcommision" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="lackcommision" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.yuan</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.lackcommision</value>
+    </property>
+    <property name="size">
+      <value>10</value>
+    </property>
+    <property name="maxLength">
+      <value>10</value>
+    </property>
+  </bean>
+  <bean id="ui_blancecommision" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="blancecommision" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.yuan</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.blancecommision</value>
+    </property>
+    <property name="size">
+      <value>10</value>
+    </property>
+    <property name="maxLength">
+      <value>10</value>
+    </property>
+  </bean>
+  <bean id="ui_blancedate" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="blancedate" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_DATE" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.blancedate</value>
+    </property>
+  </bean>
+  <bean id="ui_pcommision" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="pcommision" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.yuan</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.pcommision</value>
+    </property>
+    <property name="size">
+      <value>10</value>
+    </property>
+    <property name="maxLength">
+      <value>10</value>
+    </property>
+  </bean>
+  <bean id="ui_salesum" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="salesum" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.yuan</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.salesum</value>
+    </property>
+    <property name="size">
+      <value>10</value>
+    </property>
+    <property name="maxLength">
+      <value>10</value>
+    </property>
+  </bean>
+  <!-- 来电客户记录 -->
+  <bean id="ui_minArea" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="minArea" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.m2</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.minArea</value>
+    </property>
+    <property name="size">
+      <value>10</value>
+    </property>
+    <property name="maxLength">
+      <value>4</value>
+    </property>
+  </bean>
+  <bean id="ui_maxArea" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="maxArea" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_WITH_SUFFIX" />
+    </property>
+    <property name="valueSuffix">
+      <value>common.suffix.m2</value>
+    </property>
+    <property name="displayNameCode">
+      <value>form.maxArea</value>
+    </property>
+    <property name="size">
+      <value>10</value>
+    </property>
+    <property name="maxLength">
+      <value>4</value>
+    </property>
+  </bean>
+  <bean id="ui_cbaseHousetypeid" class="org.yynn.resm.common.UiElementProperty4Admin">
+    <constructor-arg>
+      <ref local="cbaseHousetypeid" />
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="cbaseHousetypeid4Query" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.baseHousetype</value>
+    </property>
+  </bean>
+  <bean id="ui_cbaseHousetypeid_disable" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="cbaseHousetypeid" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.baseHousetype</value>
+    </property>
+    <property name="disable">
+      <value>true</value>
+    </property>
+  </bean>
+  <bean id="ui_cbaseHousetypeid4Add" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="cbaseHousetypeid4Add" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.baseHousetype</value>
+    </property>
+  </bean>
+  <bean id="ui_cpurposeid" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="cpurposeid" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.purpose</value>
+    </property>
+  </bean>
+  <bean id="ui_chousetypeid" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="chousetypeid" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.housetype</value>
+    </property>
+  </bean>
+  <bean id="ui_cproblemid" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="cproblemid" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.problem</value>
+    </property>
+  </bean>
+  <bean id="ui_cinforchannelid" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="cinforchannelid" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.inforchannel</value>
+    </property>
+  </bean>
+  <bean id="ui_company" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="company" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.company</value>
+    </property>
+    <property name="size">
+      <value>40</value>
+    </property>
+    <property name="maxLength">
+      <value>40</value>
+    </property>
+  </bean>
+  <bean id="ui_contact" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="contact" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.contact</value>
+    </property>
+    <property name="size">
+      <value>40</value>
+    </property>
+    <property name="maxLength">
+      <value>40</value>
+    </property>
+  </bean>
+  <bean id="ui_address" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="address" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.address</value>
+    </property>
+    <property name="size">
+      <value>40</value>
+    </property>
+    <property name="maxLength">
+      <value>40</value>
+    </property>
+  </bean>
+  <bean id="ui_qedate" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="qedate" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_DATE" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.qedate</value>
+    </property>
+  </bean>
+  <bean id="ui_qbdate" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="qbdate" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_DATE" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.qbdate</value>
+    </property>
+  </bean>
+  <bean id="ui_cdate" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="cdate" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_DATE" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.calldate</value>
+    </property>
+  </bean>
+  <!-- 项目管理 -->
+  <bean id="ui_userid" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="projectno" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.username</value>
+    </property>
+    <property name="size">
+      <value>30</value>
+    </property>
+    <property name="maxLength">
+      <value>8</value>
+    </property>
+  </bean>
+  <bean id="ui_userid_disable" parent="ui_userid">
+    <property name="disable">
+      <value>true</value>
+    </property>
+  </bean>
+  <bean id="ui_projectno" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="projectno" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.projectno</value>
+    </property>
+    <property name="size">
+      <value>30</value>
+    </property>
+    <property name="maxLength">
+      <value>8</value>
+    </property>
+  </bean>
+  <bean id="ui_projectno_disable" parent="ui_projectno">
+    <property name="disable">
+      <value>true</value>
+    </property>
+  </bean>
+  <bean id="ui_cleaderName" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="leaderName" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.personName</value>
+    </property>
+    <property name="size">
+      <value>30</value>
+    </property>
+    <property name="maxLength">
+      <value>20</value>
+    </property>
+  </bean>
+  <bean id="ui_leaderName" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="leaderName" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.leadername</value>
+    </property>
+    <property name="size">
+      <value>30</value>
+    </property>
+    <property name="maxLength">
+      <value>20</value>
+    </property>
+  </bean>
+  <bean id="ui_password" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="password" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_PASSWORD" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.password</value>
+    </property>
+    <property name="size">
+      <value>30</value>
+    </property>
+    <property name="maxLength">
+      <value>30</value>
+    </property>
+  </bean>
+  <bean id="ui_alevel" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="adminLevel" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_HIDDEN" />
+    </property>
+  </bean>
+  <bean id="ui_clevel" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="companyLevel" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_HIDDEN" />
+    </property>
+  </bean>
+  <bean id="ui_plevel" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="projectLevel" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_HIDDEN" />
+    </property>
+  </bean>
+  <!-- 公司级基本数据管理 -->
+  <bean id="ui_cdataname" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="cdataname" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>company.basedata.name</value>
+    </property>
+    <property name="size">
+      <value>30</value>
+    </property>
+    <property name="maxLength">
+      <value>20</value>
+    </property>
+  </bean>
+  <bean id="ui_cdataid_disable" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="idProperty" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_HIDDEN" />
+    </property>
+    <property name="displayNameCode">
+      <value>company.basedata.id</value>
+    </property>
+    <property name="disable">
+      <value>true</value>
+    </property>
+  </bean>
+  <bean id="ui_cdataid" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="idProperty" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_HIDDEN" />
+    </property>
+    <property name="displayNameCode">
+      <value>company.basedata.id</value>
+    </property>
+  </bean>
+  <bean id="ui_cdatadescription" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="cdatadescription" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>company.basedata.description</value>
+    </property>
+    <property name="size">
+      <value>50</value>
+    </property>
+    <property name="maxLength">
+      <value>100</value>
+    </property>
+  </bean>
+  <!-- 项目数据维护 -->
+  <bean id="ui_sellerNo" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="sellerNo" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.seller.no</value>
+    </property>
+    <property name="size">
+      <value>20</value>
+    </property>
+    <property name="maxLength">
+      <value>10</value>
+    </property>
+  </bean>
+  <bean id="ui_cprojectno" class="org.yynn.resm.common.UiElementProperty4Admin">
+    <constructor-arg>
+      <ref local="cprojectno" />
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="cprojectno4Admin" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_HIDDEN" />
+    </property>
+    <property name="displayType4Admin">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.projectno</value>
+    </property>
+  </bean>
+  <bean id="ui_cprojectno_disable" class="org.yynn.resm.common.UiElementProperty4Admin">
+    <constructor-arg>
+      <ref local="cprojectno" />
+    </constructor-arg>
+    <constructor-arg>
+      <ref local="cprojectno4Admin" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_HIDDEN" />
+    </property>
+    <property name="displayType4Admin">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.projectno</value>
+    </property>
+    <property name="disable">
+      <value>true</value>
+    </property>
+  </bean>
+  <bean id="ui_personName" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="personName" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.personName</value>
+    </property>
+    <property name="size">
+      <value>20</value>
+    </property>
+    <property name="maxLength">
+      <value>10</value>
+    </property>
+  </bean>
+  <bean id="ui_sex" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="sex" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.sex</value>
+    </property>
+  </bean>
+  <bean id="ui_age" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="age" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.age</value>
+    </property>
+    <property name="size">
+      <value>5</value>
+    </property>
+    <property name="maxLength">
+      <value>3</value>
+    </property>
+  </bean>
+  <bean id="ui_degree" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="degree" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_SELECT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.degree</value>
+    </property>
+  </bean>
+  <bean id="ui_nativePlace" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="nativePlace" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.nativePlace</value>
+    </property>
+    <property name="size">
+      <value>40</value>
+    </property>
+    <property name="maxLength">
+      <value>50</value>
+    </property>
+  </bean>
+  <bean id="ui_identityno" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="identityno" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.identityno</value>
+    </property>
+    <property name="size">
+      <value>20</value>
+    </property>
+    <property name="maxLength">
+      <value>18</value>
+    </property>
+  </bean>
+  <bean id="ui_position" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="position" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.position</value>
+    </property>
+    <property name="size">
+      <value>10</value>
+    </property>
+    <property name="maxLength">
+      <value>20</value>
+    </property>
+  </bean>
+  <bean id="ui_telno" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="telno" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.telno</value>
+    </property>
+    <property name="size">
+      <value>20</value>
+    </property>
+    <property name="maxLength">
+      <value>18</value>
+    </property>
+  </bean>
+  <bean id="ui_state" class="org.yynn.resm.common.UiElementProperty">
+    <constructor-arg>
+      <ref local="state" />
+    </constructor-arg>
+    <property name="displayType">
+      <ref local="DISPLAYTYPE_TEXT" />
+    </property>
+    <property name="displayNameCode">
+      <value>form.seller.state</value>
+    </property>
+    <property name="size">
+      <value>20</value>
+    </property>
+    <property name="maxLength">
+      <value>18</value>
+    </property>
+  </bean>
+  <!-- CRUDPropertiesProvider -->
+  <bean id="userPropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="createFormProperties">
+      <list>
+        <ref local="ui_userid" />
+        <ref local="ui_cleaderName" />
+        <ref local="ui_password" />
+        <ref local="ui_clevel" />
+      </list>
+    </property>
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_userid_disable" />
+        <ref local="ui_cleaderName" />
+        <ref local="ui_password" />
+        <ref local="ui_clevel" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <ref local="projectno" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_userid" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_userid" />
+        <ref local="ui_cleaderName" />
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_userid" />
+        <ref local="ui_cleaderName" />
+        <ref local="ui_password" />
+      </list>
+    </property>
+  </bean>
+  <bean id="projectPropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="createFormProperties">
+      <list>
+        <ref local="ui_projectno" />
+        <ref local="ui_leaderName" />
+        <ref local="ui_password" />
+        <ref local="ui_plevel" />
+      </list>
+    </property>
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_userid_disable" />
+        <ref local="ui_leaderName" />
+        <ref local="ui_password" />
+        <ref local="ui_plevel" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <ref local="projectno" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_projectno" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_projectno" />
+        <ref local="ui_leaderName" />
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_projectno" />
+        <ref local="ui_leaderName" />
+        <ref local="ui_password" />
+      </list>
+    </property>
+  </bean>
+  <bean id="houseformPropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="createFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_cdataid_disable" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <ref local="cdataname" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+  </bean>
+  <bean id="additionformPropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="createFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_cdataid_disable" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <ref local="cdataname" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+  </bean>
+  <bean id="pipenetinfoPropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="createFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_cdataid_disable" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <ref local="cdataname" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+  </bean>
+  <bean id="fitmentlevelPropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="createFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_cdataid_disable" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <ref local="cdataname" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+  </bean>
+  <bean id="buildtypePropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="createFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_cdataid_disable" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <ref local="cdataname" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+  </bean>
+  <bean id="buildstructPropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="createFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_cdataid_disable" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <ref local="cdataname" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+  </bean>
+  <bean id="housetypeinfoPropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="createFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_cdataid_disable" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <ref local="cdataname" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />                
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+  </bean>
+  <bean id="sellerPropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="createFormProperties">
+      <list>
+        <ref local="ui_sellerNo" />
+        <ref local="ui_cprojectno" />
+        <ref local="ui_personName" />
+        <ref local="ui_sex" />
+        <ref local="ui_age" />
+        <ref local="ui_degree" />
+        <ref local="ui_nativePlace" />
+        <ref local="ui_identityno" />
+        <ref local="ui_position" />
+        <ref local="ui_telno" />
+        <ref local="ui_state" />
+      </list>
+    </property>
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_cdataid_disable" />
+        <ref local="ui_sellerNo" />
+        <ref local="ui_cprojectno_disable" />
+        <ref local="ui_personName" />
+        <ref local="ui_sex" />
+        <ref local="ui_age" />
+        <ref local="ui_degree" />
+        <ref local="ui_nativePlace" />
+        <ref local="ui_identityno" />
+        <ref local="ui_position" />
+        <ref local="ui_telno" />
+        <ref local="ui_state" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <ref local="sellerNo" />
+        <ref local="personName" />
+        <ref local="cprojectno" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_sellerNo" />
+        <ref local="ui_personName" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_sellerNo" />
+        <ref local="ui_personName" />
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_sellerNo" />
+        <ref local="ui_personName" />
+        <ref local="ui_sex" />
+        <ref local="ui_age" />
+        <ref local="ui_degree" />
+        <ref local="ui_nativePlace" />
+        <ref local="ui_identityno" />
+        <ref local="ui_position" />
+        <ref local="ui_telno" />
+        <ref local="ui_state" />
+      </list>
+    </property>
+  </bean>
+  <bean id="callcustomerPropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="createFormProperties">
+      <list>
+        <ref local="ui_personName" />
+        <ref local="ui_cdate" />
+        <ref local="ui_cprojectno" />
+        <ref local="ui_chousetypeid" />
+        <ref local="ui_cpurposeid" />
+        <ref local="ui_cproblemid" />
+        <ref local="ui_cinforchannelid" />
+        <ref local="ui_company" />
+        <ref local="ui_contact" />
+        <ref local="ui_address" />
+      </list>
+    </property>
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_cdataid_disable" />
+        <ref local="ui_personName" />
+        <ref local="ui_cdate" />
+        <ref local="ui_cprojectno_disable" />
+        <ref local="ui_chousetypeid" />
+        <ref local="ui_cpurposeid" />
+        <ref local="ui_cproblemid" />
+        <ref local="ui_cinforchannelid" />
+        <ref local="ui_company" />
+        <ref local="ui_contact" />
+        <ref local="ui_address" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <ref local="qbdate" />
+        <ref local="qedate" />
+        <ref local="cprojectno" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_qbdate" />
+        <ref local="ui_qedate" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdate" />
+        <ref local="ui_personName" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_personName" />
+        <ref local="ui_cdate" />
+        <ref local="ui_cprojectno" />
+        <ref local="ui_chousetypeid" />
+        <ref local="ui_cpurposeid" />
+        <ref local="ui_cproblemid" />
+        <ref local="ui_cinforchannelid" />
+        <ref local="ui_company" />
+        <ref local="ui_contact" />
+        <ref local="ui_address" />
+      </list>
+    </property>
+  </bean>
+  <bean id="housetypePropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="createFormProperties">
+      <list>
+        <ref local="ui_cbaseHousetypeid4Add" />
+        <ref local="ui_cprojectno" />
+        <ref local="ui_minArea" />
+        <ref local="ui_maxArea" />
+      </list>
+    </property>
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_cdataid_disable" />
+        <ref local="ui_cbaseHousetypeid_disable" />
+        <ref local="ui_cprojectno_disable" />
+        <ref local="ui_minArea" />
+        <ref local="ui_maxArea" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <ref local="cbaseHousetypeid" />
+        <ref local="cprojectno" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_cbaseHousetypeid" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cbaseHousetypeid" />
+        <ref local="ui_minArea" />
+        <ref local="ui_maxArea" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cbaseHousetypeid" />
+        <ref local="ui_minArea" />
+        <ref local="ui_maxArea" />
+      </list>
+    </property>
+  </bean>
+  <bean id="addressareaPropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="createFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+        <ref local="ui_cprojectno" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_cdataid_disable" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_cprojectno_disable" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <ref local="cdataname" />
+        <ref local="cprojectno" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_cprojectno" />
+        <ref local="ui_cdatadescription" />
+      </list>
+    </property>
+  </bean>
+  <bean id="commisionPropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="createFormProperties">
+      <list>
+        <ref local="ui_salesum" />
+        <ref local="ui_pcommision" />
+        <ref local="ui_blancedate" />
+        <ref local="ui_blancecommision" />
+        <ref local="ui_lackcommision" />
+        <ref local="ui_remark" />
+        <ref local="ui_cprojectno" />
+        <ref local="ui_recorddate" />
+      </list>
+    </property>
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_cdataid_disable" />
+        <ref local="ui_salesum" />
+        <ref local="ui_pcommision" />
+        <ref local="ui_blancedate" />
+        <ref local="ui_blancecommision" />
+        <ref local="ui_lackcommision" />
+        <ref local="ui_remark" />
+        <ref local="ui_cprojectno_disable" />
+        <ref local="ui_recorddate_disable" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <bean parent="qbdate">
+          <property name="queryPropertyName">
+            <value>blancedate</value>
+          </property>
+        </bean>
+        <bean parent="qedate">
+          <property name="queryPropertyName">
+            <value>blancedate</value>
+          </property>
+        </bean>
+        <ref local="cprojectno" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_qbdate" />
+        <ref local="ui_qedate" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_salesum" />
+        <ref local="ui_pcommision" />
+        <ref local="ui_blancedate" />
+        <ref local="ui_recorddate" />
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_salesum" />
+        <ref local="ui_pcommision" />
+        <ref local="ui_blancedate" />
+        <ref local="ui_blancecommision" />
+        <ref local="ui_lackcommision" />
+        <ref local="ui_remark" />
+        <ref local="ui_cprojectno" />
+        <ref local="ui_recorddate" />
+      </list>
+    </property>
+  </bean>
+  <bean id="housingprojectPropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="createFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+        <ref local="ui_address" />
+        <ref local="ui_gharea" />
+        <ref local="ui_jzarea" />
+        <ref local="ui_jzjdarea" />
+        <ref local="ui_dlgcarea" />
+        <ref local="ui_lharea" />
+        <ref local="ui_jzmd" />
+        <ref local="ui_lhl" />
+        <ref local="ui_rjl" />
+        <ref local="ui_devdate" />
+        <ref local="ui_buildingcount" />
+        <ref local="ui_housecount" />
+        <ref local="ui_carplace" />
+        <ref local="ui_storeroom" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_cdataid_disable" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_address" />
+        <ref local="ui_gharea" />
+        <ref local="ui_jzarea" />
+        <ref local="ui_jzjdarea" />
+        <ref local="ui_dlgcarea" />
+        <ref local="ui_lharea" />
+        <ref local="ui_jzmd" />
+        <ref local="ui_lhl" />
+        <ref local="ui_rjl" />
+        <ref local="ui_devdate" />
+        <ref local="ui_buildingcount" />
+        <ref local="ui_housecount" />
+        <ref local="ui_carplace" />
+        <ref local="ui_storeroom" />
+        <ref local="ui_cprojectno_disable" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <ref local="cdataname" />
+        <ref local="cprojectno" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_address" />
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_address" />
+        <ref local="ui_gharea" />
+        <ref local="ui_jzarea" />
+        <ref local="ui_jzjdarea" />
+        <ref local="ui_dlgcarea" />
+        <ref local="ui_lharea" />
+        <ref local="ui_jzmd" />
+        <ref local="ui_lhl" />
+        <ref local="ui_rjl" />
+        <ref local="ui_devdate" />
+        <ref local="ui_buildingcount" />
+        <ref local="ui_housecount" />
+        <ref local="ui_carplace" />
+        <ref local="ui_storeroom" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+  </bean>
+  <bean id="buildingprojectPropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="createFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+        <ref local="ui_housingproject" />
+        <ref local="ui_height" />
+        <ref local="ui_housecount" />
+        <ref local="ui_builddate" />
+        <ref local="ui_cprojectno" />
+        <ref local="ui_fitmentlevel" />
+        <ref local="ui_buildtype" />
+        <ref local="ui_pipenetinfo" />
+        <ref local="ui_buildstruct" />
+        <ref local="ui_remark" />
+      </list>
+    </property>
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_cdataid_disable" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_housingproject" />
+        <ref local="ui_height" />
+        <ref local="ui_housecount" />
+        <ref local="ui_builddate" />
+        <ref local="ui_fitmentlevel" />
+        <ref local="ui_buildtype" />
+        <ref local="ui_pipenetinfo" />
+        <ref local="ui_buildstruct" />
+        <ref local="ui_cprojectno_disable" />
+        <ref local="ui_remark" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <ref local="cdataname" />
+        <ref local="housingproject" />
+        <ref local="cprojectno" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_cdataname" />
+        <ref local="ui_housingproject" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_housingproject" />
+        <ref local="ui_housecount" />
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdataname" />
+        <ref local="ui_housingproject" />
+        <ref local="ui_height" />
+        <ref local="ui_housecount" />
+        <ref local="ui_builddate" />
+        <ref local="ui_fitmentlevel" />
+        <ref local="ui_buildtype" />
+        <ref local="ui_pipenetinfo" />
+        <ref local="ui_buildstruct" />
+        <ref local="ui_cprojectno" />
+        <ref local="ui_remark" />
+      </list>
+    </property>
+  </bean>
+  <bean id="houseprojectPropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="createFormProperties">
+      <list>
+        <ref local="ui_housingproject" />
+        <ref local="ui_buildingproject" />
+        <ref local="ui_unit" />
+        <ref local="ui_floor" />
+        <ref local="ui_houseno" />
+        <ref local="ui_housetypeinfo" />
+        <ref local="ui_height" />
+        <ref local="ui_direction" />
+        <ref local="ui_houseform" />
+        <ref local="ui_sellarea" />
+        <ref local="ui_unitprice" />
+        <ref local="ui_totalprice" />
+        <ref local="ui_inarea" />
+        <ref local="ui_balcony" />
+        <ref local="ui_apportion" />
+        <ref local="ui_additionform" />
+        <ref local="ui_additionprice" />
+        <ref local="ui_remark" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_cdataid_disable" />
+        <ref local="ui_housingproject" />
+        <ref local="ui_buildingproject" />
+        <ref local="ui_unit" />
+        <ref local="ui_floor" />
+        <ref local="ui_houseno" />
+        <ref local="ui_housetypeinfo" />
+        <ref local="ui_height" />
+        <ref local="ui_direction" />
+        <ref local="ui_houseform" />
+        <ref local="ui_sellarea" />
+        <ref local="ui_unitprice" />
+        <ref local="ui_totalprice" />
+        <ref local="ui_inarea" />
+        <ref local="ui_balcony" />
+        <ref local="ui_apportion" />
+        <ref local="ui_additionform" />
+        <ref local="ui_additionprice" />
+        <ref local="ui_cprojectno_disable" />
+        <ref local="ui_remark" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <ref local="housingproject" />
+        <ref local="buildingproject" />
+        <ref local="unit" />
+        <ref local="floor" />
+        <ref local="houseno" />
+        <ref local="cprojectno" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_housingproject" />
+        <ref local="ui_buildingproject" />
+        <ref local="ui_unit" />
+        <ref local="ui_floor" />
+        <bean parent="ui_houseno">
+          <property name="displayType">
+            <ref local="DISPLAYTYPE_TEXT" />
+          </property>
+        </bean>
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_housingproject" />
+        <ref local="ui_buildingproject" />
+        <ref local="ui_unit" />
+        <ref local="ui_floor" />
+        <ref local="ui_houseno" />
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_housingproject" />
+        <ref local="ui_buildingproject" />
+        <ref local="ui_unit" />
+        <ref local="ui_floor" />
+        <ref local="ui_houseno" />
+        <ref local="ui_housetypeinfo" />
+        <ref local="ui_height" />
+        <ref local="ui_direction" />
+        <ref local="ui_houseform" />
+        <ref local="ui_sellarea" />
+        <ref local="ui_unitprice" />
+        <ref local="ui_totalprice" />
+        <ref local="ui_inarea" />
+        <ref local="ui_balcony" />
+        <ref local="ui_apportion" />
+        <ref local="ui_additionform" />
+        <ref local="ui_additionprice" />
+        <ref local="ui_cprojectno" />
+        <ref local="ui_remark" />
+      </list>
+    </property>
+  </bean>
+  <bean id="notDealVisitcustomerPropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="createFormProperties">
+      <list>
+        <ref local="ui_cdate" />
+        <ref local="ui_customername" />
+        <ref local="ui_customeraddress" />
+        <ref local="ui_customercontact" />
+        <ref local="ui_customercompany" />
+        <ref local="ui_customerprojectno" />
+        <ref local="ui_chousetypeid" />
+        <ref local="ui_cinforchannelid" />
+        <ref local="ui_cpurposeid" />
+        <ref local="ui_cproblemid" />
+        <ref local="ui_sellerid" />
+        <ref local="ui_otherreason" />
+        <ref local="ui_advice" />
+        <ref local="ui_cprojectno" />
+        <ref local="ui_notdealflag" />
+      </list>
+    </property>
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_cdataid_disable" />
+        <ref local="ui_cdate" />
+        <ref local="ui_customerid" />
+        <ref local="ui_customername" />
+        <ref local="ui_customeraddress" />
+        <ref local="ui_customercontact" />
+        <ref local="ui_customercompany" />
+        <ref local="ui_customerprojectno_disable" />
+        <ref local="ui_chousetypeid" />
+        <ref local="ui_cinforchannelid" />
+        <ref local="ui_cpurposeid" />
+        <ref local="ui_cproblemid" />
+        <ref local="ui_sellerid" />
+        <ref local="ui_otherreason" />
+        <ref local="ui_advice" />
+        <ref local="ui_cprojectno_disable" />
+        <ref local="ui_notdealflag" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <ref local="customername" />
+        <ref local="cprojectno" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_customername" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_customername" />
+        <ref local="ui_chousetypeid" />
+        <ref local="ui_cproblemid" />
+        <ref local="ui_sellerid" />
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdate" />
+        <ref local="ui_customerid" />
+        <ref local="ui_customername" />
+        <ref local="ui_customeraddress" />
+        <ref local="ui_customercontact" />
+        <ref local="ui_customercompany" />
+        <ref local="ui_customerprojectno" />
+        <ref local="ui_chousetypeid" />
+        <ref local="ui_cinforchannelid" />
+        <ref local="ui_cpurposeid" />
+        <ref local="ui_cproblemid" />
+        <ref local="ui_sellerid" />
+        <ref local="ui_otherreason" />
+        <ref local="ui_advice" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+  </bean>
+  <bean id="dealVisitcustomerPropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="createFormProperties">
+      <list>
+        <ref local="ui_cdate" />
+        <ref local="ui_customername" />
+        <ref local="ui_customeraddress" />
+        <ref local="ui_customercontact" />
+        <ref local="ui_customercompany" />
+        <ref local="ui_customerprojectno" />
+        <ref local="ui_chousetypeid" />
+        <ref local="ui_cinforchannelid" />
+        <ref local="ui_cpurposeid" />
+        <ref local="ui_earnesttype" />
+        <ref local="ui_salehouseprojectid4add" />
+        <ref local="ui_saleinfoearnest" />
+        <ref local="ui_saleinfopayfirst" />
+        <ref local="ui_saleinfopaypermonth" />
+        <ref local="ui_salestate1" />
+        <ref local="ui_sellerid" />
+        <ref local="ui_advice" />
+        <ref local="ui_cprojectno" />
+        <ref local="ui_dealflag" />
+      </list>
+    </property>
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_cdataid_disable" />
+        <ref local="ui_cdate" />
+        <ref local="ui_customerid" />
+        <ref local="ui_customername" />
+        <ref local="ui_customeraddress" />
+        <ref local="ui_customercontact" />
+        <ref local="ui_customercompany" />
+        <ref local="ui_customerprojectno_disable" />
+        <ref local="ui_chousetypeid" />
+        <ref local="ui_cinforchannelid" />
+        <ref local="ui_cpurposeid" />
+        <ref local="ui_saleinfoid" />
+        <ref local="ui_earnesttype" />
+        <ref local="ui_salehouseprojectid_disable" />
+        <ref local="ui_saleinfoearnest" />
+        <ref local="ui_saleinfopayfirst" />
+        <ref local="ui_saleinfopaypermonth" />
+        <ref local="ui_salestate1" />
+        <ref local="ui_sellerid" />
+        <ref local="ui_advice" />
+        <ref local="ui_cprojectno_disable" />
+        <ref local="ui_dealflag" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <ref local="customername" />
+        <ref local="cprojectno" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_customername" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_customername" />
+        <ref local="ui_salehouseprojectid" />
+        <ref local="ui_sellerid" />
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_cdate" />
+        <ref local="ui_customername" />
+        <ref local="ui_customeraddress" />
+        <ref local="ui_customercontact" />
+        <ref local="ui_customercompany" />
+        <ref local="ui_chousetypeid" />
+        <ref local="ui_cinforchannelid" />
+        <ref local="ui_cpurposeid" />
+        <ref local="ui_earnesttype" />
+        <ref local="ui_salehouseprojectid" />
+        <ref local="ui_salehouseprojectsellarea" />
+        <ref local="ui_salehouseprojectinarea" />
+        <ref local="ui_salehouseprojectbalcony" />
+        <ref local="ui_salehouseprojectapportion" />
+        <ref local="ui_salehouseprojectunitprice" />
+        <ref local="ui_salehouseprojecttotalprice" />
+        <ref local="ui_saleinfoearnest" />
+        <ref local="ui_saleinfopayfirst" />
+        <ref local="ui_saleinfopaypermonth" />
+        <ref local="ui_salestate1" />
+        <ref local="ui_sellerid" />
+        <ref local="ui_advice" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+  </bean>
+  <bean id="saleinfopaybackPropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">
+    <property name="editFormProperties">
+      <list>
+        <ref local="ui_cdataid_disable" />
+        <bean parent="ui_cdate">
+          <property name="displayType">
+            <ref local="DISPLAYTYPE_HIDDEN" />
+          </property>
+        </bean>
+        <bean parent="ui_customerid">
+          <property name="displayType">
+            <ref local="DISPLAYTYPE_HIDDEN" />
+          </property>
+        </bean>
+        <bean parent="ui_saleinfoid">
+          <property name="displayType">
+            <ref local="DISPLAYTYPE_HIDDEN" />
+          </property>
+        </bean>
+        <bean parent="ui_customername">
+          <property name="displayType">
+            <ref local="DISPLAYTYPE_HIDDEN" />
+          </property>
+        </bean>
+        <bean parent="ui_customeraddress">
+          <property name="displayType">
+            <ref local="DISPLAYTYPE_HIDDEN" />
+          </property>
+        </bean>
+        <bean parent="ui_customercontact">
+          <property name="displayType">
+            <ref local="DISPLAYTYPE_HIDDEN" />
+          </property>
+        </bean>
+        <bean parent="ui_customercompany">
+          <property name="displayType">
+            <ref local="DISPLAYTYPE_HIDDEN" />
+          </property>
+        </bean>
+        <bean parent="ui_customerprojectno_disable">
+          <property name="displayType">
+            <ref local="DISPLAYTYPE_HIDDEN" />
+          </property>
+        </bean>
+        <bean parent="ui_chousetypeid">
+          <property name="displayType">
+            <ref local="DISPLAYTYPE_HIDDEN" />
+          </property>
+        </bean>
+        <bean parent="ui_cinforchannelid">
+          <property name="displayType">
+            <ref local="DISPLAYTYPE_HIDDEN" />
+          </property>
+        </bean>
+        <bean parent="ui_cpurposeid">
+          <property name="displayType">
+            <ref local="DISPLAYTYPE_HIDDEN" />
+          </property>
+        </bean>
+        <bean parent="ui_earnesttype">
+          <property name="disable">
+            <value>true</value>
+          </property>
+        </bean>
+        <bean parent="ui_salehouseprojectid_disable">
+          <property name="displayType">
+            <ref local="DISPLAYTYPE_HIDDEN" />
+          </property>
+        </bean>
+        <bean parent="ui_saleinfoearnest">
+          <property name="disable">
+            <value>true</value>
+          </property>
+        </bean>
+        <ref local="ui_saleinfopayback" />
+        <bean parent="ui_saleinfopayfirst">
+          <property name="displayType">
+            <ref local="DISPLAYTYPE_HIDDEN" />
+          </property>
+        </bean>
+        <bean parent="ui_saleinfopaypermonth">
+          <property name="displayType">
+            <ref local="DISPLAYTYPE_HIDDEN" />
+          </property>
+        </bean>
+        <bean parent="ui_sellerid">
+          <property name="displayType">
+            <ref local="DISPLAYTYPE_HIDDEN" />
+          </property>
+        </bean>
+        <bean parent="ui_advice">
+          <property name="displayType">
+            <ref local="DISPLAYTYPE_HIDDEN" />
+          </property>
+        </bean>
+        <ref local="ui_salestate" />
+        <ref local="ui_cprojectno_disable" />
+        <ref local="ui_dealflag" />
+      </list>
+    </property>
+    <property name="queryDataProperties">
+      <list>
+        <ref local="customername" />
+        <ref local="cprojectno" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_customername" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+    <property name="queryListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_customername" />
+        <ref local="ui_salehouseprojectid" />
+        <ref local="ui_sellerid" />
+        <ref local="ui_salestate" />
+      </list>
+    </property>
+    <property name="viewListProperties">
+      <list>
+        <ref local="ui_cdataid" />
+        <ref local="ui_customername" />
+        <ref local="ui_salehouseprojectid" />
+        <ref local="ui_saleinfoearnest" />
+        <ref local="ui_saleinfopayback" />
+        <ref local="ui_sellerid" />
+        <ref local="ui_advice" />
+        <ref local="ui_salestate" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>
+  </bean>
+  <bean id="reportQueryPropertiesProvider" class="org.yynn.resm.common.CrudPropertiesProviderConfigImpl">   
+    <property name="queryDataProperties">
+      <list>
+        <ref local="qbdate" />
+        <ref local="qedate" />
+        <ref local="cprojectno" />
+      </list>
+    </property>
+    <property name="queryFormProperties">
+      <list>
+        <ref local="ui_qbdate" />
+        <ref local="ui_qedate" />
+        <ref local="ui_cprojectno" />
+      </list>
+    </property>   
+  </bean>
+  <bean id="DISPLAYTYPE_TEXT" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+    <property name="staticField">
+      <value>org.yynn.resm.common.UiElementProperty.DISPLAYTYPE_TEXT</value>
+    </property>
+  </bean>
+  <bean id="DISPLAYTYPE_RADIO" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+    <property name="staticField">
+      <value>org.yynn.resm.common.UiElementProperty.DISPLAYTYPE_RADIO</value>
+    </property>
+  </bean>
+  <bean id="DISPLAYTYPE_CHECKBOX" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+    <property name="staticField">
+      <value>org.yynn.resm.common.UiElementProperty.DISPLAYTYPE_CHECKBOX</value>
+    </property>
+  </bean>
+  <bean id="DISPLAYTYPE_SELECT" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+    <property name="staticField">
+      <value>org.yynn.resm.common.UiElementProperty.DISPLAYTYPE_SELECT</value>
+    </property>
+  </bean>
+  <bean id="DISPLAYTYPE_DATE" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+    <property name="staticField">
+      <value>org.yynn.resm.common.UiElementProperty.DISPLAYTYPE_DATE</value>
+    </property>
+  </bean>
+  <bean id="DISPLAYTYPE_HIDDEN" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+    <property name="staticField">
+      <value>org.yynn.resm.common.UiElementProperty.DISPLAYTYPE_HIDDEN</value>
+    </property>
+  </bean>
+  <bean id="DISPLAYTYPE_PASSWORD" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+    <property name="staticField">
+      <value>org.yynn.resm.common.UiElementProperty.DISPLAYTYPE_PASSWORD</value>
+    </property>
+  </bean>
+  <bean id="DISPLAYTYPE_IMAGE" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+    <property name="staticField">
+      <value>org.yynn.resm.common.UiElementProperty.DISPLAYTYPE_IMAGE</value>
+    </property>
+  </bean>
+  <bean id="DISPLAYTYPE_WITH_SUFFIX" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+    <property name="staticField">
+      <value>org.yynn.resm.common.UiElementProperty.DISPLAYTYPE_WITH_SUFFIX</value>
+    </property>
+  </bean>
+  <bean id="DISPLAYTYPE_MULTI_TEXT" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+    <property name="staticField">
+      <value>org.yynn.resm.common.UiElementProperty.DISPLAYTYPE_MULTI_TEXT</value>
+    </property>
+  </bean>
+</beans>

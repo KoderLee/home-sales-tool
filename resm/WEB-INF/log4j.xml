@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+  <appender name="jnresm_log" class="org.apache.log4j.RollingFileAppender">
+    <param name="File" value="../logs/jnresm.log" />
+    <param name="Append" value="true" />
+    <param name="Threshold" value="DEBUG" />
+    <param name="MaxFileSize" value="5MB" />
+    <param name="MaxBackupIndex" value="80" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d %-5p [%c] %m%n" />
+    </layout>
+  </appender>
+  <appender name="jnresm_login_log" class="org.apache.log4j.DailyRollingFileAppender">
+    <param name="File" value="../logs/jnresm_login.log" />
+    <param name="Append" value="true" />
+    <param name="DatePattern" value="'.'yyyy-MM-dd" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d %-5p [%c] %m%n" />
+    </layout>
+  </appender>
+  <category name="com">
+    <priority value="INFO" />
+    <appender-ref ref="jnresm_log" />
+  </category>
+  <category name="org">
+    <priority value="INFO" />
+    <appender-ref ref="jnresm_log" />
+  </category>
+  <category name="org.yynn.resm.common.security.LogAuthenticationProcessingFilter">
+    <priority value="INFO" />
+    <appender-ref ref="jnresm_login_log" />
+  </category>
+  <category name="org.yynn.resm.common.security.LogSessionAttributeListener">
+    <priority value="INFO" />
+    <appender-ref ref="jnresm_login_log" />
+  </category>
+</log4j:configuration>

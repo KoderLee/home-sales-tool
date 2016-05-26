@@ -1,0 +1,394 @@
+/*
+ * 项目信息表
+ */
+create table project(
+      no varchar(8) not null comment '项目编号',
+      leaderName varchar(20) null comment '项目经理',
+      password varchar(30) not null comment '管理密码',
+      level char(1) not null comment '类型[0系统级/1公司级/2项目级]',
+      primary key (no)
+)type=innodb;
+
+create unique index JPRIMARY on project(no);
+
+/**
+ * 信息渠道表
+ */
+create table inforchannel(
+      id int not null auto_increment comment '数据编号',
+      name varchar(20) not null comment '名称',
+      description varchar(100) comment '描述',
+      primary key (id)
+)type = innodb;
+create unique index JPRIMARY on inforchannel(id);
+
+/**
+ * 购买用途表
+ */
+create table purpose(
+      id int not null auto_increment comment '数据编号',
+      name varchar(20) not null comment '名称',
+      description varchar(100) comment '描述',
+      primary key (id)
+)type = innodb;
+create unique index JPRIMARY on purpose(id);
+
+/**
+ * 购买障碍表
+ */
+create table problem(
+      id int not null auto_increment comment '数据编号',
+      name varchar(20) not null comment '名称',
+      description varchar(100) comment '描述',
+      primary key (id)
+)type = innodb;
+create unique index JPRIMARY on problem(id);
+
+/**
+ * 基本户型表
+ */
+create table basehousetype(
+      id int not null auto_increment comment '数据编号',
+      name varchar(20) not null comment '名称',
+      description varchar(100) comment '描述',
+      primary key (id)
+)type = innodb;
+create unique index JPRIMARY on basehousetype(id);
+
+/**
+ * 户型表
+ */
+create table housetype(
+      id int not null auto_increment comment '数据编号',
+      typeid int not null comment '基本户型编号',
+      max int not null comment '户型最大面积',
+      min int not null comment '户型最小面积',
+      projectno varchar(8) not null comment '项目编号',
+      primary key (id),
+      foreign key (projectno) references project(no),
+      foreign key (typeid) references basehousetype(id)   
+)type = innodb;
+create unique index JPRIMARY on housetype(id);
+create index PPRIMARY on housetype(projectno);
+create index TPRIMARY on housetype(typeid);
+
+/**
+ * 可供选择的现居住区域表
+ */
+create table addressarea(
+      id int not null auto_increment comment '数据编号',
+      name varchar(20) not null comment '名称',
+      description varchar(100) comment '描述',
+      projectno varchar(8) not null comment '项目编号',
+      primary key (id),
+      foreign key (projectno) references project(no) 
+)type = innodb;
+create unique index JPRIMARY on addressarea(id);
+create index PPRIMARY on addressarea(projectno);
+
+/**
+ * 来电客户信息表
+ */
+create table callcustomer(
+      id int not null auto_increment comment '数据编号',
+      cdate date not null comment '来电日期',
+      name varchar(20) not null comment '姓名',
+      address varchar(100) comment '住址',
+      contact varchar(100) comment '联系方式',
+      company varchar(50) comment '工作单位',
+      projectno varchar(8) not null comment '项目编号',
+      inforchannelid int comment '信息渠道编号',     
+      purposeid int comment '购买用途编号',
+      problemid int comment '购买障碍编号',
+      demandhousetypeid int comment '需求面积[户型]',
+      primary key (id),      
+      foreign key (projectno) references project(no),
+      foreign key (inforchannelid) references inforchannel(id),
+      foreign key (purposeid) references purpose(id),
+      foreign key (problemid) references problem(id),
+      foreign key (demandhousetypeid) references housetype(id)
+)type = innodb;
+create unique index JPRIMARY on callcustomer(id);
+create index PPRIMARY on callcustomer(projectno);
+
+/**
+ * 房屋形式
+ */
+create table houseform(
+      id int not null auto_increment comment '数据编号',
+      name varchar(20) not null comment '名称',
+      description varchar(100) comment '描述',
+      primary key (id)
+)type = innodb;
+create unique index JPRIMARY on houseform(id);
+
+/**
+ * 附属房产类型
+ */
+create table additionform(
+      id int not null auto_increment comment '数据编号',
+      name varchar(20) not null comment '名称',
+      description varchar(100) comment '描述',
+      primary key (id)
+)type = innodb;
+create unique index JPRIMARY on additionform(id);
+
+/**
+ * 管网架设
+ */
+create table pipenetinfo(
+      id int not null auto_increment comment '数据编号',
+      name varchar(20) not null comment '名称',
+      description varchar(100) comment '描述',
+      primary key (id)
+)type = innodb;
+create unique index JPRIMARY on pipenetinfo(id);
+
+/**
+ * 楼房装修及设备标准
+ */
+create table fitmentlevel(
+      id int not null auto_increment comment '数据编号',
+      name varchar(20) not null comment '名称',
+      description varchar(100) comment '描述',
+      primary key (id)
+)type = innodb;
+create unique index JPRIMARY on fitmentlevel(id);
+
+/**
+ * 楼房类型
+ */
+create table buildtype(
+      id int not null auto_increment comment '数据编号',
+      name varchar(20) not null comment '名称',
+      description varchar(100) comment '描述',
+      primary key (id)
+)type = innodb;
+create unique index JPRIMARY on buildtype(id);
+
+/**
+ * 楼房结构
+ */
+create table buildstruct(
+      id int not null auto_increment comment '数据编号',
+      name varchar(20) not null comment '名称',
+      description varchar(100) comment '描述',
+      primary key (id)
+)type = innodb;
+create unique index JPRIMARY on buildstruct(id);
+
+/**
+ * 房型资料
+ */
+create table housetypeinfo(
+      id int not null auto_increment comment '数据编号',
+      name varchar(20) not null comment '名称',
+      description varchar(100) comment '描述',
+      primary key (id)
+)type = innodb;
+create unique index JPRIMARY on housetypeinfo(id);
+
+/**
+ * 楼盘信息表
+ */
+create table housingproject(
+      id int not null auto_increment comment '数据编号',
+      name varchar(20) not null comment '名称',
+      address varchar(50) not null comment '地址',
+      gharea int comment '规划面积',
+      jzarea int comment '建筑面积',
+      jzjdarea int comment '建筑基底面积',
+      dlgcarea int comment '道路广场面积',
+      lharea int comment '绿化面积',
+      jzmd tinyint comment '建筑密度',
+      lhl tinyint comment '绿化率',
+      rjl tinyint comment '容积率',
+      devdate date comment '开发日期',
+      image blob comment '图片',
+      buildingcount int comment '楼房数量',
+      housecount int comment '房屋数量',
+      carplace int comment '车位数量',
+      storeroom int comment '库房数量',
+      projectno varchar(8) not null comment '项目编号',
+      primary key (id),
+      foreign key (projectno) references project(no)
+)type = innodb;
+
+create unique index JPRIMARY on housingproject(id);
+create index PPRIMARY on housingproject(projectno);
+
+/**
+ * 楼房信息表
+ */
+create table buildingproject(
+      id int not null auto_increment comment '数据编号',
+      housingid int not null comment '所属楼盘编号',
+      name varchar(20) not null comment '名称',
+      buildtypeid int comment '楼房类型',
+      buildstructid int comment '楼房结构',      
+      height float comment '高度',
+      fitmentlevel int comment  '装修及设备标准',
+      pipenetinfo int comment '管网架设',
+      housecount int comment '房屋数量',
+      remark varchar(100) comment '备注',
+      builddate date comment '建成日期',
+      projectno varchar(8) not null comment '项目编号',
+      primary key (id),
+      foreign key (housingid) references housingproject(id),
+      foreign key (buildtypeid) references buildtype(id),
+      foreign key (buildstructid) references buildstruct(id),
+      foreign key (fitmentlevel) references fitmentlevel(id),
+      foreign key (pipenetinfo) references pipenetinfo(id),
+      foreign key (projectno) references project(no)
+)type = innodb;
+
+create unique index JPRIMARY on buildingproject(id);
+create index PPRIMARY on buildingproject(projectno);
+
+/**
+ * 房屋信息表
+ */
+create table houseproject(
+      id int not null auto_increment comment '数据编号',
+      housingid int not null comment '所属楼盘编号',
+      buildingid int not null comment '所属楼房编号',      
+      floor int comment '楼层',
+      unit int comment '单元',
+      no varchar(20) not null comment '房号',
+      housetypeinfo int comment '房型',    
+      height float comment '高度',
+      direction varchar(4) comment '朝向',
+      houseform int comment '形式',
+      additionform int comment '附属房产',
+      additionprice float comment '附属房产总价',
+      inarea float comment '套内面积',
+      balcony float comment '阳台面积',
+      apportion float comment '分摊面积',
+      sellarea float comment '销售面积',
+      unitprice float comment '单价',
+      totalprice float comment '总价',
+      remark varchar(100) comment '备注',
+      projectno varchar(8) not null comment '项目编号',
+      primary key (id),
+      foreign key (housingid) references housingproject(id),
+      foreign key (buildingid) references buildingproject(id),
+      foreign key (housetypeinfo) references housetypeinfo(id),
+      foreign key (houseform) references houseform(id),
+      foreign key (additionform) references additionform(id),
+      foreign key (projectno) references project(no)
+)type = innodb;
+
+create unique index JPRIMARY on houseproject(id);
+create index PPRIMARY on houseproject(projectno);
+create unique index HPRIMARY on houseproject(housingid, buildingid, unit, no);
+
+/**
+ * 客户信息表
+ */
+create table customer(
+      id int not null auto_increment comment '数据编号',
+      name varchar(20) not null comment '姓名',      
+      address varchar(100) comment '住址',
+      contact varchar(100) comment '联系方式',
+      company varchar(50) comment '工作单位',
+      projectno varchar(8) not null comment '项目编号',
+      primary key (id),
+      foreign key (projectno) references project(no)
+)type = innodb;
+
+create unique index JPRIMARY on customer(id);
+create index JFOREIGNKEY on customer(projectno);
+
+/**
+ * 成交信息表
+ */
+create table saleinfo(
+      id int not null auto_increment comment '数据编号',
+      earnesttype char(1) not null comment '定金形式[0大定/1小定/2固定金额/3其他]',
+      houseprojectid int not null  comment '房间数据标识',
+      earnest float comment '定金金额',
+      payfirst float comment '首付',
+      paypermonth float comment '月付',
+      contract varchar(40) comment '合同编号',
+      payback float comment '退款金额',
+      state char(1) not null comment '状态[1已成交/0已退款]',
+      primary key (id),
+      foreign key (houseprojectid) references houseproject(id)
+)type = innodb;
+create unique index JPRIMARY on saleinfo(id);
+create unique index HPRIMARY on saleinfo(houseprojectid);
+
+/**
+ * 项目人员信息表
+ */
+create table seller(
+      id int not null auto_increment comment '数据编号',
+      no varchar(10) not null comment '人员编号',
+      projectno varchar(8) not null comment '项目编号',
+      name varchar(20) not null comment '姓名',
+      sex ENUM('0','1','2') comment '性别[0未知/1男性/2女性]',
+      age int comment '年龄',
+      degree varchar(10) comment '学历',
+      native_place varchar(50) comment '籍贯',
+      identityno varchar(20) comment '身份证编号',
+      position varchar(20) comment '职务',
+      telno varchar(20) comment '电话',
+      state varchar(20) comment '状况',
+      primary key (id),    
+      foreign key (projectno) references project(no)
+)type = innodb;
+
+create unique index JPRIMARY on seller(id);
+create index JFOREIGNKEY on seller(projectno);
+
+/**
+ * 来访客户信息表
+ */
+create table visitcustomer(
+      id int not null auto_increment comment '数据编号',
+      cdate date not null comment '来访日期',
+      customerid int comment '来访客户编号',
+      projectno varchar(8) not null comment '项目编号',
+      inforchannelid int comment '信息渠道编号',     
+      purposeid int comment '用途编号',
+      problemid int comment '购买障碍编号',
+      demandhousetypeid int comment '需求面积[户型]',
+      sellerid int not null comment '销售代表编号',
+      otherreason varchar(200) comment '客户所提其他原因',
+      advice varchar(200) comment '置业顾问的加强销售意见',
+      dealornot char(1) not null comment '是否成交[1成交/0未成交]',
+      saleinfoid int comment '成交信息数据标识',
+      primary key (id),
+      foreign key (projectno) references project(no),
+      foreign key (inforchannelid) references inforchannel(id),
+      foreign key (purposeid) references purpose(id),
+      foreign key (problemid) references problem(id),
+      foreign key (demandhousetypeid) references housetype(id),
+      foreign key (sellerid) references seller(id),
+      foreign key (customerid) references customer(id),
+      foreign key (saleinfoid) references saleinfo(id)
+)type = innodb;
+create unique index JPRIMARY on visitcustomer(id);
+create index PPRIMARY on visitcustomer(projectno);
+create index SPRIMARY on visitcustomer(sellerid);
+
+/**
+ * 佣金信息表
+ */
+create table commision(
+      id int not null auto_increment comment '数据编号',
+      salesum int not null comment '销售总金额',
+      pcommision int not null comment '应结算佣金',
+      blancedate date not null comment '结算日期',
+      blancecommision int not null comment '结算回佣金',
+      lackcommision int not null comment '尚欠需要结算佣金',
+      recorddate date not null comment '录入日期',
+      remark varchar(100) comment '备注',
+      projectno varchar(8) not null comment '项目编号',
+      primary key (id),
+      foreign key (projectno) references project(no)
+)type = innodb;
+
+create unique index JPRIMARY on commision(id);
+create index PPRIMARY on commision(projectno);
+create unique index PDPRIMARY on commision(projectno, recorddate);

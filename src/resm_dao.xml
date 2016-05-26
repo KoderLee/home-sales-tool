@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <bean id="jnresmdatasource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <property name="driverClassName">
+      <value>com.mysql.jdbc.Driver</value>
+    </property>
+    <property name="url">
+      <value>jdbc:mysql://${db.hostname}:${db.port}/${db.name}</value>
+    </property>
+    <property name="username">
+      <value>${db.username}</value>
+    </property>
+    <property name="password">
+      <value>${db.password}</value>
+    </property>
+    <property name="maxActive">
+      <value>${ds.maxActive}</value>
+    </property>
+    <property name="maxWait">
+      <value>${ds.maxWait}</value>
+    </property>
+    <property name="maxIdle">
+      <value>${ds.maxIdle}</value>
+    </property>
+    <property name="minIdle">
+      <value>${ds.minIdle}</value>
+    </property>
+  </bean>
+  <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    <property name="dataSource">
+      <ref local="jnresmdatasource" />
+    </property>
+    <property name="mappingResources">
+      <list>
+        <value>org/yynn/resm/model/Additionform.hbm.xml</value>
+        <value>org/yynn/resm/model/Addressarea.hbm.xml</value>
+        <value>org/yynn/resm/model/Basehousetype.hbm.xml</value>
+        <value>org/yynn/resm/model/Buildingproject.hbm.xml</value>
+        <value>org/yynn/resm/model/Buildstruct.hbm.xml</value>
+        <value>org/yynn/resm/model/Buildtype.hbm.xml</value>
+        <value>org/yynn/resm/model/Callcustomer.hbm.xml</value>
+        <value>org/yynn/resm/model/Customer.hbm.xml</value>
+        <value>org/yynn/resm/model/Fitmentlevel.hbm.xml</value>
+        <value>org/yynn/resm/model/Houseform.hbm.xml</value>
+        <value>org/yynn/resm/model/Houseproject.hbm.xml</value>
+        <value>org/yynn/resm/model/Housetype.hbm.xml</value>
+        <value>org/yynn/resm/model/Housetypeinfo.hbm.xml</value>
+        <value>org/yynn/resm/model/Housingproject.hbm.xml</value>
+        <value>org/yynn/resm/model/Inforchannel.hbm.xml</value>
+        <value>org/yynn/resm/model/Pipenetinfo.hbm.xml</value>
+        <value>org/yynn/resm/model/Problem.hbm.xml</value>
+        <value>org/yynn/resm/model/Project.hbm.xml</value>
+        <value>org/yynn/resm/model/Purpose.hbm.xml</value>
+        <value>org/yynn/resm/model/Seller.hbm.xml</value>
+        <value>org/yynn/resm/model/Visitcustomer.hbm.xml</value>
+        <value>org/yynn/resm/model/Saleinfo.hbm.xml</value>
+        <value>org/yynn/resm/model/Commision.hbm.xml</value>
+      </list>
+    </property>
+    <property name="hibernateProperties">
+      <props>
+        <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+        <prop key="hibernate.show_sql">true</prop>
+        <prop key="hibernate.generate_statistics">true</prop>
+      </props>
+    </property>
+  </bean>
+  <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <property name="sessionFactory">
+      <ref local="sessionFactory" />
+    </property>
+  </bean>
+  <bean id="baseDao" class="org.yynn.resm.dao.hibernate.BaseDAOImpl">
+    <property name="sessionFactory">
+      <ref local="sessionFactory" />
+    </property>
+  </bean>
+  <bean id="projectDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Project</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.String</value>
+    </constructor-arg>
+  </bean>
+  <bean id="inforchannelDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Inforchannel</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="purposeDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Purpose</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="problemDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Problem</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="baseHouseTypeDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Basehousetype</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="additionformDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Additionform</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="addressareaDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Addressarea</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="buildingprojectDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Buildingproject</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="buildstructDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Buildstruct</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="buildtypeDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Buildtype</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="callcustomerDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Callcustomer</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="customerDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Customer</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="fitmentlevelDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Fitmentlevel</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="houseformDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Houseform</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="houseprojectDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Houseproject</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="housetypeDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Housetype</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="housetypeinfoDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Housetypeinfo</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="housingprojectDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Housingproject</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="pipenetinfoDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Pipenetinfo</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="sellerDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Seller</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="visitcustomerDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Visitcustomer</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="commisionDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Commision</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="saleinfoDao" class="org.yynn.resm.dao.hibernate.CrudDAOImpl" parent="baseDao">
+    <constructor-arg>
+      <value>org.yynn.resm.model.Saleinfo</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>java.lang.Integer</value>
+    </constructor-arg>
+  </bean>
+  <bean id="daoAutoProxy" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+    <property name="beanNames">
+      <list>
+        <value>*Dao</value>
+      </list>
+    </property>
+    <property name="interceptorNames">
+      <list>
+        <value>queryHsqlReplacer</value>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="queryHsqlReplacer" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+    <property name="advice">
+      <ref local="cuserHsqlReplaceAdvice" />
+    </property>
+    <property name="mappedName">
+      <value>query</value>
+    </property>
+  </bean>
+
+  <bean id="cuserHsqlReplaceAdvice" class="org.yynn.resm.common.aop.CurrentUserHqlParserAdvice" />
+
+</beans>

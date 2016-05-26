@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <bean id="navigatorTree" class="org.yynn.resm.web.tag.NavigatorTree">
+    <property name="titleCode">
+      <value>menu.title</value>
+    </property>
+    <property name="nodes">
+      <list>
+        <ref local="companyManageNode" />
+        <ref local="projectManageNode" />
+        <ref local="saleWorkNode" />
+        <ref local="statManageNode" />
+        <ref local="systemManageNode" />
+      </list>
+    </property>
+  </bean>
+  <bean id="companyManageNode" class="org.yynn.resm.web.tag.AuthNavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.company.workspace</value>
+    </property>
+    <property name="expand">
+      <value>true</value>
+    </property>
+    <property name="children">
+      <list>
+        <ref local="projectManageInfoNode" />
+        <ref local="fangwuxingshiNode" />
+        <ref local="fushufangchanNode" />
+        <ref local="ganwangjiasheNode" />
+        <ref local="zhuangxiubiaozhunNode" />
+        <ref local="loufangtypeNode" />
+        <ref local="loufangjiegouNode" />
+        <ref local="fangxingziliaoNode" />
+      </list>
+    </property>
+    <property name="requiredCode">
+      <value>auth_0</value>
+    </property>
+  </bean>
+  <bean id="projectManageNode" class="org.yynn.resm.web.tag.AuthNavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.project.workspace</value>
+    </property>
+    <property name="expand">
+      <value>true</value>
+    </property>
+    <property name="children">
+      <list>
+        <ref local="sellerNode" />
+        <ref local="yongjiejiesuanNode" />
+        <ref local="loupanNode" />
+        <ref local="loufangNode" />
+        <ref local="fangwuNode" />
+        <ref local="huxingNode" />
+        <ref local="cjuzhuquNode" />
+      </list>
+    </property>
+    <property name="requiredCodes">
+      <list>
+        <value>auth_0</value>
+        <value>auth_2</value>
+      </list>
+    </property>
+  </bean>
+  <bean id="saleWorkNode" class="org.yynn.resm.web.tag.AuthNavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.seller.workspace</value>
+    </property>
+    <property name="expand">
+      <value>true</value>
+    </property>
+    <property name="children">
+      <list>
+        <ref local="notDealVisitcustomerNode" />
+        <ref local="dealVisitcustomerNode" />
+        <ref local="callcustomerNode" />
+        <ref local="saleManageNode" />
+      </list>
+    </property>
+    <property name="requiredCodes">
+      <list>
+        <value>auth_0</value>
+        <value>auth_2</value>
+      </list>
+    </property>
+  </bean>
+  <bean id="statManageNode" class="org.yynn.resm.web.tag.AuthNavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.stat.analysis</value>
+    </property>
+    <property name="expand">
+      <value>true</value>
+    </property>
+    <property name="children">
+      <list>
+        <ref local="tuichuloufangNode" />
+        <ref local="visitcustomerStatNode" />
+        <ref local="visitcustomerAnalyseNode" />
+        <ref local="misscustomerAnalyseNode" />
+        <ref local="callcustomerStatNode" />
+        <ref local="callcustomerAnalyseNode" />
+        <ref local="housesaleStatNode" />
+        <ref local="sellersaleStatNode" />
+        <ref local="loupansaleStatNode" />
+        <ref local="sellersaleStatNode" />
+        <ref local="yongjinStatNode" />
+      </list>
+    </property>
+    <property name="requiredCodes">
+      <list>
+        <value>auth_0</value>
+        <value>auth_1</value>
+      </list>
+    </property>
+  </bean>
+  <bean id="systemManageNode" class="org.yynn.resm.web.tag.AuthNavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.system.manage</value>
+    </property>
+    <property name="expand">
+      <value>true</value>
+    </property>
+    <property name="children">
+      <list>
+        <ref local="passwordNode" />
+      </list>
+    </property>
+    <property name="requiredCode">
+      <value>auth_0</value>
+    </property>
+  </bean>
+  <!-- company -->
+  <bean id="fangwuxingshiNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.fangwuxingshi.manage</value>
+    </property>
+    <property name="href">
+      <value>/crudHouseform.view</value>
+    </property>
+  </bean>
+  <bean id="fushufangchanNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.fushufangchan.manage</value>
+    </property>
+    <property name="href">
+      <value>/crudAdditionform.view</value>
+    </property>
+  </bean>
+  <bean id="ganwangjiasheNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.ganwangjiashe.manage</value>
+    </property>
+    <property name="href">
+      <value>/crudPipenetinfo.view</value>
+    </property>
+  </bean>
+  <bean id="zhuangxiubiaozhunNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.zhuangxiubiaozhun.manage</value>
+    </property>
+    <property name="href">
+      <value>/crudFitmentlevel.view</value>
+    </property>
+  </bean>
+  <bean id="loufangtypeNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.loufangtype.manage</value>
+    </property>
+    <property name="href">
+      <value>/crudBuildtype.view</value>
+    </property>
+  </bean>
+  <bean id="loufangjiegouNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.loufangjiegou.manage</value>
+    </property>
+    <property name="href">
+      <value>/crudBuildstruct.view</value>
+    </property>
+  </bean>
+  <bean id="fangxingziliaoNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.fangxingziliao.manage</value>
+    </property>
+    <property name="href">
+      <value>/crudHousetypeinfo.view</value>
+    </property>
+  </bean>
+  <bean id="projectManageInfoNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.project.manage</value>
+    </property>
+    <property name="href">
+      <value>/crudProject.view</value>
+    </property>
+  </bean>
+  <!-- project -->
+  <bean id="sellerNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.seller.manage</value>
+    </property>
+    <property name="href">
+      <value>/crudSeller.view</value>
+    </property>
+  </bean>
+  <bean id="yongjiejiesuanNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.yongjiejiesuan.manage</value>
+    </property>
+    <property name="href">
+      <value>/crudCommision.view</value>
+    </property>
+  </bean>
+  <bean id="saleManageNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.sale.manage</value>
+    </property>
+    <property name="href">
+      <value>/crudSaleinfopayback.view</value>
+    </property>
+  </bean>
+  <bean id="loupanNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.loupan.manage</value>
+    </property>
+    <property name="href">
+      <value>/crudHousingproject.view</value>
+    </property>
+  </bean>
+  <bean id="loufangNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.loufang.manage</value>
+    </property>
+    <property name="href">
+      <value>/crudBuildingproject.view</value>
+    </property>
+  </bean>
+  <bean id="fangwuNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.fangwu.manage</value>
+    </property>
+    <property name="href">
+      <value>/crudHouseproject.view</value>
+    </property>
+  </bean>
+  <bean id="huxingNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.huxing.manage</value>
+    </property>
+    <property name="href">
+      <value>/crudHousetype.view</value>
+    </property>
+  </bean>
+  <bean id="cjuzhuquNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.cjuzhuqu.manage</value>
+    </property>
+    <property name="href">
+      <value>/crudAddressarea.view</value>
+    </property>
+  </bean>
+  <!-- seller -->
+  <bean id="notDealVisitcustomerNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.visitcustomer.input.notdeal</value>
+    </property>
+    <property name="href">
+      <value>/crudNotDealVisitcustomer.view</value>
+    </property>
+  </bean>
+  <bean id="dealVisitcustomerNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.visitcustomer.input.deal</value>
+    </property>
+    <property name="href">
+      <value>/crudDealVisitcustomer.view</value>
+    </property>
+  </bean>
+  <bean id="callcustomerNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.callcustomer.input</value>
+    </property>
+    <property name="href">
+      <value>/crudCallcustomer.view</value>
+    </property>
+  </bean>
+  <!-- Stat. Analyse -->
+  <bean id="tuichuloufangNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.tuichuloufang.stat</value>
+    </property>
+    <property name="href">
+      <value>/testhtml.report</value>
+    </property>
+  </bean>
+  <bean id="visitcustomerStatNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.visitcustomer.stat</value>
+    </property>
+    <property name="href">
+      <value>/testpdf.report</value>
+    </property>
+  </bean>
+  <bean id="visitcustomerAnalyseNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.visitcustomer.analyse</value>
+    </property>
+    <property name="href">
+      <value>#</value>
+    </property>
+  </bean>
+  <bean id="misscustomerAnalyseNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.misscustomer.analyse</value>
+    </property>
+    <property name="href">
+      <value>#</value>
+    </property>
+  </bean>
+  <bean id="callcustomerStatNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.callcustomer.stat</value>
+    </property>
+    <property name="href">
+      <value>/queryCallCustomerStatHtmlReport.action</value>
+    </property>
+  </bean>
+  <bean id="callcustomerAnalyseNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.callcustomer.analyse</value>
+    </property>
+    <property name="href">
+      <value>/queryCallCustomerHtmlReport.action</value>
+    </property>
+  </bean>
+  <bean id="housesaleStatNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.housesale.stat</value>
+    </property>
+    <property name="href">
+      <value>#</value>
+    </property>
+  </bean>
+  <bean id="sellersaleStatNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.sellersale.stat</value>
+    </property>
+    <property name="href">
+      <value>#</value>
+    </property>
+  </bean>
+  <bean id="loupansaleStatNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.loupansale.stat</value>
+    </property>
+    <property name="href">
+      <value>#</value>
+    </property>
+  </bean>
+  <bean id="sellerStatNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.seller.stat</value>
+    </property>
+    <property name="href">
+      <value>#</value>
+    </property>
+  </bean>
+  <bean id="yongjinStatNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.yongjin.stat</value>
+    </property>
+    <property name="href">
+      <value>#</value>
+    </property>
+  </bean>
+  <!-- system -->
+  <bean id="passwordNode" class="org.yynn.resm.web.tag.NavigatorTreeNode">
+    <property name="displayCode">
+      <value>menu.password.manage</value>
+    </property>
+    <property name="href">
+      <value>/crudUser.view</value>
+    </property>
+  </bean>
+  <!-- 授权导航树,待实现 -->
+  <bean id="secureNavigatorTree" class="org.yynn.resm.web.tag.NavigatorTree" />
+</beans>

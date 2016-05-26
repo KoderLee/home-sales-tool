@@ -1,0 +1,46 @@
+drop table if exists visitcustomer;
+
+drop table if exists seller;
+
+drop table if exists saleinfo;
+
+drop table if exists customer;
+
+drop table if exists houseproject;
+
+drop table if exists buildingproject;
+
+drop table if exists housingproject;
+
+drop table if exists houseform;
+
+drop table if exists additionform;
+
+drop table if exists pipenetinfo;
+
+drop table if exists fitmentlevel;
+
+drop table if exists buildtype;
+
+drop table if exists buildstruct;
+
+drop table if exists housetypeinfo;
+
+drop table if exists callcustomer;
+
+drop table if exists addressarea;
+
+drop table if exists housetype;
+
+drop table if exists basehousetype;
+
+drop table if exists problem;
+
+drop table if exists purpose;
+
+drop table if exists inforchannel;
+
+drop table if exists commision;
+
+drop table if exists project;
+
